@@ -628,7 +628,7 @@ export default function Home() {
             number="04"
             eyebrow="Top-performing creative"
             title="Show the work. Prove the learning."
-            intro="The client sees the ad, the result and the reason it worked in one place. Click a creative to unpack the lesson."
+            intro="The ad, the result and the learning stay together. Select a creative to unpack the lesson."
           />
 
             <div className="creative-layout">
@@ -659,7 +659,7 @@ export default function Home() {
             </div>
             <div className="creative-analysis" aria-live="polite">
             <div className="creative-score">
-              <span>Selected creative</span>
+              <span>Selected creative · {creative.title}</span>
               <strong>{creative.primary}</strong>
               <small>{creative.primaryLabel} · {creative.secondary}</small>
             </div>

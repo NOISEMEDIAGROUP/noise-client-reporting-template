@@ -3056,7 +3056,9 @@ footer span + span {
   width: 100%;
   min-height: 0;
   border: 1px solid var(--hairline);
+  overflow: hidden;
 }
+.campaign-story-panel .campaign-layout { height: min(54vh, 520px); }
 .campaign-story-panel .campaign-list {
   min-width: 0;
   border-right: 1px solid var(--hairline);
@@ -3082,10 +3084,10 @@ footer span + span {
 .campaign-story-panel .campaign-analysis { grid-column: 1; grid-row: 2; min-width: 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
 .campaign-story-panel .campaign-analysis .narrative-block { min-height:145px; }
 .campaign-story-panel .embedded-decision { grid-column: 1; grid-row: 3; min-width: 0; }
-.creative-story-panel .creative-layout { grid-template-columns: 44% minmax(0, 1fr); }
+.creative-story-panel .creative-layout { grid-template-columns: 40% minmax(0, 60%); height: min(57vh, 560px); }
 .creative-story-panel .creative-grid { min-width: 0; padding: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .creative-story-panel .creative-card { min-width: 0; }
-.creative-story-panel .creative-analysis { min-width: 0; padding: 24px; }
+.creative-story-panel .creative-analysis { min-width: 0; padding: 0; overflow: hidden; }
 .creative-story-panel .creative-brief-action { grid-column: 1 / -1; min-width: 0; }
 
 .creative-overview-panel .creative-image {
