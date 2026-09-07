@@ -180,10 +180,12 @@ const actions = [
 ];
 
 const actionStatusOrder = ["Ready", "Approved", "In progress", "Done"];
+const storyPanelCount = 12;
 
 export default function Home() {
   const storyRef = useRef<HTMLElement>(null);
   const [activeChapter, setActiveChapter] = useState("overview");
+  const [activePanelIndex, setActivePanelIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [campaignIndex, setCampaignIndex] = useState(0);
   const [channelIndex, setChannelIndex] = useState(0);
@@ -197,26 +199,29 @@ export default function Home() {
     return `${((index + 1) / chapters.length) * 100}%`;
   }, [activeChapter]);
 
-  const activeChapterIndex = chapters.findIndex(
-    (chapter) => chapter.id === activeChapter,
-  );
-
   useEffect(() => {
-    const sections = chapters
-      .map((chapter) => document.getElementById(chapter.id))
-      .filter(Boolean) as HTMLElement[];
+    const story = storyRef.current;
+    if (!story) return;
+    const panels = Array.from(
+      story.querySelectorAll<HTMLElement>("[data-story-panel]"),
+    );
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActiveChapter(visible.target.id);
+        if (!visible) return;
+        const panel = visible.target as HTMLElement;
+        const chapter = panel.closest<HTMLElement>(".chapter");
+        if (chapter?.id) setActiveChapter(chapter.id);
+        const panelIndex = panels.indexOf(panel);
+        if (panelIndex >= 0) setActivePanelIndex(panelIndex);
       },
-      { root: storyRef.current, threshold: [0.55, 0.75] },
+      { root: story, threshold: [0.55, 0.75] },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    panels.forEach((panel) => observer.observe(panel));
     return () => observer.disconnect();
   }, []);
 
@@ -228,12 +233,17 @@ export default function Home() {
     story.scrollTo({ left: section.offsetLeft, behavior: "smooth" });
   };
 
-  const stepChapter = (direction: number) => {
-    const nextIndex = Math.min(
-      chapters.length - 1,
-      Math.max(0, activeChapterIndex + direction),
+  const stepPanel = (direction: number) => {
+    const story = storyRef.current;
+    if (!story) return;
+    const panels = Array.from(
+      story.querySelectorAll<HTMLElement>("[data-story-panel]"),
     );
-    jumpTo(chapters[nextIndex].id);
+    const nextIndex = Math.min(
+      panels.length - 1,
+      Math.max(0, activePanelIndex + direction),
+    );
+    story.scrollTo({ left: panels[nextIndex].offsetLeft, behavior: "smooth" });
   };
 
   const campaign = campaigns[campaignIndex];
@@ -265,8 +275,7 @@ export default function Home() {
           onClick={() => jumpTo("overview")}
           aria-label="Return to the report cover"
         >
-          <span>Noise</span>
-          <span>Media</span>
+          <img src="/noise-logo-black.png" alt="Noise Media" />
         </button>
         <div className="report-name">
           <span>For</span>
@@ -315,13 +324,18 @@ export default function Home() {
         className="horizontal-story"
         ref={storyRef}
         tabIndex={0}
+        onWheel={(event) => {
+          if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+          event.preventDefault();
+          storyRef.current?.scrollBy({ left: event.deltaY, behavior: "auto" });
+        }}
         onKeyDown={(event) => {
-          if (event.key === "ArrowRight") stepChapter(1);
-          if (event.key === "ArrowLeft") stepChapter(-1);
+          if (event.key === "ArrowRight") stepPanel(1);
+          if (event.key === "ArrowLeft") stepPanel(-1);
         }}
         aria-label="Horizontal performance report"
       >
-        <section className="chapter hero" id="overview">
+        <section className="chapter hero" id="overview" data-story-panel>
           <div className="hero-kicker reveal">August 2026 · Monthly report</div>
           <h1>
             More revenue.
@@ -371,15 +385,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="chapter light" id="performance">
-          <ChapterHeader
+        <section className="chapter chapter-run light" id="performance">
+          <div className="story-panel performance-lead" data-story-panel>
+            <ChapterHeader
             number="01"
             eyebrow="Overall performance"
             title="Efficiency improved because spend followed intent."
             intro="This was not growth bought at any cost. Revenue outpaced investment because the account moved money toward what audiences were already telling us worked."
           />
 
-          <div className="performance-story">
+            <div className="performance-story">
             <div className="story-beat">
               <span>What happened</span>
               <strong>+GBP173k</strong>
@@ -406,9 +421,11 @@ export default function Home() {
                 find the right customer.
               </p>
             </div>
+            </div>
           </div>
 
-          <div className="evidence-grid">
+          <div className="story-panel evidence-panel" data-story-panel>
+            <div className="evidence-grid">
             <article className="evidence-card chart-card">
               <div className="card-topline">
                 <span>Revenue vs. spend</span>
@@ -437,9 +454,11 @@ export default function Home() {
                 </p>
               </details>
             </article>
+            </div>
           </div>
 
-          <article className="result-replay">
+          <div className="story-panel replay-panel" data-story-panel>
+            <article className="result-replay">
             <div className="replay-intro">
               <span className="mini-label">Result brought to life</span>
               <h3>Budget followed the strongest signal</h3>
@@ -468,11 +487,13 @@ export default function Home() {
               <p>ROAS improved while prospecting revenue continued to grow.</p>
               <button onClick={() => jumpTo("actions")}>Decision triggered · A-01</button>
             </div>
-          </article>
+            </article>
+          </div>
         </section>
 
-        <section className="chapter dark" id="campaigns">
-          <ChapterHeader
+        <section className="chapter chapter-run dark" id="campaigns">
+          <div className="story-panel campaign-lead" data-story-panel>
+            <ChapterHeader
             number="02"
             eyebrow="Campaign breakdown"
             title="Every campaign gets a verdict."
@@ -480,7 +501,7 @@ export default function Home() {
             dark
           />
 
-          <div className="selector" role="tablist" aria-label="Select campaign">
+            <div className="selector" role="tablist" aria-label="Select campaign">
             {campaigns.map((item, index) => (
               <button
                 key={item.name}
@@ -493,9 +514,11 @@ export default function Home() {
                 {item.name}
               </button>
             ))}
+            </div>
           </div>
 
-          <div className="campaign-panel" role="tabpanel">
+          <div className="story-panel campaign-detail-panel" data-story-panel>
+            <div className="campaign-panel" role="tabpanel">
             <div className="campaign-result">
               <span className="status-pill">{campaign.status}</span>
               <strong>{campaign.result}</strong>
@@ -513,8 +536,8 @@ export default function Home() {
               <NarrativeBlock label="What we learnt" text={campaign.learning} accent />
               <NarrativeBlock label="What happens next" text={campaign.next} action />
             </div>
-          </div>
-          <div className="embedded-decision">
+            </div>
+            <div className="embedded-decision">
             <span>Decision this result creates</span>
             <strong>{actions[campaignIndex].action}</strong>
             <div>
@@ -523,18 +546,20 @@ export default function Home() {
               <small>Success · {actions[campaignIndex].success}</small>
             </div>
             <button onClick={() => jumpTo("actions")}>Open in action register ↘</button>
+            </div>
           </div>
         </section>
 
-        <section className="chapter light" id="channels">
-          <ChapterHeader
+        <section className="chapter chapter-run light" id="channels">
+          <div className="story-panel channel-story-panel" data-story-panel>
+            <ChapterHeader
             number="03"
             eyebrow="Channel breakdown"
             title="One plan. Different jobs."
             intro="We judge each channel by the role it plays in the system, not by forcing every platform into the same scorecard."
           />
 
-          <div className="channel-layout">
+            <div className="channel-layout">
             <div className="channel-list" role="tablist" aria-label="Select channel">
               {channels.map((item, index) => (
                 <button
@@ -563,18 +588,20 @@ export default function Home() {
                 <NarrativeBlock label="Actionable next step" text={channel.action} action />
               </div>
             </div>
+            </div>
           </div>
         </section>
 
-        <section className="chapter creative-chapter" id="creative">
-          <ChapterHeader
+        <section className="chapter chapter-run creative-chapter" id="creative">
+          <div className="story-panel creative-overview-panel" data-story-panel>
+            <ChapterHeader
             number="04"
             eyebrow="Top-performing creative"
             title="Show the work. Prove the learning."
             intro="The client sees the ad, the result and the reason it worked in one place. Click a creative to unpack the lesson."
           />
 
-          <div className="creative-grid" role="list" aria-label="Top creative examples">
+            <div className="creative-grid" role="list" aria-label="Top creative examples">
             {creatives.map((item, index) => (
               <button
                 key={item.title}
@@ -598,9 +625,11 @@ export default function Home() {
                 </span>
               </button>
             ))}
+            </div>
           </div>
 
-          <div className="creative-analysis" aria-live="polite">
+          <div className="story-panel creative-detail-panel" data-story-panel>
+            <div className="creative-analysis" aria-live="polite">
             <div className="creative-score">
               <span>Selected creative</span>
               <strong>{creative.primary}</strong>
@@ -609,31 +638,35 @@ export default function Home() {
             <NarrativeBlock label="Why it worked" text={creative.worked} />
             <NarrativeBlock label="What we take from it" text={creative.take} accent />
             <NarrativeBlock label="Influence on future creative" text={creative.future} action />
-          </div>
-          <div className="creative-brief-action">
+            </div>
+            <div className="creative-brief-action">
             <div>
               <span>Turn the learning into work</span>
               <strong>Next brief: three need states, nine opening frames, one clear product truth.</strong>
             </div>
             <button onClick={() => jumpTo("actions")}>Add to action register ↘</button>
+            </div>
           </div>
         </section>
 
-        <section className="chapter action-chapter" id="actions">
-          <ChapterHeader
+        <section className="chapter chapter-run action-chapter" id="actions">
+          <div className="story-panel action-lead-panel" data-story-panel>
+            <ChapterHeader
             number="05"
             eyebrow="Live action register"
             title="The report becomes the plan."
             intro="Every recommendation has a source, an owner, a due date and a threshold that tells us whether to scale, change or stop."
           />
 
-          <div className="register-summary">
+            <div className="register-summary">
             <div><strong>4</strong><span>Decisions</span></div>
             <div><strong>{actionStatuses.filter((status) => status !== "Ready").length}</strong><span>Moved forward</span></div>
             <p>A recommendation without ownership and a success threshold is commentary. This is the working layer.</p>
+            </div>
           </div>
 
-          <div className="action-register" aria-label="Action register">
+          <div className="story-panel action-register-panel" data-story-panel>
+            <div className="action-register" aria-label="Action register">
             <div className="register-head" aria-hidden="true">
               <span>Signal + action</span>
               <span>Accountability</span>
@@ -663,23 +696,26 @@ export default function Home() {
                 </button>
               </article>
             ))}
+            </div>
           </div>
 
-          <div className="action-loop" aria-label="How the report drives action">
-            <span>01 <b>See the result</b></span>
-            <span>02 <b>Understand the cause</b></span>
-            <span>03 <b>Make the decision</b></span>
-            <span>04 <b>Track the outcome</b></span>
-          </div>
+          <div className="story-panel action-finale-panel" data-story-panel>
+            <div className="action-loop" aria-label="How the report drives action">
+              <span>01 <b>See the result</b></span>
+              <span>02 <b>Understand the cause</b></span>
+              <span>03 <b>Make the decision</b></span>
+              <span>04 <b>Track the outcome</b></span>
+            </div>
 
-          <div className="final-payoff">
-            <span>THE PRINCIPLE</span>
-            <p>
-              Performance you can see.
-              <br />
-              <em>Decisions you can move.</em>
-            </p>
-            <button onClick={() => jumpTo("overview")}>Back to the top ↑</button>
+            <div className="final-payoff">
+              <span>THE PRINCIPLE</span>
+              <p>
+                Performance you can see.
+                <br />
+                <em>Decisions you can move.</em>
+              </p>
+              <button onClick={() => jumpTo("overview")}>Back to the start ←</button>
+            </div>
           </div>
         </section>
       </main>
@@ -687,17 +723,19 @@ export default function Home() {
       <div className="slide-controls" aria-label="Slide controls">
         <span>Use ← →</span>
         <button
-          onClick={() => stepChapter(-1)}
-          disabled={activeChapterIndex === 0}
-          aria-label="Previous chapter"
+          onClick={() => stepPanel(-1)}
+          disabled={activePanelIndex === 0}
+          aria-label="Previous panel"
         >
           ←
         </button>
-        <strong>0{activeChapterIndex + 1} / 0{chapters.length}</strong>
+        <strong>
+          {String(activePanelIndex + 1).padStart(2, "0")} / {storyPanelCount}
+        </strong>
         <button
-          onClick={() => stepChapter(1)}
-          disabled={activeChapterIndex === chapters.length - 1}
-          aria-label="Next chapter"
+          onClick={() => stepPanel(1)}
+          disabled={activePanelIndex === storyPanelCount - 1}
+          aria-label="Next panel"
         >
           →
         </button>

@@ -29,5 +29,7 @@ test("renders the interactive performance story", async () => {
   assert.match(html, /Result brought to life/);
   assert.match(html, /class="horizontal-story"/);
   assert.match(html, /aria-label="Horizontal performance report"/);
+  assert.match(html, /noise-logo-black\.png/);
+  assert.equal((html.match(/data-story-panel="true"/g) ?? []).length, 12);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #1b1b1b;
-  --paper: #f0eee6;
-  --white: #f8f8e9;
-  --cobalt: #70140f;
-  --coral: #c73c1e;
-  --acid: #f8f8e9;
-  --line: rgba(16, 17, 20, 0.2);
+  --ink: #0d0d0d;
+  --paper: #f7f7f5;
+  --white: #ffffff;
+  --cobalt: #0d0d0d;
+  --coral: #ff5c00;
+  --acid: #f7f7f5;
+  --line: #e2e2dd;
   --page-pad: max(7vw, 44px);
 }
 
@@ -20,11 +20,13 @@ html {
 }
 
 body {
+  --font-geist-sans: var(--font-dm-sans);
+  --font-geist-mono: var(--font-dm-sans);
   margin: 0;
   overflow: hidden;
   background: var(--ink);
   color: var(--ink);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -2013,13 +2015,13 @@ footer {
 
 /* Clean editorial analysis skin — based on the live Noise analysis platform. */
 :root {
-  --canvas: #f8f8f6;
+  --canvas: #f7f7f5;
   --panel: #ffffff;
-  --muted: #737373;
-  --hairline: rgba(27, 27, 27, 0.13);
-  --gridline: rgba(27, 27, 27, 0.055);
-  --headline-font: "Arial Narrow", "Roboto Condensed", "Helvetica Neue Condensed", Impact, sans-serif;
-  --page-pad: max(5vw, 72px);
+  --muted: #8a8a8a;
+  --hairline: #e2e2dd;
+  --gridline: rgba(13, 13, 13, 0.045);
+  --headline-font: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --page-pad: clamp(28px, 5vw, 84px);
 }
 
 body {
@@ -2038,9 +2040,9 @@ body {
 
 .topbar {
   top: 2px;
-  min-height: 72px;
-  grid-template-columns: auto 1fr 44px;
-  gap: 24px;
+  min-height: 52px;
+  grid-template-columns: auto 1fr 31px;
+  gap: 14px;
   padding: 0 var(--page-pad);
   color: var(--ink);
   background: rgba(248, 248, 246, 0.96);
@@ -2050,11 +2052,11 @@ body {
 
 .noise-mark {
   display: grid;
-  width: 62px;
+  width: 54px;
   padding: 0;
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
+  font-size: 0.82rem;
   font-weight: 900;
   font-style: italic;
   line-height: 0.74;
@@ -2072,8 +2074,8 @@ body {
 .report-name {
   gap: 10px;
   color: var(--muted);
-  font: 650 0.67rem var(--font-geist-mono), monospace;
-  letter-spacing: 0.19em;
+  font: 700 0.63rem var(--font-dm-sans), sans-serif;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -2091,8 +2093,8 @@ body {
   display: grid;
   place-content: center;
   gap: 4px;
-  width: 42px;
-  height: 42px;
+  width: 31px;
+  height: 31px;
   padding: 0;
   border: 1px solid var(--hairline);
   color: var(--ink);
@@ -2121,10 +2123,10 @@ body {
 }
 
 .chapter-nav {
-  top: 74px;
+  top: 52px;
   right: var(--page-pad);
   left: auto;
-  width: min(480px, calc(100vw - (var(--page-pad) * 2)));
+  width: min(420px, calc(100vw - (var(--page-pad) * 2)));
   min-height: 0;
   display: block;
   padding: 24px;
@@ -2148,7 +2150,7 @@ body {
   display: block;
   margin: 0 0 14px;
   color: var(--coral);
-  font: 650 0.63rem var(--font-geist-mono), monospace;
+  font: 700 0.63rem var(--font-dm-sans), sans-serif;
   letter-spacing: 0.15em;
 }
 
@@ -2201,25 +2203,25 @@ body {
 }
 
 .chapter {
-  padding: 138px var(--page-pad) 126px;
+  padding: clamp(78px, 9vh, 112px) var(--page-pad) 88px;
   color: var(--ink);
   background-color: var(--canvas);
   background-image:
     linear-gradient(var(--gridline) 1px, transparent 1px),
     linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
-  background-size: 62px 62px;
+  background-size: 46px 46px;
 }
 
 .hero {
   min-height: 100vh;
-  padding-top: 132px;
-  padding-bottom: 126px;
+  padding-top: clamp(78px, 9vh, 112px);
+  padding-bottom: 88px;
   color: var(--ink);
   background-color: var(--canvas);
   background-image:
     linear-gradient(var(--gridline) 1px, transparent 1px),
     linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
-  background-size: 62px 62px;
+  background-size: 46px 46px;
 }
 
 .hero::after {
@@ -2230,8 +2232,10 @@ body {
 .eyebrow,
 .mini-label {
   color: var(--coral);
-  font-size: 0.67rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
 }
 
 .hero-kicker {
@@ -2261,11 +2265,11 @@ body {
 }
 
 .hero h1 {
-  max-width: 1200px;
-  font-size: clamp(4.2rem, 7vw, 8.2rem);
-  font-weight: 900;
-  line-height: 0.86;
-  letter-spacing: -0.045em;
+  max-width: 1180px;
+  font-size: clamp(34px, 5.2vw, 74px);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: 0.005em;
 }
 
 .hero h1 span {
@@ -2335,9 +2339,9 @@ body {
 
 .metric-ribbon strong {
   font-family: var(--headline-font);
-  font-size: clamp(1.9rem, 2.7vw, 3rem);
-  font-weight: 900;
-  letter-spacing: -0.035em;
+  font-size: clamp(2rem, 3.1vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: 0.005em;
 }
 
 .metric-ribbon small.up {
@@ -2376,10 +2380,10 @@ body {
 
 .chapter-header h2 {
   max-width: 900px;
-  font-size: clamp(3.2rem, 5.5vw, 6.6rem);
-  font-weight: 900;
-  line-height: 0.86;
-  letter-spacing: -0.035em;
+  font-size: clamp(30px, 4.4vw, 62px);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: 0.005em;
 }
 
 .chapter-header > p,
@@ -2413,8 +2417,8 @@ body {
 }
 
 .story-beat > strong {
-  font-weight: 900;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  letter-spacing: 0.005em;
 }
 
 .evidence-card {
@@ -2439,7 +2443,7 @@ body {
 .quote-card blockquote {
   font-family: var(--headline-font);
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -2450,8 +2454,8 @@ body {
 }
 
 .replay-intro h3 {
-  font-weight: 900;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .replay-comparison > div {
@@ -2499,8 +2503,8 @@ body {
 }
 
 .campaign-result > strong {
-  font-weight: 900;
-  letter-spacing: -0.035em;
+  font-weight: 700;
+  letter-spacing: 0.005em;
 }
 
 .campaign-result > em {
@@ -2558,7 +2562,7 @@ body {
 
 .creative-score > strong {
   font-family: var(--headline-font);
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .register-summary {
@@ -2634,8 +2638,8 @@ body {
 }
 
 .final-payoff p {
-  font-weight: 900;
-  letter-spacing: -0.035em;
+  font-weight: 700;
+  letter-spacing: 0.005em;
 }
 
 .final-payoff em {
@@ -2707,11 +2711,11 @@ footer span + span {
   }
 
   .chapter {
-    padding-top: 126px;
+    padding-top: clamp(78px, 9vh, 112px);
   }
 
   .hero {
-    padding-top: 118px;
+    padding-top: clamp(78px, 9vh, 112px);
   }
 
   .chapter-header {
@@ -2719,7 +2723,7 @@ footer span + span {
   }
 
   .hero h1 {
-    font-size: clamp(4rem, 9vw, 6.8rem);
+    font-size: clamp(34px, 7vw, 68px);
   }
 }
 
@@ -2730,8 +2734,8 @@ footer span + span {
 
   .topbar {
     top: 2px;
-    min-height: 64px;
-    grid-template-columns: auto 1fr 42px;
+    min-height: 52px;
+    grid-template-columns: auto 1fr 31px;
     padding: 0 var(--page-pad);
   }
 
@@ -2750,7 +2754,7 @@ footer span + span {
   }
 
   .chapter-nav {
-    top: 66px;
+    top: 52px;
     right: var(--page-pad);
     bottom: auto;
     left: var(--page-pad);
@@ -2783,14 +2787,14 @@ footer span + span {
   }
 
   .chapter {
-    padding: 104px var(--page-pad) 112px;
-    background-size: 44px 44px;
+    padding: 82px var(--page-pad) 96px;
+    background-size: 46px 46px;
   }
 
   .hero {
-    padding-top: 102px;
-    padding-bottom: 112px;
-    background-size: 44px 44px;
+    padding-top: 82px;
+    padding-bottom: 96px;
+    background-size: 46px 46px;
   }
 
   .hero-kicker {
@@ -2799,8 +2803,8 @@ footer span + span {
 
   .hero h1 {
     max-width: 100%;
-    font-size: clamp(3.6rem, 17vw, 6rem);
-    line-height: 0.84;
+    font-size: clamp(3rem, 15vw, 5.2rem);
+    line-height: 0.94;
   }
 
   .hero-bottom {
@@ -2831,7 +2835,7 @@ footer span + span {
   }
 
   .chapter-header h2 {
-    font-size: clamp(3rem, 15vw, 5rem);
+    font-size: clamp(2.8rem, 13vw, 4.6rem);
   }
 
   .chapter-header > p,
@@ -2899,5 +2903,264 @@ footer span + span {
 
   .slide-controls strong {
     display: none;
+  }
+}
+
+/* One continuous horizontal report: every piece of the story is a viewport. */
+.noise-mark {
+  display: block;
+  width: 54px;
+}
+
+.noise-mark img {
+  display: block;
+  width: auto;
+  height: 21px;
+  object-fit: contain;
+}
+
+.horizontal-story {
+  scroll-snap-type: x proximity;
+  touch-action: pan-x;
+}
+
+.chapter {
+  overflow: hidden;
+}
+
+.chapter-run {
+  display: flex;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  overflow: visible;
+  scroll-snap-align: none;
+}
+
+.story-panel {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(72px, 8vh, 96px) var(--page-pad) 70px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.story-panel .chapter-header {
+  margin-bottom: clamp(24px, 4vh, 46px);
+}
+
+.performance-lead .performance-story,
+.campaign-lead .selector,
+.channel-story-panel .channel-layout,
+.creative-overview-panel .creative-grid,
+.action-lead-panel .register-summary {
+  flex: 0 0 auto;
+}
+
+.performance-lead .performance-story {
+  margin-bottom: 0;
+}
+
+.performance-lead .story-beat {
+  min-height: min(29vh, 260px);
+}
+
+.evidence-panel .evidence-grid {
+  width: 100%;
+}
+
+.evidence-panel .evidence-card {
+  min-height: min(58vh, 500px);
+}
+
+.evidence-panel .comparison-chart {
+  height: min(43vh, 370px);
+}
+
+.replay-panel .result-replay {
+  width: 100%;
+  min-height: min(58vh, 520px);
+  margin-top: 0;
+}
+
+.campaign-detail-panel .campaign-panel {
+  width: 100%;
+  min-height: min(52vh, 470px);
+}
+
+.campaign-detail-panel .embedded-decision {
+  width: 100%;
+  min-height: min(15vh, 132px);
+}
+
+.campaign-detail-panel .campaign-result {
+  padding-top: 26px;
+  padding-bottom: 20px;
+}
+
+.campaign-detail-panel .campaign-result > strong {
+  font-size: clamp(4rem, 8vw, 7.5rem);
+}
+
+.channel-story-panel .channel-layout {
+  width: 100%;
+}
+
+.creative-overview-panel .creative-image {
+  aspect-ratio: 16 / 9;
+}
+
+.creative-overview-panel .creative-grid {
+  min-height: 0;
+}
+
+.creative-detail-panel .creative-analysis {
+  width: 100%;
+  margin-top: 0;
+}
+
+.creative-detail-panel .creative-brief-action {
+  width: 100%;
+  min-height: min(16vh, 142px);
+}
+
+.action-lead-panel .register-summary {
+  width: 100%;
+}
+
+.action-register-panel .action-register {
+  width: 100%;
+  height: min(72vh, 650px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--hairline);
+}
+
+.action-register-panel .register-head {
+  display: none;
+}
+
+.action-register-panel .action-row {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px 116px;
+  border-right: 1px solid var(--hairline);
+}
+
+.action-register-panel .action-row:nth-child(odd) {
+  border-right: 0;
+}
+
+.action-register-panel .action-main,
+.action-register-panel .action-row dl,
+.action-register-panel .status-control {
+  min-width: 0;
+  padding: 20px;
+}
+
+.action-register-panel .action-meta {
+  margin-bottom: 14px;
+}
+
+.action-register-panel .action-main h3 {
+  margin-top: 12px;
+  font-size: clamp(1.15rem, 1.5vw, 1.65rem);
+}
+
+.action-register-panel .action-row dl > div {
+  grid-template-columns: 52px 1fr;
+  font-size: 0.58rem;
+}
+
+.action-register-panel .status-control {
+  font-size: 0.58rem;
+}
+
+.action-finale-panel .action-loop {
+  width: 100%;
+  margin: 0 0 18px;
+}
+
+.action-finale-panel .final-payoff {
+  width: 100%;
+  min-height: min(58vh, 520px);
+  margin-top: 0;
+}
+
+.action-finale-panel .final-payoff p {
+  font-size: clamp(3rem, 5.8vw, 6.4rem);
+}
+
+@media (max-height: 780px) and (min-width: 721px) {
+  .story-panel {
+    padding-top: 66px;
+    padding-bottom: 56px;
+  }
+
+  .story-panel .chapter-header {
+    margin-bottom: 20px;
+  }
+
+  .chapter-header h2 {
+    font-size: clamp(28px, 3.7vw, 50px);
+  }
+
+  .chapter-header > p,
+  .chapter-header.on-dark > p,
+  .action-chapter .chapter-header > p {
+    margin-top: 25px;
+  }
+
+  .performance-lead .story-beat {
+    min-height: 220px;
+  }
+
+  .creative-overview-panel .creative-image {
+    aspect-ratio: 2 / 1;
+  }
+
+  .channel-list button {
+    min-height: 86px;
+  }
+
+  .channel-metrics > div {
+    min-height: 118px;
+  }
+
+  .channel-narrative .narrative-block {
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 720px) {
+  .horizontal-story {
+    touch-action: pan-x pan-y;
+  }
+
+  .story-panel {
+    justify-content: flex-start;
+    padding: 76px var(--page-pad) 92px;
+    overflow-y: auto;
+  }
+
+  .action-register-panel .action-register {
+    height: auto;
+    display: block;
+  }
+
+  .action-register-panel .action-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    border-right: 0;
   }
 }
