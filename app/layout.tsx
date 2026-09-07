@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Performance, explained. | Noise Client Reporting",
   description:
-    "An interactive monthly performance story that turns results into decisions.",
+    "An interactive performance story that brings results to life and turns every learning into accountable action.",
 };
 
 export default function RootLayout({

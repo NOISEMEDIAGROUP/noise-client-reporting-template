@@ -8,7 +8,7 @@ const chapters = [
   { id: "campaigns", number: "02", label: "Campaign breakdown" },
   { id: "channels", number: "03", label: "Channel breakdown" },
   { id: "creative", number: "04", label: "Winning creative" },
-  { id: "actions", number: "05", label: "What happens next" },
+  { id: "actions", number: "05", label: "Action register" },
 ];
 
 const campaigns = [
@@ -140,11 +140,55 @@ const creatives = [
   },
 ];
 
+const actions = [
+  {
+    code: "A-01",
+    priority: "Scale now",
+    signal: "Always-on acquisition reached 4.8x ROAS, 21% above the previous period.",
+    action: "Increase budget 15% across the three proven need states.",
+    owner: "Paid + Creative",
+    due: "9 Sep",
+    success: "ROAS stays above 4.2x",
+  },
+  {
+    code: "A-02",
+    priority: "Protect",
+    signal: "Three creative families generated 62% of prospecting revenue.",
+    action: "Rotate opening frames every 14 days before performance softens.",
+    owner: "Creative",
+    due: "12 Sep",
+    success: "CPA remains within 5%",
+  },
+  {
+    code: "A-03",
+    priority: "Test",
+    signal: "TikTok earned a 38% hook rate but lost intent after the click.",
+    action: "Launch a creator-matched landing page for the winning story.",
+    owner: "Growth",
+    due: "20 Sep",
+    success: "Conversion rate rises 20%",
+  },
+  {
+    code: "A-04",
+    priority: "Guardrail",
+    signal: "Retention delivered 6.2x ROAS from a finite audience pool.",
+    action: "Cap spend and build messages around recency and previous purchase.",
+    owner: "Paid",
+    due: "Ongoing",
+    success: "Frequency stays below 3.5",
+  },
+];
+
+const actionStatusOrder = ["Ready", "Approved", "In progress", "Done"];
+
 export default function Home() {
   const [activeChapter, setActiveChapter] = useState("overview");
   const [campaignIndex, setCampaignIndex] = useState(0);
   const [channelIndex, setChannelIndex] = useState(0);
   const [creativeIndex, setCreativeIndex] = useState(0);
+  const [actionStatuses, setActionStatuses] = useState(
+    actions.map(() => "Ready"),
+  );
 
   const progress = useMemo(() => {
     const index = chapters.findIndex((chapter) => chapter.id === activeChapter);
@@ -178,6 +222,16 @@ export default function Home() {
   const channel = channels[channelIndex];
   const creative = creatives[creativeIndex];
 
+  const advanceAction = (index: number) => {
+    setActionStatuses((current) =>
+      current.map((status, statusIndex) => {
+        if (statusIndex !== index) return status;
+        const nextIndex = (actionStatusOrder.indexOf(status) + 1) % actionStatusOrder.length;
+        return actionStatusOrder[nextIndex];
+      }),
+    );
+  };
+
   return (
     <div className="report-shell">
       <a className="skip-link" href="#overview">
@@ -197,7 +251,7 @@ export default function Home() {
         </div>
         <div className="data-state">
           <span className="live-dot" />
-          Sample data
+          4 decisions ready
         </div>
       </header>
 
@@ -234,13 +288,18 @@ export default function Home() {
           <div className="hero-bottom">
             <p className="hero-summary">
               Revenue grew <strong>28%</strong> while spend rose <strong>12%</strong>.
-              The gap came from following intent, refreshing creative early and
-              giving every channel a clearer job.
+              The gap came from following intent. This report turns that result
+              into four decisions ready to approve, assign and measure.
             </p>
-            <button className="round-link" onClick={() => jumpTo("performance")}>
-              <span>Read the story</span>
-              <b aria-hidden="true">↓</b>
-            </button>
+            <div className="hero-actions">
+              <button className="round-link" onClick={() => jumpTo("performance")}>
+                <span>Bring it to life</span>
+                <b aria-hidden="true">↓</b>
+              </button>
+              <button className="text-link" onClick={() => jumpTo("actions")}>
+                Review 4 decisions
+              </button>
+            </div>
           </div>
           <div className="hero-index" aria-hidden="true">
             00
@@ -337,6 +396,37 @@ export default function Home() {
               </details>
             </article>
           </div>
+
+          <article className="result-replay">
+            <div className="replay-intro">
+              <span className="mini-label">Result brought to life</span>
+              <h3>Budget followed the strongest signal</h3>
+              <p>
+                The team moved GBP22k from broad lifestyle activity into three
+                product-specific need states during the period.
+              </p>
+            </div>
+            <div className="replay-comparison">
+              <div>
+                <span>Before</span>
+                <strong>48%</strong>
+                <small>Spend against high intent</small>
+                <i><b style={{ width: "48%" }} /></i>
+              </div>
+              <div className="after">
+                <span>After</span>
+                <strong>61%</strong>
+                <small>Spend against high intent</small>
+                <i><b style={{ width: "61%" }} /></i>
+              </div>
+            </div>
+            <div className="replay-impact">
+              <span>Impact</span>
+              <strong>3.7x to 4.8x</strong>
+              <p>ROAS improved while prospecting revenue continued to grow.</p>
+              <button onClick={() => jumpTo("actions")}>Decision triggered · A-01</button>
+            </div>
+          </article>
         </section>
 
         <section className="chapter dark" id="campaigns">
@@ -381,6 +471,16 @@ export default function Home() {
               <NarrativeBlock label="What we learnt" text={campaign.learning} accent />
               <NarrativeBlock label="What happens next" text={campaign.next} action />
             </div>
+          </div>
+          <div className="embedded-decision">
+            <span>Decision this result creates</span>
+            <strong>{actions[campaignIndex].action}</strong>
+            <div>
+              <small>Owner · {actions[campaignIndex].owner}</small>
+              <small>Due · {actions[campaignIndex].due}</small>
+              <small>Success · {actions[campaignIndex].success}</small>
+            </div>
+            <button onClick={() => jumpTo("actions")}>Open in action register ↘</button>
           </div>
         </section>
 
@@ -468,52 +568,74 @@ export default function Home() {
             <NarrativeBlock label="What we take from it" text={creative.take} accent />
             <NarrativeBlock label="Influence on future creative" text={creative.future} action />
           </div>
+          <div className="creative-brief-action">
+            <div>
+              <span>Turn the learning into work</span>
+              <strong>Next brief: three need states, nine opening frames, one clear product truth.</strong>
+            </div>
+            <button onClick={() => jumpTo("actions")}>Add to action register ↘</button>
+          </div>
         </section>
 
         <section className="chapter action-chapter" id="actions">
           <ChapterHeader
             number="05"
-            eyebrow="Overall learnings + next steps"
-            title="The report ends where the work begins."
-            intro="Three decisions carry the learning forward. Each has an owner, a timing and a measure of success."
+            eyebrow="Live action register"
+            title="The report becomes the plan."
+            intro="Every recommendation has a source, an owner, a due date and a threshold that tells us whether to scale, change or stop."
           />
 
-          <div className="action-grid">
-            <article>
-              <span>Keep</span>
-              <h3>Product-first creative</h3>
-              <p>
-                Preserve the visual immediacy and use-state specificity behind
-                the period’s best performers.
-              </p>
-              <dl><dt>Owner</dt><dd>Creative team</dd><dt>Measure</dt><dd>Hook rate ≥ 32%</dd></dl>
-            </article>
-            <article className="change">
-              <span>Change</span>
-              <h3>Rotation before fatigue</h3>
-              <p>
-                Move from reactive refreshes to a planned 14-day opening-frame
-                rotation across prospecting.
-              </p>
-              <dl><dt>Owner</dt><dd>Paid + Creative</dd><dt>Measure</dt><dd>CPA within ±5%</dd></dl>
-            </article>
-            <article className="test">
-              <span>Test</span>
-              <h3>Story-matched landing</h3>
-              <p>
-                Continue the creator’s promise after the click with three pages
-                built around the proven need states.
-              </p>
-              <dl><dt>Owner</dt><dd>Growth team</dd><dt>Measure</dt><dd>CVR +20%</dd></dl>
-            </article>
+          <div className="register-summary">
+            <div><strong>4</strong><span>Decisions</span></div>
+            <div><strong>{actionStatuses.filter((status) => status !== "Ready").length}</strong><span>Moved forward</span></div>
+            <p>A recommendation without ownership and a success threshold is commentary. This is the working layer.</p>
+          </div>
+
+          <div className="action-register" aria-label="Action register">
+            <div className="register-head" aria-hidden="true">
+              <span>Signal + action</span>
+              <span>Accountability</span>
+              <span>Decision state</span>
+            </div>
+            {actions.map((item, index) => (
+              <article className="action-row" key={item.code}>
+                <div className="action-main">
+                  <div className="action-meta"><span>{item.code}</span><b>{item.priority}</b></div>
+                  <small>{item.signal}</small>
+                  <h3>{item.action}</h3>
+                </div>
+                <dl>
+                  <div><dt>Owner</dt><dd>{item.owner}</dd></div>
+                  <div><dt>Due</dt><dd>{item.due}</dd></div>
+                  <div><dt>Success</dt><dd>{item.success}</dd></div>
+                </dl>
+                <button
+                  className="status-control"
+                  data-status={actionStatuses[index].toLowerCase().replace(" ", "-")}
+                  onClick={() => advanceAction(index)}
+                  aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[index]}`}
+                >
+                  <i />
+                  {actionStatuses[index]}
+                  <span>↻</span>
+                </button>
+              </article>
+            ))}
+          </div>
+
+          <div className="action-loop" aria-label="How the report drives action">
+            <span>01 <b>See the result</b></span>
+            <span>02 <b>Understand the cause</b></span>
+            <span>03 <b>Make the decision</b></span>
+            <span>04 <b>Track the outcome</b></span>
           </div>
 
           <div className="final-payoff">
             <span>THE PRINCIPLE</span>
             <p>
-              Reporting that ends with a decision.
+              Performance you can see.
               <br />
-              <em>Not a data dump.</em>
+              <em>Decisions you can move.</em>
             </p>
             <button onClick={() => jumpTo("overview")}>Back to the top ↑</button>
           </div>

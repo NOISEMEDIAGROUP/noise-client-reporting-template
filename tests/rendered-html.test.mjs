@@ -24,6 +24,8 @@ test("renders the interactive performance story", async () => {
   assert.match(html, /Overall performance/);
   assert.match(html, /Campaign breakdown/);
   assert.match(html, /Top-performing creative/);
-  assert.match(html, /The report ends where the work begins\./);
+  assert.match(html, /Live action register/);
+  assert.match(html, /The report becomes the plan\./);
+  assert.match(html, /Result brought to life/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
