@@ -254,7 +254,16 @@ export default function Home() {
     const section = document.getElementById(id);
     if (!story || !section) return;
     setMenuOpen(false);
-    story.scrollTo({ left: section.offsetLeft, behavior: "smooth" });
+    const left = section.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
+    story.scrollTo({ left, behavior: "smooth" });
+  };
+
+  const scrollToPanel = (selector: string) => {
+    const story = storyRef.current;
+    const panel = story?.querySelector<HTMLElement>(selector);
+    if (!story || !panel) return;
+    const left = panel.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
+    story.scrollTo({ left, behavior: "smooth" });
   };
 
   const stepPanel = (direction: number) => {
@@ -267,7 +276,9 @@ export default function Home() {
       panels.length - 1,
       Math.max(0, activePanelIndex + direction),
     );
-    story.scrollTo({ left: panels[nextIndex].offsetLeft, behavior: "smooth" });
+    const panel = panels[nextIndex];
+    const left = panel.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
+    story.scrollTo({ left, behavior: "smooth" });
   };
 
   const campaign = campaigns[campaignIndex];
@@ -276,18 +287,12 @@ export default function Home() {
 
   const selectCampaign = (index: number) => {
     setCampaignIndex(index);
-    requestAnimationFrame(() => {
-      const detail = storyRef.current?.querySelector<HTMLElement>(".campaign-detail-panel");
-      if (detail && storyRef.current) storyRef.current.scrollTo({ left: detail.offsetLeft, behavior: "smooth" });
-    });
+    requestAnimationFrame(() => scrollToPanel(".campaign-detail-panel"));
   };
 
   const selectCreative = (index: number) => {
     setCreativeIndex(index);
-    requestAnimationFrame(() => {
-      const detail = storyRef.current?.querySelector<HTMLElement>(".creative-detail-panel");
-      if (detail && storyRef.current) storyRef.current.scrollTo({ left: detail.offsetLeft, behavior: "smooth" });
-    });
+    requestAnimationFrame(() => scrollToPanel(".creative-detail-panel"));
   };
 
   const advanceAction = (index: number) => {
