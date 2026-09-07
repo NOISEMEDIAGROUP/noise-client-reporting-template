@@ -184,6 +184,7 @@ const actionStatusOrder = ["Ready", "Approved", "In progress", "Done"];
 export default function Home() {
   const storyRef = useRef<HTMLElement>(null);
   const [activeChapter, setActiveChapter] = useState("overview");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [campaignIndex, setCampaignIndex] = useState(0);
   const [channelIndex, setChannelIndex] = useState(0);
   const [creativeIndex, setCreativeIndex] = useState(0);
@@ -223,6 +224,7 @@ export default function Home() {
     const story = storyRef.current;
     const section = document.getElementById(id);
     if (!story || !section) return;
+    setMenuOpen(false);
     story.scrollTo({ left: section.offsetLeft, behavior: "smooth" });
   };
 
@@ -258,22 +260,38 @@ export default function Home() {
       </div>
 
       <header className="topbar">
-        <button className="noise-mark" onClick={() => jumpTo("overview")}>
-          NOISE<span>.</span>
+        <button
+          className="noise-mark"
+          onClick={() => jumpTo("overview")}
+          aria-label="Return to the report cover"
+        >
+          <span>Noise</span>
+          <span>Media</span>
         </button>
         <div className="report-name">
-          <span>Monthly performance story</span>
-          <strong>Sample client · August 2026</strong>
+          <span>For</span>
+          <strong>Sample client</strong>
         </div>
-        <div className="data-state">
-          <span className="live-dot" />
-          4 decisions ready
-        </div>
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-expanded={menuOpen}
+          aria-controls="report-chapters"
+          aria-label={menuOpen ? "Close report menu" : "Open report menu"}
+        >
+          <i />
+          <i />
+          <i />
+        </button>
       </header>
 
-      <aside className="chapter-nav" aria-label="Report chapters">
-        <p>In this report</p>
-        <nav>
+      <aside
+        className={`chapter-nav ${menuOpen ? "open" : ""}`}
+        aria-label="Report chapters"
+        id="report-chapters"
+      >
+        <p>Jump to chapter</p>
+        <nav aria-label="Report navigation">
           {chapters.map((chapter) => (
             <button
               key={chapter.id}
@@ -318,8 +336,8 @@ export default function Home() {
             </p>
             <div className="hero-actions">
               <button className="round-link" onClick={() => jumpTo("performance")}>
-                <span>Bring it to life</span>
-                <b aria-hidden="true">↓</b>
+                <span>Start the story</span>
+                <b aria-hidden="true">→</b>
               </button>
               <button className="text-link" onClick={() => jumpTo("actions")}>
                 Review 4 decisions
@@ -686,8 +704,8 @@ export default function Home() {
       </div>
 
       <footer>
-        <span>NOISE. Client reporting prototype</span>
-        <span>Illustrative data and creative · September 2026</span>
+        <span>For Sample Client · Noise Media · August 2026</span>
+        <span>Illustrative data and creative</span>
       </footer>
     </div>
   );
