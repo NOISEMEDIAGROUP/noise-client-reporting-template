@@ -143,39 +143,63 @@ const creatives = [
 const actions = [
   {
     code: "A-01",
+    workstream: "Strategy",
     priority: "Scale now",
     signal: "Always-on acquisition reached 4.8x ROAS, 21% above the previous period.",
-    action: "Increase budget 15% across the three proven need states.",
-    owner: "Paid + Creative",
-    due: "9 Sep",
-    success: "ROAS stays above 4.2x",
+    action: "Reallocate the next 15% of budget into three proven need states. Lock channel roles before spend moves.",
+    owner: "Strategy + Paid",
+    due: "Week 1",
+    success: "ROAS >4.2x. CAC holds.",
   },
   {
     code: "A-02",
-    priority: "Protect",
-    signal: "Three creative families generated 62% of prospecting revenue.",
-    action: "Rotate opening frames every 14 days before performance softens.",
-    owner: "Creative",
-    due: "12 Sep",
-    success: "CPA remains within 5%",
+    workstream: "Strategy",
+    priority: "Build",
+    signal: "This period gave us a signal. The next quarter needs a system built from it.",
+    action: "Turn the three need states into a quarterly growth map with audience, proposition, channel and measurement owner.",
+    owner: "Strategy + Account",
+    due: "16 Sep",
+    success: "Q4 growth map approved.",
   },
   {
     code: "A-03",
-    priority: "Test",
-    signal: "TikTok earned a 38% hook rate but lost intent after the click.",
-    action: "Launch a creator-matched landing page for the winning story.",
-    owner: "Growth",
-    due: "20 Sep",
-    success: "Conversion rate rises 20%",
+    workstream: "Creative",
+    priority: "Produce",
+    signal: "Three creative families generated 62% of prospecting revenue.",
+    action: "Commission three territories and nine opening frames. Pre-approve a 14-day rotation before frequency peaks.",
+    owner: "Creative",
+    due: "12 Sep",
+    success: "3 territories live. CPA within 5%.",
   },
   {
     code: "A-04",
-    priority: "Guardrail",
+    workstream: "Creative",
+    priority: "Prove",
+    signal: "TikTok earned a 38% hook rate but lost intent after the click.",
+    action: "Ship a creator-matched landing page and message-continuity test for the winning story.",
+    owner: "Creative + Growth",
+    due: "20 Sep",
+    success: "Post-click CVR rises 20%.",
+  },
+  {
+    code: "A-05",
+    workstream: "Account",
+    priority: "Orchestrate",
+    signal: "The strongest decisions currently sit inside the monthly report.",
+    action: "Run a fortnightly performance × creative council. Leave with one approved test, one owner and one kill rule.",
+    owner: "Account",
+    due: "Start 11 Sep",
+    success: "4 tests/month. 100% owner coverage.",
+  },
+  {
+    code: "A-06",
+    workstream: "Account",
+    priority: "De-risk",
     signal: "Retention delivered 6.2x ROAS from a finite audience pool.",
-    action: "Cap spend and build messages around recency and previous purchase.",
-    owner: "Paid",
-    due: "Ongoing",
-    success: "Frequency stays below 3.5",
+    action: "Bring a 30-day forecast with spend ceilings, fatigue triggers and the next client approval needed.",
+    owner: "Account + Paid",
+    due: "Before next pacing call",
+    success: "No unplanned overspend. Next decision pre-approved.",
   },
 ];
 
@@ -346,7 +370,7 @@ export default function Home() {
             <p className="hero-summary">
               Revenue grew <strong>28%</strong> while spend rose <strong>12%</strong>.
               The gap came from following intent. This report turns that result
-              into four decisions ready to approve, assign and measure.
+              into six proactive moves across strategy, creative and account leadership.
             </p>
             <div className="hero-actions">
               <button className="round-link" onClick={() => jumpTo("performance")}>
@@ -354,7 +378,7 @@ export default function Home() {
                 <b aria-hidden="true">→</b>
               </button>
               <button className="text-link" onClick={() => jumpTo("actions")}>
-                Review 4 decisions
+                Review 6 moves
               </button>
             </div>
           </div>
@@ -659,9 +683,9 @@ export default function Home() {
           />
 
             <div className="register-summary">
-            <div><strong>4</strong><span>Decisions</span></div>
+            <div><strong>{actions.length}</strong><span>Moves</span></div>
             <div><strong>{actionStatuses.filter((status) => status !== "Ready").length}</strong><span>Moved forward</span></div>
-            <p>A recommendation without ownership and a success threshold is commentary. This is the working layer.</p>
+            <p>Three workstreams. Six moves. Each one has an owner, a deadline, a guardrail and a decision it unlocks.</p>
             </div>
           </div>
 
@@ -675,7 +699,7 @@ export default function Home() {
             {actions.map((item, index) => (
               <article className="action-row" key={item.code}>
                 <div className="action-main">
-                  <div className="action-meta"><span>{item.code}</span><b>{item.priority}</b></div>
+                  <div className="action-meta"><span>{item.code}</span><b>{item.workstream}</b><b>{item.priority}</b></div>
                   <small>{item.signal}</small>
                   <h3>{item.action}</h3>
                 </div>
@@ -741,10 +765,6 @@ export default function Home() {
         </button>
       </div>
 
-      <footer>
-        <span>For Sample Client · Noise Media · August 2026</span>
-        <span>Illustrative data and creative</span>
-      </footer>
     </div>
   );
 }

@@ -2975,9 +2975,12 @@ footer span + span {
 
 .evidence-panel .evidence-grid {
   width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
 }
 
 .evidence-panel .evidence-card {
+  min-width: 0;
   min-height: min(58vh, 500px);
 }
 
@@ -2989,6 +2992,11 @@ footer span + span {
   width: 100%;
   min-height: min(58vh, 520px);
   margin-top: 0;
+}
+
+.evidence-panel .quote-card blockquote {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .campaign-detail-panel .campaign-panel {
@@ -3040,7 +3048,7 @@ footer span + span {
   width: 100%;
   height: min(72vh, 650px);
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
   border: 1px solid var(--hairline);
 }
@@ -3052,11 +3060,11 @@ footer span + span {
 .action-register-panel .action-row {
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 190px 116px;
+  grid-template-columns: minmax(0, 1fr) 136px 94px;
   border-right: 1px solid var(--hairline);
 }
 
-.action-register-panel .action-row:nth-child(odd) {
+.action-register-panel .action-row:nth-child(3n + 1) {
   border-right: 0;
 }
 
@@ -3068,12 +3076,14 @@ footer span + span {
 }
 
 .action-register-panel .action-meta {
+  flex-wrap: wrap;
+  gap: 5px;
   margin-bottom: 14px;
 }
 
 .action-register-panel .action-main h3 {
   margin-top: 12px;
-  font-size: clamp(1.15rem, 1.5vw, 1.65rem);
+  font-size: clamp(1rem, 1.25vw, 1.42rem);
 }
 
 .action-register-panel .action-row dl > div {
