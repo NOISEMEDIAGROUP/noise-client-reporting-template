@@ -211,6 +211,8 @@ export default function Home() {
   const [activeChapter, setActiveChapter] = useState("overview");
   const [activePanelIndex, setActivePanelIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
+  const [notes, setNotes] = useState("");
   const [campaignIndex, setCampaignIndex] = useState(0);
   const [channelIndex, setChannelIndex] = useState(0);
   const [creativeIndex, setCreativeIndex] = useState(0);
@@ -222,6 +224,15 @@ export default function Home() {
     const index = chapters.findIndex((chapter) => chapter.id === activeChapter);
     return `${((index + 1) / chapters.length) * 100}%`;
   }, [activeChapter]);
+
+  useEffect(() => {
+    const savedNotes = window.localStorage.getItem("noise-report-notes");
+    if (savedNotes) setNotes(savedNotes);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("noise-report-notes", notes);
+  }, [notes]);
 
   useEffect(() => {
     const story = storyRef.current;
@@ -335,7 +346,16 @@ export default function Home() {
           <i />
           <i />
         </button>
+        <button className="notes-toggle" onClick={() => setNotesOpen(true)} aria-label="Open report notes">Notes</button>
       </header>
+
+      {notesOpen && (
+        <aside className="notes-pad" aria-label="Report notes">
+          <div className="notes-pad-head"><span>Working notes</span><button onClick={() => setNotesOpen(false)} aria-label="Close notes">×</button></div>
+          <textarea value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="Add client questions, decisions, owners or follow-ups…" autoFocus />
+          <small>Saved automatically in this browser.</small>
+        </aside>
+      )}
 
       <aside
         className={`chapter-nav ${menuOpen ? "open" : ""}`}
@@ -818,10 +838,10 @@ function ChapterHeader({
     <header className={`chapter-header ${dark ? "on-dark" : ""}`}>
       <div className="section-number">{number}</div>
       <div>
-        <span className="eyebrow">{eyebrow}</span>
-        <h2>{title}</h2>
+        <span className="eyebrow editable" contentEditable suppressContentEditableWarning>{eyebrow}</span>
+        <h2 className="editable" contentEditable suppressContentEditableWarning>{title}</h2>
       </div>
-      <p>{intro}</p>
+      <p className="editable" contentEditable suppressContentEditableWarning>{intro}</p>
     </header>
   );
 }
@@ -839,8 +859,8 @@ function NarrativeBlock({
 }) {
   return (
     <div className={`narrative-block ${accent ? "accent" : ""} ${action ? "action" : ""}`}>
-      <span>{label}</span>
-      <p>{text}</p>
+      <span className="editable" contentEditable suppressContentEditableWarning>{label}</span>
+      <p className="editable" contentEditable suppressContentEditableWarning>{text}</p>
     </div>
   );
 }

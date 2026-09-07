@@ -112,6 +112,13 @@ button {
   backdrop-filter: blur(18px);
 }
 
+.notes-toggle { margin-left: 12px; padding: 9px 13px; border: 1px solid var(--hairline); color: var(--ink); background: var(--paper); font: 700 .62rem var(--font-geist-mono), monospace; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; }
+.notes-pad { position:fixed; z-index:30; top:74px; right:24px; width:min(390px,calc(100vw - 32px)); height:min(480px,calc(100vh - 104px)); display:flex; flex-direction:column; padding:18px; color:var(--ink); background:#fff; border:1px solid var(--ink); box-shadow:12px 12px 0 var(--orange); }
+.notes-pad-head { display:flex; align-items:center; justify-content:space-between; padding-bottom:14px; border-bottom:1px solid var(--hairline); font:700 .72rem var(--font-geist-mono),monospace; letter-spacing:.12em; text-transform:uppercase; }
+.notes-pad-head button { border:0; background:transparent; font-size:1.5rem; cursor:pointer; }
+.notes-pad textarea { flex:1; width:100%; margin-top:16px; resize:none; border:0; outline:0; color:var(--ink); font:500 1rem/1.5 var(--font-dm-sans),sans-serif; }
+.notes-pad small { color:var(--muted); font-size:.68rem; }
+
 .noise-mark {
   border: 0;
   background: transparent;
@@ -3058,7 +3065,8 @@ footer span + span {
   border: 1px solid var(--hairline);
   overflow: hidden;
 }
-.campaign-story-panel .campaign-layout { height: min(54vh, 520px); }
+.campaign-story-panel .chapter-header { margin-bottom: 20px; }
+.campaign-story-panel .campaign-layout { height: min(50vh, 480px); }
 .campaign-story-panel .campaign-list {
   min-width: 0;
   border-right: 1px solid var(--hairline);
@@ -3068,12 +3076,13 @@ footer span + span {
 }
 .campaign-story-panel .campaign-panel {
   min-width: 0;
-  min-height: min(50vh, 460px);
+  height: 100%;
+  min-height: 0;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto minmax(0, 1fr) auto;
 }
-.campaign-story-panel .campaign-result { grid-column: 1; grid-row: 1; min-width: 0; display:grid; grid-template-columns: 1fr 1.3fr 1fr; align-items:center; min-height:132px; padding:22px 28px; border-bottom:1px solid var(--hairline); }
+.campaign-story-panel .campaign-result { grid-column: 1; grid-row: 1; min-width: 0; display:grid; grid-template-columns: 1fr 1.3fr 1fr; align-items:center; height:118px; min-height:0; padding:18px 28px; border-bottom:1px solid var(--hairline); }
 .campaign-story-panel .campaign-result-heading { display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
 .campaign-story-panel .campaign-result-heading > span:last-child { color:var(--muted); font:600 .62rem var(--font-geist-mono),monospace; letter-spacing:.12em; text-transform:uppercase; }
 .campaign-story-panel .campaign-result-value { display:flex; align-items:baseline; gap:12px; }
@@ -3081,9 +3090,9 @@ footer span + span {
 .campaign-story-panel .campaign-result-value small { color:var(--muted); font-size:.72rem; }
 .campaign-story-panel .campaign-result-value em { color:var(--orange); font-style:normal; font-size:.8rem; }
 .campaign-story-panel .campaign-result .spark-bars { height:74px; align-self:end; }
-.campaign-story-panel .campaign-analysis { grid-column: 1; grid-row: 2; min-width: 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-.campaign-story-panel .campaign-analysis .narrative-block { min-height:145px; }
-.campaign-story-panel .embedded-decision { grid-column: 1; grid-row: 3; min-width: 0; }
+.campaign-story-panel .campaign-analysis { grid-column: 1; grid-row: 2; min-width: 0; min-height:0; overflow:hidden; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.campaign-story-panel .campaign-analysis .narrative-block { min-height:0; }
+.campaign-story-panel .embedded-decision { grid-column: 1; grid-row: 3; min-width: 0; min-height:0; height:108px; overflow:hidden; }
 .creative-story-panel .creative-layout { grid-template-columns: 40% minmax(0, 60%); height: min(57vh, 560px); }
 .creative-story-panel .creative-grid { min-width: 0; padding: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .creative-story-panel .creative-card { min-width: 0; }
@@ -3190,16 +3199,18 @@ footer span + span {
 .action-lead-panel .register-summary > div { grid-row: 2; }
 .action-lead-panel .register-summary > p { grid-column: 3; grid-row: 2; }
 
-/* The creative proof needs reading width: score on the left, three learnings stacked on the right. */
-.creative-story-panel .creative-analysis { grid-template-columns: .85fr 1.15fr; grid-template-rows: repeat(3, minmax(0, 1fr)) auto; margin-top: 0; height: 100%; }
-.creative-story-panel .creative-score { grid-column: 1; grid-row: 1 / span 3; }
-.creative-story-panel .creative-analysis .narrative-block { min-height: 0; grid-column: 2; }
-.creative-story-panel .creative-analysis .narrative-block:nth-child(2) { grid-row: 1; }
-.creative-story-panel .creative-analysis .narrative-block:nth-child(3) { grid-row: 2; }
-.creative-story-panel .creative-analysis .narrative-block:nth-child(4) { grid-row: 3; }
-.creative-story-panel .creative-analysis .creative-brief-action { grid-column: 1 / -1; grid-row: 4; }
+/* The creative proof reads as a score row, three learning cards, then one brief. */
+.creative-story-panel .creative-analysis { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: 132px minmax(0, 1fr) 104px; margin-top: 0; height: 100%; }
+.creative-story-panel .creative-score { grid-column: 1 / -1; grid-row: 1; flex-direction: row; align-items: center; gap: 22px; padding: 20px 28px; }
+.creative-story-panel .creative-score > strong { margin: 0 0 0 auto; font-size: clamp(3rem, 5vw, 5.2rem); }
+.creative-story-panel .creative-score > small { margin: 0; }
+.creative-story-panel .creative-analysis .narrative-block { min-height: 0; grid-row: 2; padding: 24px 26px; overflow: hidden; }
+.creative-story-panel .creative-analysis .narrative-block p { margin-top: 18px; font-size: .9rem; line-height: 1.4; }
+.creative-story-panel .creative-analysis .creative-brief-action { grid-column: 1 / -1; grid-row: 3; min-height: 0; padding: 18px 26px; }
 .action-row [contenteditable="true"] { outline: 0; border-radius: 2px; cursor: text; }
 .action-row [contenteditable="true"]:focus { box-shadow: 0 0 0 2px rgba(255,92,0,.42); background: rgba(255,92,0,.08); }
+.editable { outline:0; border-radius:2px; cursor:text; }
+.editable:focus { box-shadow:0 0 0 2px rgba(255,92,0,.42); background:rgba(255,92,0,.08); }
 
 .action-finale-panel .action-loop {
   width: 100%;
