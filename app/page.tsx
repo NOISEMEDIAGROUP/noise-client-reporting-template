@@ -551,10 +551,8 @@ export default function Home() {
             </div>
             <div className="campaign-panel" role="tabpanel">
             <div className="campaign-result">
-              <span className="status-pill">{campaign.status}</span>
-              <strong>{campaign.result}</strong>
-              <small>{campaign.metric}</small>
-              <em>{campaign.change}</em>
+              <div className="campaign-result-heading"><span className="status-pill">{campaign.status}</span><span>July actual</span></div>
+              <div className="campaign-result-value"><strong>{campaign.result}</strong><small>{campaign.metric}</small><em>{campaign.change}</em></div>
               <div className="spark-bars" aria-label="Seven-week performance trend">
                 {campaign.bars.map((height, index) => (
                   <i key={`${height}-${index}`} style={{ height: `${height}%` }} />

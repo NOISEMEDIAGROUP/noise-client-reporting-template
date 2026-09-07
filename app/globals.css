@@ -3068,12 +3068,20 @@ footer span + span {
   min-width: 0;
   min-height: min(50vh, 460px);
   display: grid;
-  grid-template-columns: 27% minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
-.campaign-story-panel .campaign-result { grid-column: 1; grid-row: 1; min-width: 0; }
-.campaign-story-panel .campaign-analysis { grid-column: 2; grid-row: 1; min-width: 0; }
-.campaign-story-panel .embedded-decision { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
+.campaign-story-panel .campaign-result { grid-column: 1; grid-row: 1; min-width: 0; display:grid; grid-template-columns: 1fr 1.3fr 1fr; align-items:center; min-height:132px; padding:22px 28px; border-bottom:1px solid var(--hairline); }
+.campaign-story-panel .campaign-result-heading { display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
+.campaign-story-panel .campaign-result-heading > span:last-child { color:var(--muted); font:600 .62rem var(--font-geist-mono),monospace; letter-spacing:.12em; text-transform:uppercase; }
+.campaign-story-panel .campaign-result-value { display:flex; align-items:baseline; gap:12px; }
+.campaign-story-panel .campaign-result-value strong { font-size:clamp(3.2rem,6vw,6rem); line-height:.8; }
+.campaign-story-panel .campaign-result-value small { color:var(--muted); font-size:.72rem; }
+.campaign-story-panel .campaign-result-value em { color:var(--orange); font-style:normal; font-size:.8rem; }
+.campaign-story-panel .campaign-result .spark-bars { height:74px; align-self:end; }
+.campaign-story-panel .campaign-analysis { grid-column: 1; grid-row: 2; min-width: 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.campaign-story-panel .campaign-analysis .narrative-block { min-height:145px; }
+.campaign-story-panel .embedded-decision { grid-column: 1; grid-row: 3; min-width: 0; }
 .creative-story-panel .creative-layout { grid-template-columns: 44% minmax(0, 1fr); }
 .creative-story-panel .creative-grid { min-width: 0; padding: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .creative-story-panel .creative-card { min-width: 0; }
