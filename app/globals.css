@@ -3049,6 +3049,37 @@ footer span + span {
   width: 100%;
 }
 
+.campaign-story-panel .campaign-layout,
+.creative-story-panel .creative-layout {
+  display: grid;
+  grid-template-columns: 26% minmax(0, 1fr);
+  width: 100%;
+  min-height: 0;
+  border: 1px solid var(--hairline);
+}
+.campaign-story-panel .campaign-list {
+  min-width: 0;
+  border-right: 1px solid var(--hairline);
+}
+.campaign-story-panel .campaign-list button {
+  min-height: 88px;
+}
+.campaign-story-panel .campaign-panel {
+  min-width: 0;
+  min-height: min(50vh, 460px);
+  display: grid;
+  grid-template-columns: 27% minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+.campaign-story-panel .campaign-result { grid-column: 1; grid-row: 1; min-width: 0; }
+.campaign-story-panel .campaign-analysis { grid-column: 2; grid-row: 1; min-width: 0; }
+.campaign-story-panel .embedded-decision { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
+.creative-story-panel .creative-layout { grid-template-columns: 44% minmax(0, 1fr); }
+.creative-story-panel .creative-grid { min-width: 0; padding: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.creative-story-panel .creative-card { min-width: 0; }
+.creative-story-panel .creative-analysis { min-width: 0; padding: 24px; }
+.creative-story-panel .creative-brief-action { grid-column: 1 / -1; min-width: 0; }
+
 .creative-overview-panel .creative-image {
   aspect-ratio: 16 / 9;
 }
@@ -3130,6 +3161,12 @@ footer span + span {
 .action-register-panel .status-control {
   font-size: 0.62rem;
 }
+
+/* Each register page carries three decisions, so the client can read them without a dense six-card wall. */
+.action-register-panel .action-register { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); }
+.action-register-panel .action-row:nth-child(2n) { border-right: 1px solid var(--hairline); }
+.action-register-panel .action-row:nth-child(3n) { border-right: 0; }
+.action-register-panel .action-row { border-bottom: 0; }
 
 .learning-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; margin-top: 20px; }
 .learning-strip article { border: 1px solid var(--hairline); background: rgba(255,255,255,.72); padding: 18px 20px; min-height: 132px; }

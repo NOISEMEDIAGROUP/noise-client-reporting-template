@@ -204,7 +204,7 @@ const actions = [
 ];
 
 const actionStatusOrder = ["Ready", "Approved", "In progress", "Done"];
-const storyPanelCount = 12;
+const storyPanelCount = 11;
 
 export default function Home() {
   const storyRef = useRef<HTMLElement>(null);
@@ -287,12 +287,10 @@ export default function Home() {
 
   const selectCampaign = (index: number) => {
     setCampaignIndex(index);
-    requestAnimationFrame(() => scrollToPanel(".campaign-detail-panel"));
   };
 
   const selectCreative = (index: number) => {
     setCreativeIndex(index);
-    requestAnimationFrame(() => scrollToPanel(".creative-detail-panel"));
   };
 
   const advanceAction = (index: number) => {
@@ -323,7 +321,7 @@ export default function Home() {
           <img src="/noise-logo-black.png" alt="Noise Media" />
         </button>
         <div className="report-name">
-          <span>For</span>
+          <span>Noise ×</span>
           <strong>Indian Motorcycle</strong>
         </div>
         <button
@@ -535,7 +533,7 @@ export default function Home() {
         </section>
 
         <section className="chapter chapter-run dark" id="campaigns">
-          <div className="story-panel campaign-lead" data-story-panel>
+          <div className="story-panel campaign-story-panel" data-story-panel>
             <ChapterHeader
             number="02"
             eyebrow="Campaign breakdown"
@@ -543,28 +541,11 @@ export default function Home() {
             intro="Results matter. The reason behind them is what makes the next result better."
             dark
           />
-
-            <div className="selector" role="tablist" aria-label="Select campaign">
-            {campaigns.map((item, index) => (
-              <button
-                key={item.name}
-                role="tab"
-                aria-selected={campaignIndex === index}
-                className={campaignIndex === index ? "selected" : ""}
-                onClick={() => selectCampaign(index)}
-              >
-                <span>0{index + 1}</span>
-                {item.name}
-              </button>
-            ))}
-            </div>
-          </div>
-
-          <div className="story-panel campaign-detail-panel" data-story-panel>
-            <div className="inline-selector" role="tablist" aria-label="Change campaign">
+            <div className="campaign-layout">
+            <div className="channel-list campaign-list" role="tablist" aria-label="Select campaign">
               {campaigns.map((item, index) => (
                 <button key={item.name} role="tab" aria-selected={campaignIndex === index} className={campaignIndex === index ? "selected" : ""} onClick={() => setCampaignIndex(index)}>
-                  <span>0{index + 1}</span>{item.name}
+                  <span>{item.name}</span><small>{item.status}</small><b aria-hidden="true">↗</b>
                 </button>
               ))}
             </div>
@@ -597,6 +578,7 @@ export default function Home() {
             </div>
             <button onClick={() => jumpTo("actions")}>Open in action register ↘</button>
             </div>
+          </div>
           </div>
         </section>
 
@@ -643,7 +625,7 @@ export default function Home() {
         </section>
 
         <section className="chapter chapter-run creative-chapter" id="creative">
-          <div className="story-panel creative-overview-panel" data-story-panel>
+          <div className="story-panel creative-story-panel" data-story-panel>
             <ChapterHeader
             number="04"
             eyebrow="Top-performing creative"
@@ -651,6 +633,7 @@ export default function Home() {
             intro="The client sees the ad, the result and the reason it worked in one place. Click a creative to unpack the lesson."
           />
 
+            <div className="creative-layout">
             <div className="creative-grid" role="list" aria-label="Top creative examples">
             {creatives.map((item, index) => (
               <button
@@ -676,16 +659,6 @@ export default function Home() {
               </button>
             ))}
             </div>
-          </div>
-
-          <div className="story-panel creative-detail-panel" data-story-panel>
-            <div className="inline-selector creative-inline-selector" role="tablist" aria-label="Change creative">
-              {creatives.map((item, index) => (
-                <button key={item.title} role="tab" aria-selected={creativeIndex === index} className={creativeIndex === index ? "selected" : ""} onClick={() => setCreativeIndex(index)}>
-                  <span>0{index + 1}</span>{item.title}
-                </button>
-              ))}
-            </div>
             <div className="creative-analysis" aria-live="polite">
             <div className="creative-score">
               <span>Selected creative</span>
@@ -703,6 +676,7 @@ export default function Home() {
             </div>
             <button onClick={() => jumpTo("actions")}>Add to action register ↘</button>
             </div>
+          </div>
           </div>
         </section>
 
@@ -735,7 +709,7 @@ export default function Home() {
               <span>Accountability</span>
               <span>Decision state</span>
             </div>
-            {actions.map((item, index) => (
+            {actions.slice(0, 3).map((item, index) => (
               <article className="action-row" key={item.code}>
                 <div className="action-main">
                   <div className="action-meta"><span>{item.code}</span><b>{item.workstream}</b><b>{item.priority}</b></div>
@@ -759,6 +733,27 @@ export default function Home() {
                 </button>
               </article>
             ))}
+            </div>
+          </div>
+
+          <div className="story-panel action-register-panel" data-story-panel>
+            <div className="action-register" aria-label="Action register, moves four to six">
+            <div className="register-head" aria-hidden="true">
+              <span>Signal + action</span><span>Accountability</span><span>Decision state</span>
+            </div>
+            {actions.slice(3).map((item, index) => {
+              const actionIndex = index + 3;
+              return (
+              <article className="action-row" key={item.code}>
+                <div className="action-main">
+                  <div className="action-meta"><span>{item.code}</span><b>{item.workstream}</b><b>{item.priority}</b></div>
+                  <small>{item.signal}</small><h3>{item.action}</h3>
+                </div>
+                <dl><div><dt>Owner</dt><dd>{item.owner}</dd></div><div><dt>Due</dt><dd>{item.due}</dd></div><div><dt>Success</dt><dd>{item.success}</dd></div></dl>
+                <button className="status-control" data-status={actionStatuses[actionIndex].toLowerCase().replace(" ", "-")} onClick={() => advanceAction(actionIndex)} aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[actionIndex]}`}><i />{actionStatuses[actionIndex]}<span>↻</span></button>
+              </article>
+              );
+            })}
             </div>
           </div>
 
