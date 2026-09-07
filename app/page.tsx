@@ -274,6 +274,22 @@ export default function Home() {
   const channel = channels[channelIndex];
   const creative = creatives[creativeIndex];
 
+  const selectCampaign = (index: number) => {
+    setCampaignIndex(index);
+    requestAnimationFrame(() => {
+      const detail = storyRef.current?.querySelector<HTMLElement>(".campaign-detail-panel");
+      if (detail && storyRef.current) storyRef.current.scrollTo({ left: detail.offsetLeft, behavior: "smooth" });
+    });
+  };
+
+  const selectCreative = (index: number) => {
+    setCreativeIndex(index);
+    requestAnimationFrame(() => {
+      const detail = storyRef.current?.querySelector<HTMLElement>(".creative-detail-panel");
+      if (detail && storyRef.current) storyRef.current.scrollTo({ left: detail.offsetLeft, behavior: "smooth" });
+    });
+  };
+
   const advanceAction = (index: number) => {
     setActionStatuses((current) =>
       current.map((status, statusIndex) => {
@@ -530,7 +546,7 @@ export default function Home() {
                 role="tab"
                 aria-selected={campaignIndex === index}
                 className={campaignIndex === index ? "selected" : ""}
-                onClick={() => setCampaignIndex(index)}
+                onClick={() => selectCampaign(index)}
               >
                 <span>0{index + 1}</span>
                 {item.name}
@@ -540,6 +556,13 @@ export default function Home() {
           </div>
 
           <div className="story-panel campaign-detail-panel" data-story-panel>
+            <div className="inline-selector" role="tablist" aria-label="Change campaign">
+              {campaigns.map((item, index) => (
+                <button key={item.name} role="tab" aria-selected={campaignIndex === index} className={campaignIndex === index ? "selected" : ""} onClick={() => setCampaignIndex(index)}>
+                  <span>0{index + 1}</span>{item.name}
+                </button>
+              ))}
+            </div>
             <div className="campaign-panel" role="tabpanel">
             <div className="campaign-result">
               <span className="status-pill">{campaign.status}</span>
@@ -629,7 +652,7 @@ export default function Home() {
                 key={item.title}
                 role="listitem"
                 className={`creative-card ${creativeIndex === index ? "selected" : ""}`}
-                onClick={() => setCreativeIndex(index)}
+                onClick={() => selectCreative(index)}
                 aria-label={`View analysis for ${item.title}`}
               >
                 <span className="creative-rank">0{index + 1}</span>
@@ -651,6 +674,13 @@ export default function Home() {
           </div>
 
           <div className="story-panel creative-detail-panel" data-story-panel>
+            <div className="inline-selector creative-inline-selector" role="tablist" aria-label="Change creative">
+              {creatives.map((item, index) => (
+                <button key={item.title} role="tab" aria-selected={creativeIndex === index} className={creativeIndex === index ? "selected" : ""} onClick={() => setCreativeIndex(index)}>
+                  <span>0{index + 1}</span>{item.title}
+                </button>
+              ))}
+            </div>
             <div className="creative-analysis" aria-live="polite">
             <div className="creative-score">
               <span>Selected creative</span>
