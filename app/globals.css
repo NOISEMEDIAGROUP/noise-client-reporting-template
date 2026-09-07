@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #202020;
-  --paper: #eeece6;
-  --white: #faf8f2;
-  --cobalt: #741414;
-  --coral: #ce3a20;
-  --acid: #f3eee4;
+  --ink: #1b1b1b;
+  --paper: #f0eee6;
+  --white: #f8f8e9;
+  --cobalt: #70140f;
+  --coral: #c73c1e;
+  --acid: #f8f8e9;
   --line: rgba(16, 17, 20, 0.2);
+  --page-pad: max(7vw, 44px);
 }
 
 * {
@@ -20,6 +21,7 @@ html {
 
 body {
   margin: 0;
+  overflow: hidden;
   background: var(--ink);
   color: var(--ink);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
@@ -51,8 +53,26 @@ button {
 }
 
 .report-shell {
-  min-height: 100vh;
-  overflow: clip;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.horizontal-story {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  outline: none;
+  overscroll-behavior-x: contain;
+}
+
+.horizontal-story::-webkit-scrollbar {
+  display: none;
 }
 
 .read-progress {
@@ -73,7 +93,7 @@ button {
 }
 
 .topbar {
-  position: absolute;
+  position: fixed;
   z-index: 30;
   top: 4px;
   left: 0;
@@ -85,7 +105,9 @@ button {
   gap: 24px;
   padding: 0 44px;
   color: white;
+  background: rgba(27, 27, 27, 0.96);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(18px);
 }
 
 .noise-mark {
@@ -139,19 +161,26 @@ button {
 .chapter-nav {
   position: fixed;
   z-index: 50;
-  left: 22px;
-  top: 50%;
-  width: 200px;
-  padding: 18px;
-  transform: translateY(-50%);
+  top: 90px;
+  left: 0;
+  right: 0;
+  width: auto;
+  min-height: 62px;
+  display: grid;
+  grid-template-columns: auto 1fr 110px;
+  align-items: stretch;
+  padding: 0 44px;
   color: white;
-  background: rgba(15, 16, 18, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(27, 27, 27, 0.94);
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(18px);
 }
 
 .chapter-nav > p {
-  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  margin: 0 28px 0 0;
   color: rgba(255, 255, 255, 0.48);
   font: 600 0.62rem var(--font-geist-mono), monospace;
   letter-spacing: 0.12em;
@@ -159,18 +188,24 @@ button {
 }
 
 .chapter-nav nav {
-  display: grid;
-  gap: 4px;
+  display: flex;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chapter-nav nav::-webkit-scrollbar {
+  display: none;
 }
 
 .chapter-nav button {
   position: relative;
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: 7px;
+  display: flex;
+  flex: 1 0 auto;
+  gap: 9px;
   align-items: center;
-  min-height: 36px;
-  padding: 6px 0;
+  min-height: 61px;
+  padding: 0 18px;
   border: 0;
   text-align: left;
   color: rgba(255, 255, 255, 0.55);
@@ -184,7 +219,7 @@ button {
 .chapter-nav button:focus-visible,
 .chapter-nav button.active {
   color: white;
-  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.045);
 }
 
 .chapter-nav button span {
@@ -195,18 +230,18 @@ button {
 .chapter-nav button.active::before {
   content: "";
   position: absolute;
-  width: 5px;
-  height: 5px;
-  left: -11px;
-  border-radius: 50%;
-  background: var(--acid);
+  height: 3px;
+  left: 18px;
+  right: 18px;
+  bottom: 0;
+  background: var(--coral);
 }
 
 .nav-foot {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 16px;
+  margin: 0 0 0 18px;
   color: rgba(255, 255, 255, 0.46);
   font: 500 0.58rem var(--font-geist-mono), monospace;
 }
@@ -219,22 +254,30 @@ button {
 
 .chapter {
   position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
   min-height: 100vh;
-  padding: 120px max(6vw, 84px) 110px max(18vw, 250px);
-  scroll-margin-top: 0;
+  padding: 190px var(--page-pad) 110px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scrollbar-color: var(--coral) transparent;
+  scrollbar-width: thin;
 }
 
 .hero {
   display: flex;
-  min-height: 92vh;
+  min-height: 100vh;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 160px;
-  padding-bottom: 80px;
+  justify-content: flex-start;
+  padding-top: 190px;
+  padding-bottom: 44px;
   color: white;
   background:
-    radial-gradient(circle at 78% 20%, rgba(19, 72, 216, 0.58), transparent 34%),
-    linear-gradient(135deg, #101114 16%, #17191f 66%, #11162b 100%);
+    radial-gradient(circle at 78% 20%, rgba(199, 60, 30, 0.46), transparent 34%),
+    linear-gradient(135deg, #1b1b1b 16%, #24201e 66%, #32150e 100%);
 }
 
 .hero::after {
@@ -273,6 +316,7 @@ button {
   line-height: 0.81;
   letter-spacing: -0.085em;
   font-weight: 680;
+  text-transform: uppercase;
 }
 
 .hero h1 span {
@@ -364,8 +408,9 @@ button {
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin: 0;
-  padding-left: max(18vw, 250px);
+  width: calc(100% + (var(--page-pad) * 2));
+  margin: 56px calc(var(--page-pad) * -1) -44px;
+  padding: 0 var(--page-pad);
   color: var(--ink);
   background: var(--acid);
 }
@@ -1471,8 +1516,7 @@ button {
 }
 
 footer {
-  min-height: 90px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
@@ -1483,25 +1527,81 @@ footer {
   text-transform: uppercase;
 }
 
+.slide-controls {
+  position: fixed;
+  z-index: 70;
+  right: 28px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 6px;
+  color: white;
+  background: rgba(27, 27, 27, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(14px);
+}
+
+.slide-controls > span {
+  padding: 0 10px;
+  color: rgba(255, 255, 255, 0.42);
+  font: 600 0.58rem var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+}
+
+.slide-controls strong {
+  min-width: 68px;
+  text-align: center;
+  font: 600 0.65rem var(--font-geist-mono), monospace;
+}
+
+.slide-controls button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--ink);
+  border: 0;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.slide-controls button:hover:not(:disabled),
+.slide-controls button:focus-visible {
+  background: var(--coral);
+}
+
+.slide-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.25;
+}
+
 @media (max-width: 1080px) {
+  :root {
+    --page-pad: 36px;
+  }
+
   .topbar {
     grid-template-columns: 160px 1fr auto;
     padding: 0 26px;
   }
 
   .chapter-nav {
-    left: 12px;
-    width: 178px;
+    left: 0;
+    width: auto;
+    padding: 0 26px;
   }
 
   .chapter {
-    padding-left: 215px;
-    padding-right: 36px;
+    padding-left: var(--page-pad);
+    padding-right: var(--page-pad);
   }
 
-  .metric-ribbon,
-  footer {
-    padding-left: 215px;
+  .metric-ribbon {
+    padding-left: var(--page-pad);
+    padding-right: var(--page-pad);
   }
 
   .chapter-header {
@@ -1576,8 +1676,12 @@ footer {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --page-pad: 18px;
+  }
+
   .topbar {
-    position: absolute;
+    position: fixed;
     min-height: 68px;
     grid-template-columns: 1fr auto;
     padding: 0 18px;
@@ -1599,6 +1703,7 @@ footer {
     right: 0;
     bottom: 0;
     width: auto;
+    display: block;
     padding: 8px 10px max(8px, env(safe-area-inset-bottom));
     transform: none;
     border-width: 1px 0 0;
@@ -1610,6 +1715,7 @@ footer {
   }
 
   .chapter-nav nav {
+    display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 2px;
   }
@@ -1629,7 +1735,12 @@ footer {
 
   .chapter-nav button.active::before {
     left: 50%;
+    right: auto;
     top: -5px;
+    bottom: auto;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
     transform: translateX(-50%);
   }
 
@@ -1666,7 +1777,9 @@ footer {
 
   .metric-ribbon {
     grid-template-columns: 1fr 1fr;
-    padding-left: 0;
+    width: calc(100% + 36px);
+    margin: 40px -18px -54px;
+    padding: 0;
   }
 
   .metric-ribbon > div {
@@ -1874,6 +1987,15 @@ footer {
     align-items: flex-start;
     justify-content: center;
     padding: 20px 18px 78px;
+  }
+
+  .slide-controls {
+    right: 12px;
+    bottom: 66px;
+  }
+
+  .slide-controls > span {
+    display: none;
   }
 }
 

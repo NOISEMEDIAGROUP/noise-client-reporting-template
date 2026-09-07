@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const chapters = [
   { id: "overview", number: "00", label: "The takeaway" },
@@ -182,6 +182,7 @@ const actions = [
 const actionStatusOrder = ["Ready", "Approved", "In progress", "Done"];
 
 export default function Home() {
+  const storyRef = useRef<HTMLElement>(null);
   const [activeChapter, setActiveChapter] = useState("overview");
   const [campaignIndex, setCampaignIndex] = useState(0);
   const [channelIndex, setChannelIndex] = useState(0);
@@ -195,6 +196,10 @@ export default function Home() {
     return `${((index + 1) / chapters.length) * 100}%`;
   }, [activeChapter]);
 
+  const activeChapterIndex = chapters.findIndex(
+    (chapter) => chapter.id === activeChapter,
+  );
+
   useEffect(() => {
     const sections = chapters
       .map((chapter) => document.getElementById(chapter.id))
@@ -207,7 +212,7 @@ export default function Home() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible?.target.id) setActiveChapter(visible.target.id);
       },
-      { rootMargin: "-22% 0px -56%", threshold: [0.05, 0.25, 0.5] },
+      { root: storyRef.current, threshold: [0.55, 0.75] },
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -215,7 +220,18 @@ export default function Home() {
   }, []);
 
   const jumpTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const story = storyRef.current;
+    const section = document.getElementById(id);
+    if (!story || !section) return;
+    story.scrollTo({ left: section.offsetLeft, behavior: "smooth" });
+  };
+
+  const stepChapter = (direction: number) => {
+    const nextIndex = Math.min(
+      chapters.length - 1,
+      Math.max(0, activeChapterIndex + direction),
+    );
+    jumpTo(chapters[nextIndex].id);
   };
 
   const campaign = campaigns[campaignIndex];
@@ -277,7 +293,16 @@ export default function Home() {
         </div>
       </aside>
 
-      <main>
+      <main
+        className="horizontal-story"
+        ref={storyRef}
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowRight") stepChapter(1);
+          if (event.key === "ArrowLeft") stepChapter(-1);
+        }}
+        aria-label="Horizontal performance report"
+      >
         <section className="chapter hero" id="overview">
           <div className="hero-kicker reveal">August 2026 · Monthly report</div>
           <h1>
@@ -304,28 +329,27 @@ export default function Home() {
           <div className="hero-index" aria-hidden="true">
             00
           </div>
-        </section>
-
-        <section className="metric-ribbon" aria-label="Headline performance">
-          <div>
-            <span>Revenue</span>
-            <strong>GBP792.1k</strong>
-            <small className="up">↑ 28%</small>
-          </div>
-          <div>
-            <span>Media spend</span>
-            <strong>GBP184.2k</strong>
-            <small>↑ 12%</small>
-          </div>
-          <div>
-            <span>ROAS</span>
-            <strong>4.30x</strong>
-            <small className="up">↑ 14%</small>
-          </div>
-          <div>
-            <span>Customer acquisition cost</span>
-            <strong>GBP31.40</strong>
-            <small className="up">↓ 11%</small>
+          <div className="metric-ribbon" aria-label="Headline performance">
+            <div>
+              <span>Revenue</span>
+              <strong>GBP792.1k</strong>
+              <small className="up">↑ 28%</small>
+            </div>
+            <div>
+              <span>Media spend</span>
+              <strong>GBP184.2k</strong>
+              <small>↑ 12%</small>
+            </div>
+            <div>
+              <span>ROAS</span>
+              <strong>4.30x</strong>
+              <small className="up">↑ 14%</small>
+            </div>
+            <div>
+              <span>Customer acquisition cost</span>
+              <strong>GBP31.40</strong>
+              <small className="up">↓ 11%</small>
+            </div>
           </div>
         </section>
 
@@ -641,6 +665,25 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <div className="slide-controls" aria-label="Slide controls">
+        <span>Use ← →</span>
+        <button
+          onClick={() => stepChapter(-1)}
+          disabled={activeChapterIndex === 0}
+          aria-label="Previous chapter"
+        >
+          ←
+        </button>
+        <strong>0{activeChapterIndex + 1} / 0{chapters.length}</strong>
+        <button
+          onClick={() => stepChapter(1)}
+          disabled={activeChapterIndex === chapters.length - 1}
+          aria-label="Next chapter"
+        >
+          →
+        </button>
+      </div>
 
       <footer>
         <span>NOISE. Client reporting prototype</span>

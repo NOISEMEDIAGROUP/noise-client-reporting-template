@@ -27,5 +27,7 @@ test("renders the interactive performance story", async () => {
   assert.match(html, /Live action register/);
   assert.match(html, /The report becomes the plan\./);
   assert.match(html, /Result brought to life/);
+  assert.match(html, /class="horizontal-story"/);
+  assert.match(html, /aria-label="Horizontal performance report"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
