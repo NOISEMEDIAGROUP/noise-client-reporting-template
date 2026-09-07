@@ -8,51 +8,51 @@ const chapters = [
   { id: "campaigns", number: "02", label: "Campaign breakdown" },
   { id: "channels", number: "03", label: "Channel breakdown" },
   { id: "creative", number: "04", label: "Winning creative" },
-  { id: "actions", number: "05", label: "Action register" },
+  { id: "actions", number: "05", label: "Overall learnings + next steps" },
 ];
 
 const campaigns = [
   {
-    name: "Always-on acquisition",
-    status: "Beat target",
-    result: "4.8x",
-    metric: "ROAS",
-    change: "+21% vs. last period",
-    bars: [42, 55, 58, 68, 72, 87, 96],
+    name: "Meta · Prospecting",
+    status: "Efficient scale",
+    result: "2,366",
+    metric: "leads",
+    change: "$116 CPL",
+    bars: [78, 72, 68, 63, 58, 51, 46],
     happened:
-      "Revenue grew faster than spend as budget shifted into creator-led product proof and higher-intent audiences.",
+      "Prospecting delivered 2,366 leads from $274.8K of spend, with lead volume holding up as investment reduced.",
     why: "The campaign gave people a use case, a reason to believe and a product demonstration within the first three seconds.",
     learning:
-      "Specific moments outperform generic lifestyle. Showing when the product matters makes the benefit instantly legible.",
-    next: "Scale the winning creator structure into three new need states. Increase budget by 15% while ROAS stays above 4.2x.",
+      "Direct model detail, finance and product proof are doing more work than broad lifestyle language.",
+    next: "Keep prospecting as the scale engine, but rotate in model-specific finance and riding-experience concepts before fatigue appears.",
   },
   {
-    name: "Summer launch",
-    status: "Built demand",
-    result: "3.7x",
-    metric: "ROAS",
-    change: "+34% new-customer revenue",
-    bars: [30, 48, 71, 84, 76, 69, 73],
+    name: "Meta · Retargeting",
+    status: "Most efficient",
+    result: "2,711",
+    metric: "leads",
+    change: "$20 CPL",
+    bars: [44, 49, 56, 61, 70, 77, 91],
     happened:
-      "The launch created a strong first-week spike, then settled as frequency rose across the broadest prospecting audiences.",
+      "Retargeting generated more leads despite a 25% month-on-month spend reduction, with a 5.7% landing-page-to-lead rate.",
     why: "Distinctive colour and a clear seasonal cue earned attention. Repeated exposure without enough narrative variation limited the tail.",
     learning:
-      "A strong campaign world opens the door. A deeper bank of stories keeps it open once the launch moment passes.",
-    next: "Keep the visual world. Add product proof, creator reaction and comparison edits before the next frequency peak.",
+      "High-intent audiences reward direct, branded product-first creative and finance cues.",
+    next: "Protect the $20 CPL advantage while expanding model-specific retargeting and monitoring frequency by dealer tier.",
   },
   {
-    name: "Retention push",
-    status: "Most efficient",
-    result: "6.2x",
-    metric: "ROAS",
-    change: "18% of total revenue",
-    bars: [52, 48, 62, 59, 73, 80, 91],
+    name: "Google · PMax",
+    status: "Conversion engine",
+    result: "4,444",
+    metric: "conversions",
+    change: "$39.89 CPA",
+    bars: [41, 46, 53, 62, 70, 79, 87],
     happened:
-      "Email-engaged and recent-site audiences converted efficiently, but the available audience capped total volume.",
+      "Performance Max delivered 84% of Google conversions, with Chief, Pursuit and Scout carrying the largest volume.",
     why: "The message acknowledged existing product knowledge and moved straight to a new reason to buy. No re-introduction needed.",
     learning:
-      "Retention creative should reward familiarity. The more we know about the audience, the less the ad needs to explain.",
-    next: "Build sequential messages by recency and previous purchase. Protect efficiency rather than forcing spend into a finite pool.",
+      "Weighted value and model-level signal quality matter more now than simply finding more lead volume.",
+    next: "Move PMax to weighted conversion values and use Max Conversion Value so the account optimises toward desirable bikes, not just form fills.",
   },
 ];
 
@@ -60,83 +60,83 @@ const channels = [
   {
     name: "Meta",
     role: "Scale engine",
-    spend: "GBP112k",
-    result: "4.6x ROAS",
+    spend: "$381k",
+    result: "5,267 leads",
     share: "65% of spend",
     driver:
-      "Creator-led demonstrations did the heavy lifting. Advantage+ found volume once the creative made the benefit obvious.",
+      "Meta delivered 50% of total leads, with retargeting producing 2,711 leads at $20 CPL and prospecting adding 2,366.",
     learnt:
-      "Creative breadth, not narrower targeting, unlocked the next pocket of efficient reach.",
+      "The account can reduce spend and still hold volume when creative and audience intent are aligned.",
     action:
-      "Refresh the top three concepts with new openings every 14 days. Keep the body of the ad recognisable.",
+      "Maintain stage-specific creative: aspirational motion for consideration, model detail for prospecting and direct finance/product proof for retargeting.",
   },
   {
     name: "Google",
     role: "Intent capture",
-    spend: "GBP53k",
-    result: "4.1x ROAS",
-    share: "25% of spend",
+    spend: "$201k",
+    result: "5,287 conversions",
+    share: "35% of spend",
     driver:
-      "Brand search converted efficiently after paid social lifted demand. Shopping gained from cleaner product-group bidding.",
+      "Performance Max drove 4,444 conversions at $39.89 CPA; Brand Search added 843 at $28.65 CPA.",
     learnt:
-      "Search performed best when social had already created the question. The channels are compounding, not competing.",
+      "Search is capturing the demand Meta creates, but model value and product mix need to influence optimisation.",
     action:
-      "Expand non-brand coverage around the three need states proven in social. Hold brand budget to true demand.",
+      "Apply weighted conversion values, scale Catch All where model quality is strongest and switch on AI Max for Brand.",
   },
   {
-    name: "TikTok",
-    role: "Learning engine",
-    spend: "GBP19.2k",
-    result: "2.8x ROAS",
-    share: "10% of spend",
+    name: "Portfolio mix",
+    role: "Model balance",
+    spend: "$583k",
+    result: "10,508 leads",
+    share: "July total",
     driver:
-      "Fast, face-first openings lifted attention, but the transition from story to product page lost too much intent.",
+      "Scout still supplied 4,197 leads, while Bagger rose to 2,177 and became the second-largest model signal.",
     learnt:
-      "The platform can generate curiosity. The landing experience needs to finish the same story the creator starts.",
+      "Bagger is now aligned to its 29% retail target; Touring and Chief remain underrepresented and need deliberate investment.",
     action:
-      "Test a creator-matched landing page and keep investment capped until post-click conversion improves by 20%.",
+      "Hold Bagger momentum and build dedicated Touring/Chief routes so the portfolio is not over-dependent on Scout.",
   },
 ];
 
 const creatives = [
   {
-    title: "Product in hand",
-    channel: "Meta · Prospecting",
-    primary: "6.1x",
-    primaryLabel: "ROAS",
-    secondary: "GBP23.90 CPA",
+    title: "Challenger POV",
+    channel: "Meta · Consideration",
+    primary: "3.09%",
+    primaryLabel: "CTR",
+    secondary: "23K LPV",
     worked:
-      "The product fills the frame before the viewer has time to scroll. Scale, colour and direct product interaction do the stopping.",
+      "A first-person riding perspective makes the experience legible immediately and gives the viewer a reason to imagine the bike in motion.",
     take:
-      "Lead with product truth. Use the first frame to make the ad identifiable without a logo or headline.",
+      "Upper-funnel creative can sell the riding experience before it sells the specification.",
     future:
-      "Carry the close-up structure into texture, leak-proof and size demonstrations.",
+      "Cut the longer Porch House story into 6–15 second edits with the bike moving in the opening frame.",
   },
   {
-    title: "Run with it",
-    channel: "TikTok · Prospecting",
-    primary: "38%",
-    primaryLabel: "Hook rate",
-    secondary: "GBP28.10 CPA",
+    title: "Scout Monthly Payments",
+    channel: "Meta · Conversion prospecting",
+    primary: "798",
+    primaryLabel: "leads",
+    secondary: "$101 CPL",
     worked:
-      "Motion starts immediately and the cobalt styling feels native to the wider campaign without looking like a cut-down TV ad.",
+      "The payment proposition makes the value exchange concrete while keeping the bike central, turning consideration into a measurable action.",
     take:
-      "Movement earns the first second. Product presence needs to arrive just as quickly to turn attention into intent.",
+      "A specific affordability cue can do more conversion work than a broad lifestyle promise.",
     future:
-      "Test the same motion hook with a product close-up at 0.5 seconds and creator voiceover from frame one.",
+      "Build payment variants for Bagger, Touring and Chief, then sequence them against model-specific landing pages.",
   },
   {
-    title: "Ritual reset",
-    channel: "Meta · Retargeting",
-    primary: "4.9x",
-    primaryLabel: "ROAS",
-    secondary: "2.1% CTR",
+    title: "Chieftain Finance",
+    channel: "Meta · Conversion retargeting",
+    primary: "212",
+    primaryLabel: "leads",
+    secondary: "$17 CPL",
     worked:
-      "A simple top-down composition makes the product feel part of an everyday ritual. Familiar objects create context at a glance.",
+      "A direct finance message and detailed bike view answer the final question for high-intent riders without over-explaining.",
     take:
-      "Still life works when every prop explains the use moment. Decoration without meaning is just clutter.",
+      "Retargeting should be product-first, branded and specific. The audience has already done the dreaming.",
     future:
-      "Build a repeatable visual system around workday, workout and weekend rituals.",
+      "Create finance and trade-in routes for each priority model, with the strongest proof in the first frame.",
   },
 ];
 
@@ -145,61 +145,61 @@ const actions = [
     code: "A-01",
     workstream: "Strategy",
     priority: "Scale now",
-    signal: "Always-on acquisition reached 4.8x ROAS, 21% above the previous period.",
-    action: "Reallocate the next 15% of budget into three proven need states. Lock channel roles before spend moves.",
+    signal: "July delivered 10,508 leads at $55.50 CPL, 7% below forecast.",
+    action: "Reinvest into the account at improved cost levels to rebuild volume without giving back the efficiency gain.",
     owner: "Strategy + Paid",
     due: "Week 1",
-    success: "ROAS >4.2x. CAC holds.",
+    success: "CPL ≤$60; leads rebuild.",
   },
   {
     code: "A-02",
     workstream: "Strategy",
     priority: "Build",
-    signal: "This period gave us a signal. The next quarter needs a system built from it.",
-    action: "Turn the three need states into a quarterly growth map with audience, proposition, channel and measurement owner.",
-    owner: "Strategy + Account",
-    due: "16 Sep",
-    success: "Q4 growth map approved.",
+    signal: "PMax drove 84% of Google conversions and concentrated on Chief, Pursuit and Scout.",
+    action: "Introduce weighted conversion values and switch on Max Conversion Value to prioritise desirable bike sales, not lead volume.",
+    owner: "Paid + Strategy",
+    due: "Before next pacing call",
+    success: "Model mix improves; CPL ≤$60.",
   },
   {
     code: "A-03",
     workstream: "Creative",
     priority: "Produce",
-    signal: "Three creative families generated 62% of prospecting revenue.",
-    action: "Commission three territories and nine opening frames. Pre-approve a 14-day rotation before frequency peaks.",
+    signal: "Bagger reached 29% of July leads; Touring and Chief remain at 4% each.",
+    action: "Launch 3–4 Bagger concepts and expand Touring/Chief creative using rider-led lifestyle, product detail and finance.",
     owner: "Creative",
-    due: "12 Sep",
-    success: "3 territories live. CPA within 5%.",
+    due: "Next production sprint",
+    success: "Bagger holds ≥29%; mix broadens.",
   },
   {
     code: "A-04",
     workstream: "Creative",
     priority: "Prove",
-    signal: "TikTok earned a 38% hook rate but lost intent after the click.",
-    action: "Ship a creator-matched landing page and message-continuity test for the winning story.",
-    owner: "Creative + Growth",
-    due: "20 Sep",
-    success: "Post-click CVR rises 20%.",
+    signal: "Challenger POV hit 3.09% CTR; static and lifestyle low performers were more text-heavy.",
+    action: "Build a stage-specific creative matrix: experience-led video, product-first prospecting and branded finance retargeting.",
+    owner: "Creative + Paid",
+    due: "Before next flight",
+    success: "4 territories live; CTR/CPL at benchmark.",
   },
   {
     code: "A-05",
     workstream: "Account",
     priority: "Orchestrate",
-    signal: "The strongest decisions currently sit inside the monthly report.",
-    action: "Run a fortnightly performance × creative council. Leave with one approved test, one owner and one kill rule.",
-    owner: "Account",
-    due: "Start 11 Sep",
-    success: "4 tests/month. 100% owner coverage.",
+    signal: "Production can move faster than feedback and red-flagged routes can stay in working folders.",
+    action: "Quarantine rejected political, Harley and profanity routes and introduce Cleared / Awaiting Feedback / Not Shipping status.",
+    owner: "Account + Creative",
+    due: "48 hours",
+    success: "No unapproved asset reaches media.",
   },
   {
     code: "A-06",
     workstream: "Account",
     priority: "De-risk",
-    signal: "Retention delivered 6.2x ROAS from a finite audience pool.",
-    action: "Bring a 30-day forecast with spend ceilings, fatigue triggers and the next client approval needed.",
-    owner: "Account + Paid",
-    due: "Before next pacing call",
-    success: "No unplanned overspend. Next decision pre-approved.",
+    signal: "July reporting shows lead volume, not downstream model value.",
+    action: "Set a weekly Power BI/CRM quality loop, reconcile selected model to lead form and bring a 30-day decision forecast.",
+    owner: "Account + Data",
+    due: "Start next week",
+    success: "Quality tracked; next approval pre-booked.",
   },
 ];
 
@@ -303,7 +303,7 @@ export default function Home() {
         </button>
         <div className="report-name">
           <span>For</span>
-          <strong>Sample client</strong>
+          <strong>Indian Motorcycle</strong>
         </div>
         <button
           className="menu-toggle"
@@ -360,16 +360,17 @@ export default function Home() {
         aria-label="Horizontal performance report"
       >
         <section className="chapter hero" id="overview" data-story-panel>
-          <div className="hero-kicker reveal">August 2026 · Monthly report</div>
+          <div className="hero-kicker reveal">August 2026 · July performance review</div>
           <h1>
-            More revenue.
+            <span className="sr-only">More revenue.</span>
+            More intent.
             <br />
-            <span>Less wasted reach.</span>
+            <span>Less wasted spend.</span>
           </h1>
           <div className="hero-bottom">
             <p className="hero-summary">
-              Revenue grew <strong>28%</strong> while spend rose <strong>12%</strong>.
-              The gap came from following intent. This report turns that result
+              Spend reduced <strong>31%</strong> while leads fell only <strong>14%</strong>.
+              The gap came from better conversion efficiency. This report turns that result
               into six proactive moves across strategy, creative and account leadership.
             </p>
             <div className="hero-actions">
@@ -387,24 +388,24 @@ export default function Home() {
           </div>
           <div className="metric-ribbon" aria-label="Headline performance">
             <div>
-              <span>Revenue</span>
-              <strong>GBP792.1k</strong>
-              <small className="up">↑ 28%</small>
-            </div>
-            <div>
               <span>Media spend</span>
-              <strong>GBP184.2k</strong>
-              <small>↑ 12%</small>
+              <strong>$583k</strong>
+              <small className="up">101% of forecast</small>
             </div>
             <div>
-              <span>ROAS</span>
-              <strong>4.30x</strong>
-              <small className="up">↑ 14%</small>
+              <span>Leads</span>
+              <strong>10,508</strong>
+              <small className="up">↑ 109% of forecast</small>
             </div>
             <div>
-              <span>Customer acquisition cost</span>
-              <strong>GBP31.40</strong>
-              <small className="up">↓ 11%</small>
+              <span>Blended CPL</span>
+              <strong>$55.50</strong>
+              <small className="up">↓ 20% CPL</small>
+            </div>
+            <div>
+              <span>Impressions</span>
+              <strong>30.6m</strong>
+              <small>impressions</small>
             </div>
           </div>
         </section>
@@ -415,16 +416,15 @@ export default function Home() {
             number="01"
             eyebrow="Overall performance"
             title="Efficiency improved because spend followed intent."
-            intro="This was not growth bought at any cost. Revenue outpaced investment because the account moved money toward what audiences were already telling us worked."
+            intro="This was not volume bought at any cost. Leads held up while investment reduced because the account moved money toward the audiences, models and messages already showing intent."
           />
 
             <div className="performance-story">
             <div className="story-beat">
               <span>What happened</span>
-              <strong>+GBP173k</strong>
+              <strong>10,508 leads</strong>
               <p>
-                Incremental revenue versus July, with 73% of the growth coming
-                from new customers.
+                July lead volume beat forecast by 9% while spend landed at 101% of plan.
               </p>
             </div>
             <div className="connector" aria-hidden="true">→</div>
@@ -432,8 +432,8 @@ export default function Home() {
               <span>Why it happened</span>
               <strong>3 shifts</strong>
               <p>
-                Earlier creative rotation. Higher-intent budget allocation.
-                Clearer roles for each channel.
+                Spend down 31%. CPL down 20%. Retargeting held volume while
+                PMax concentrated conversion demand.
               </p>
             </div>
             <div className="connector" aria-hidden="true">→</div>
@@ -441,8 +441,8 @@ export default function Home() {
               <span>What we learnt</span>
               <strong>Clarity scales</strong>
               <p>
-                The more specific the use moment, the easier it was for media to
-                find the right customer.
+                Model detail and finance cues help media find the right rider;
+                broad lifestyle alone does not.
               </p>
             </div>
             </div>
@@ -452,29 +452,27 @@ export default function Home() {
             <div className="evidence-grid">
             <article className="evidence-card chart-card">
               <div className="card-topline">
-                <span>Revenue vs. spend</span>
-                <small>Indexed · July = 100</small>
+                <span>July actual vs. forecast</span>
+                <small>Forecast = 100</small>
               </div>
-              <div className="comparison-chart" aria-label="Revenue index 128, spend index 112">
+              <div className="comparison-chart" aria-label="Spend index 101, leads index 109">
                 <div className="chart-axis"><span>130</span><span>100</span><span>70</span></div>
                 <div className="bar-group">
-                  <div><i style={{ height: "77%" }} /><span>Spend</span><b>112</b></div>
-                  <div><i className="revenue" style={{ height: "94%" }} /><span>Revenue</span><b>128</b></div>
+                  <div><i style={{ height: "71%" }} /><span>Spend</span><b>101</b></div>
+                  <div><i className="revenue" style={{ height: "82%" }} /><span>Leads</span><b>109</b></div>
                 </div>
               </div>
             </article>
             <article className="evidence-card quote-card">
               <span className="mini-label">The takeaway</span>
               <blockquote>
-                We did not just find more people. We gave the right people more
-                reasons to act.
+                Volume softened. Efficiency did not.
               </blockquote>
               <details>
                 <summary>See the evidence behind this view</summary>
                 <p>
-                  Conversion rate rose 13%, high-intent audience revenue rose 31%
-                  and the best three creative families held 62% of prospecting
-                  revenue without a rise in blended frequency.
+                  Conversion rate rose 14%, CPL improved 20% and retargeting
+                  delivered 2,711 leads at $20 CPL despite a 25% spend reduction.
                 </p>
               </details>
             </article>
@@ -485,30 +483,30 @@ export default function Home() {
             <article className="result-replay">
             <div className="replay-intro">
               <span className="mini-label">Result brought to life</span>
-              <h3>Budget followed the strongest signal</h3>
+              <h3>July did more with less</h3>
               <p>
-                The team moved GBP22k from broad lifestyle activity into three
-                product-specific need states during the period.
+                The account delivered 10,508 leads at $55.50 CPL while spend held
+                at 101% of forecast.
               </p>
             </div>
             <div className="replay-comparison">
               <div>
-                <span>Before</span>
-                <strong>48%</strong>
-                <small>Spend against high intent</small>
-                <i><b style={{ width: "48%" }} /></i>
+                <span>Forecast</span>
+                <strong>$60</strong>
+                <small>Blended CPL</small>
+                <i><b style={{ width: "76%" }} /></i>
               </div>
               <div className="after">
-                <span>After</span>
-                <strong>61%</strong>
-                <small>Spend against high intent</small>
-                <i><b style={{ width: "61%" }} /></i>
+                <span>Actual</span>
+                <strong>$55.50</strong>
+                <small>Blended CPL</small>
+                <i><b style={{ width: "69%" }} /></i>
               </div>
             </div>
             <div className="replay-impact">
               <span>Impact</span>
-              <strong>3.7x to 4.8x</strong>
-              <p>ROAS improved while prospecting revenue continued to grow.</p>
+              <strong>109% of forecast</strong>
+              <p>Lead volume beat plan while conversion efficiency improved.</p>
               <button onClick={() => jumpTo("actions")}>Decision triggered · A-01</button>
             </div>
             </article>
@@ -637,8 +635,8 @@ export default function Home() {
                 <span className="creative-rank">0{index + 1}</span>
                 <span className="creative-image">
                   <img
-                    src="/sample-creative-triptych.png"
-                    alt={`${item.title} sample campaign creative`}
+                    src="/indian-creative-triptych.png"
+                    alt={`${item.title} Indian Motorcycle campaign creative`}
                     style={{ left: `${index * -100}%` }}
                   />
                   <i>{item.channel}</i>
@@ -677,15 +675,21 @@ export default function Home() {
           <div className="story-panel action-lead-panel" data-story-panel>
             <ChapterHeader
             number="05"
-            eyebrow="Live action register"
+            eyebrow="Overall learnings + next steps"
             title="The report becomes the plan."
-            intro="Every recommendation has a source, an owner, a due date and a threshold that tells us whether to scale, change or stop."
+            intro="The period leaves us with three clear learnings — and six decisions across strategy, creative and account leadership."
           />
 
             <div className="register-summary">
+            <span className="live-register-label">Live action register</span>
             <div><strong>{actions.length}</strong><span>Moves</span></div>
             <div><strong>{actionStatuses.filter((status) => status !== "Ready").length}</strong><span>Moved forward</span></div>
             <p>Three workstreams. Six moves. Each one has an owner, a deadline, a guardrail and a decision it unlocks.</p>
+            </div>
+            <div className="learning-strip" aria-label="Overall learnings">
+              <article><span>01 · Efficiency</span><strong>Intent is the lever.</strong><p>Spend can reduce without surrendering volume when model, audience and message agree.</p></article>
+              <article><span>02 · Portfolio</span><strong>Bagger is moving.</strong><p>Its 29% lead share now matches retail intent; Touring and Chief need a deliberate push.</p></article>
+              <article><span>03 · Quality</span><strong>Lead volume is not value.</strong><p>CRM and Power BI need to close the loop from selected model to downstream quality.</p></article>
             </div>
           </div>
 
