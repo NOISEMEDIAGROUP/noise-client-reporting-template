@@ -711,13 +711,13 @@ export default function Home() {
               <article className="action-row" key={item.code}>
                 <div className="action-main">
                   <div className="action-meta"><span>{item.code}</span><b>{item.workstream}</b><b>{item.priority}</b></div>
-                  <small>{item.signal}</small>
-                  <h3>{item.action}</h3>
+                  <small contentEditable suppressContentEditableWarning>{item.signal}</small>
+                  <h3 contentEditable suppressContentEditableWarning>{item.action}</h3>
                 </div>
                 <dl>
-                  <div><dt>Owner</dt><dd>{item.owner}</dd></div>
-                  <div><dt>Due</dt><dd>{item.due}</dd></div>
-                  <div><dt>Success</dt><dd>{item.success}</dd></div>
+                  <div><dt>Owner</dt><dd contentEditable suppressContentEditableWarning>{item.owner}</dd></div>
+                  <div><dt>Due</dt><dd contentEditable suppressContentEditableWarning>{item.due}</dd></div>
+                  <div><dt>Success</dt><dd contentEditable suppressContentEditableWarning>{item.success}</dd></div>
                 </dl>
                 <button
                   className="status-control"
@@ -745,9 +745,9 @@ export default function Home() {
               <article className="action-row" key={item.code}>
                 <div className="action-main">
                   <div className="action-meta"><span>{item.code}</span><b>{item.workstream}</b><b>{item.priority}</b></div>
-                  <small>{item.signal}</small><h3>{item.action}</h3>
+                  <small contentEditable suppressContentEditableWarning>{item.signal}</small><h3 contentEditable suppressContentEditableWarning>{item.action}</h3>
                 </div>
-                <dl><div><dt>Owner</dt><dd>{item.owner}</dd></div><div><dt>Due</dt><dd>{item.due}</dd></div><div><dt>Success</dt><dd>{item.success}</dd></div></dl>
+                <dl><div><dt>Owner</dt><dd contentEditable suppressContentEditableWarning>{item.owner}</dd></div><div><dt>Due</dt><dd contentEditable suppressContentEditableWarning>{item.due}</dd></div><div><dt>Success</dt><dd contentEditable suppressContentEditableWarning>{item.success}</dd></div></dl>
                 <button className="status-control" data-status={actionStatuses[actionIndex].toLowerCase().replace(" ", "-")} onClick={() => advanceAction(actionIndex)} aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[actionIndex]}`}><i />{actionStatuses[actionIndex]}<span>↻</span></button>
               </article>
               );

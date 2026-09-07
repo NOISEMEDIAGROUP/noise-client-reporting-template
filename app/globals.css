@@ -3182,6 +3182,23 @@ footer span + span {
 .learning-strip strong { display:block; margin: 14px 0 8px; font: 700 clamp(1.35rem,2vw,2rem)/.95 var(--font-barlow-condensed), sans-serif; text-transform: uppercase; }
 .learning-strip p { margin:0; color: var(--muted); font-size:.78rem; line-height:1.35; }
 
+/* Keep the learnings page a compact summary rather than an oversized orange field. */
+.action-lead-panel .register-summary { grid-template-columns: 180px 180px minmax(0, 1fr); grid-template-rows: auto 1fr; min-height: 190px; }
+.action-lead-panel .register-summary .live-register-label { grid-column: 1 / -1; grid-row: 1; padding: 12px 28px; border-bottom: 1px solid rgba(16,17,20,.25); }
+.action-lead-panel .register-summary > div { grid-row: 2; }
+.action-lead-panel .register-summary > p { grid-column: 3; grid-row: 2; }
+
+/* The creative proof needs reading width: score on the left, three learnings stacked on the right. */
+.creative-story-panel .creative-analysis { grid-template-columns: .85fr 1.15fr; grid-template-rows: repeat(3, minmax(0, 1fr)) auto; margin-top: 0; height: 100%; }
+.creative-story-panel .creative-score { grid-column: 1; grid-row: 1 / span 3; }
+.creative-story-panel .creative-analysis .narrative-block { min-height: 0; grid-column: 2; }
+.creative-story-panel .creative-analysis .narrative-block:nth-child(2) { grid-row: 1; }
+.creative-story-panel .creative-analysis .narrative-block:nth-child(3) { grid-row: 2; }
+.creative-story-panel .creative-analysis .narrative-block:nth-child(4) { grid-row: 3; }
+.creative-story-panel .creative-analysis .creative-brief-action { grid-column: 1 / -1; grid-row: 4; }
+.action-row [contenteditable="true"] { outline: 0; border-radius: 2px; cursor: text; }
+.action-row [contenteditable="true"]:focus { box-shadow: 0 0 0 2px rgba(255,92,0,.42); background: rgba(255,92,0,.08); }
+
 .action-finale-panel .action-loop {
   width: 100%;
   margin: 0 0 18px;
