@@ -440,7 +440,7 @@ export default function Home() {
 
             <div className="performance-story">
             <div className="story-beat">
-              <span>What happened</span>
+              <span>Results for the period · What happened</span>
               <strong>10,508 leads</strong>
               <p>
                 July lead volume beat forecast by 9% while spend landed at 101% of plan.
@@ -561,7 +561,7 @@ export default function Home() {
             </div>
             <div className="campaign-analysis">
               <NarrativeBlock label="What happened" text={campaign.happened} />
-              <NarrativeBlock label="Why" text={campaign.why} />
+              <NarrativeBlock label="Why it performed as it did" text={campaign.why} />
               <NarrativeBlock label="What we learnt" text={campaign.learning} accent />
               <NarrativeBlock label="What happens next" text={campaign.next} action />
             </div>
@@ -613,7 +613,7 @@ export default function Home() {
                 <div><span>Role in the mix</span><strong>{channel.share}</strong></div>
               </div>
               <div className="channel-narrative">
-                <NarrativeBlock label="What drove performance" text={channel.driver} />
+              <NarrativeBlock label="Results · What drove performance" text={channel.driver} />
                 <NarrativeBlock label="What we learnt" text={channel.learnt} accent />
                 <NarrativeBlock label="Actionable next step" text={channel.action} action />
               </div>
@@ -684,7 +684,7 @@ export default function Home() {
             number="05"
             eyebrow="Overall learnings + next steps"
             title="The report becomes the plan."
-            intro="The period leaves us with three clear learnings — and six decisions across strategy, creative and account leadership."
+            intro="The period leaves us with three clear learnings, what we are changing as a result, and six decisions across strategy, creative and account leadership."
           />
 
             <div className="register-summary">
@@ -694,9 +694,9 @@ export default function Home() {
             <p>Three workstreams. Six moves. Each one has an owner, a deadline, a guardrail and a decision it unlocks.</p>
             </div>
             <div className="learning-strip" aria-label="Overall learnings">
-              <article><span>01 · Efficiency</span><strong>Intent is the lever.</strong><p>Spend can reduce without surrendering volume when model, audience and message agree.</p></article>
-              <article><span>02 · Portfolio</span><strong>Bagger is moving.</strong><p>Its 29% lead share now matches retail intent; Touring and Chief need a deliberate push.</p></article>
-              <article><span>03 · Quality</span><strong>Lead volume is not value.</strong><p>CRM and Power BI need to close the loop from selected model to downstream quality.</p></article>
+              <article><span>01 · Biggest learning</span><strong>Intent is the lever.</strong><p>Spend can reduce without surrendering volume when model, audience and message agree.</p></article>
+              <article><span>02 · What we’re changing</span><strong>Bagger is moving.</strong><p>We are protecting Bagger momentum while deliberately building Touring and Chief demand.</p></article>
+              <article><span>03 · What we recommend next</span><strong>Lead volume is not value.</strong><p>Close the CRM and Power BI loop so the next budget decision follows model quality, not form fills alone.</p></article>
             </div>
           </div>
 
