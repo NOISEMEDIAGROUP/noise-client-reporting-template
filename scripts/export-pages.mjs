@@ -21,5 +21,7 @@ const response = await worker.fetch(
 
 if (!response.ok) throw new Error(`Static render failed: ${response.status}`);
 let html = await response.text();
-html = html.replaceAll('href="/', `href="${base}`).replaceAll('src="/', `src="${base}`);
+html = html
+  .replaceAll(/href="\/(?!noise-client-reporting-template\/)/g, `href="${base}`)
+  .replaceAll(/src="\/(?!noise-client-reporting-template\/)/g, `src="${base}`);
 await writeFile(path.join(out, "index.html"), `<!doctype html>${html}`, "utf8");

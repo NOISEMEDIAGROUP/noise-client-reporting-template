@@ -25,6 +25,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          NEXT_PUBLIC_REPORT_BASE_PATH: /noise-client-reporting-template
       - run: node scripts/export-pages.mjs
       - uses: actions/upload-pages-artifact@v3
         with:

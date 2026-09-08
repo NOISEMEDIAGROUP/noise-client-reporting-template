@@ -3,6 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
+const reportBasePath = process.env.NEXT_PUBLIC_REPORT_BASE_PATH ?? "";
+const reportAsset = (filename: string) => `${reportBasePath}/${filename}`;
+
 const chapters = [
   { id: "overview", number: "00", label: "The takeaway" },
   { id: "performance", number: "01", label: "Overall performance" },
@@ -339,7 +342,7 @@ export default function Home() {
           onClick={() => jumpTo("overview")}
           aria-label="Return to the report cover"
         >
-          <Image src="/noise-logo-black.png" alt="Noise Media" width={1920} height={830} priority unoptimized />
+          <Image src={reportAsset("noise-logo-black.png")} alt="Noise Media" width={1920} height={830} priority unoptimized />
         </button>
         <div className="report-name">
           <span>Noise ×</span>
@@ -669,7 +672,7 @@ export default function Home() {
                 <span className="creative-rank">0{index + 1}</span>
                 <span className="creative-image">
                   <Image
-                    src="/indian-creative-triptych.png"
+                    src={reportAsset("indian-creative-triptych.png")}
                     alt={`${item.title} Indian Motorcycle campaign creative`}
                     width={1200}
                     height={675}

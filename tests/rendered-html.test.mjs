@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render() {
@@ -36,4 +37,17 @@ test("renders the interactive performance story", async () => {
   assert.equal((html.match(/data-story-panel="true"/g) ?? []).length, 11);
   assert.doesNotMatch(html, /Open report notes|Working notes/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+});
+
+test("keeps public image paths compatible with the GitHub Pages subdirectory", async () => {
+  const [pageSource, workflow] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../.github/workflows/pages.yml", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(pageSource, /NEXT_PUBLIC_REPORT_BASE_PATH/);
+  assert.match(pageSource, /reportAsset\("noise-logo-black\.png"\)/);
+  assert.match(pageSource, /reportAsset\("indian-creative-triptych\.png"\)/);
+  assert.doesNotMatch(pageSource, /src="\/(?:noise-logo-black|indian-creative-triptych)\.png"/);
+  assert.match(workflow, /NEXT_PUBLIC_REPORT_BASE_PATH: \/noise-client-reporting-template/);
 });
