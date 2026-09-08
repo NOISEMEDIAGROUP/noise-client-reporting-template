@@ -675,7 +675,7 @@ export default function Home() {
                     height={675}
                     sizes="(max-width: 820px) 30vw, 14vw"
                     unoptimized
-                    style={{ left: `${index * -100}%` }}
+                    style={{ left: `${-6 - (index * 102)}%` }}
                   />
                   <i>{item.channel}</i>
                 </span>

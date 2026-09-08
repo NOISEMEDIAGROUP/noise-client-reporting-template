@@ -12,6 +12,7 @@
   --headline-font: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
   --page-pad: clamp(28px, 5vw, 86px);
   --topbar-height: 64px;
+  --slide-top-gap: clamp(56px, 5.5vh, 72px);
   --content-width: 1640px;
 }
 
@@ -224,7 +225,7 @@ button:focus-visible, summary:focus-visible, [contenteditable="true"]:focus-visi
   height: 100svh;
   min-width: 0;
   min-height: 0;
-  padding: clamp(88px, 9vh, 112px) var(--page-pad) 110px;
+  padding: calc(var(--topbar-height) + var(--slide-top-gap)) var(--page-pad) 110px;
   overflow-x: hidden;
   overflow-y: auto;
   scroll-snap-align: start;
@@ -633,13 +634,20 @@ button:focus-visible, summary:focus-visible, [contenteditable="true"]:focus-visi
   min-width: 0;
   min-height: 104px;
   display: grid;
-  grid-template-columns: 150px minmax(320px, 1.5fr) minmax(240px, .9fr) auto;
+  grid-template-columns: minmax(120px, .55fr) minmax(0, 1.65fr) minmax(190px, .8fr) minmax(150px, auto);
   align-items: center;
   gap: 28px;
   padding: 18px 26px;
   background: var(--orange);
 }
-.embedded-decision > strong { font-size: clamp(1.1rem, 1.55vw, 1.6rem); line-height: 1.15; }
+.embedded-decision > span,
+.embedded-decision > strong,
+.embedded-decision button { min-width: 0; }
+.embedded-decision > strong {
+  overflow-wrap: anywhere;
+  font-size: clamp(1.1rem, 1.55vw, 1.6rem);
+  line-height: 1.15;
+}
 .embedded-decision > div {
   min-width: 0;
   display: grid;
@@ -649,7 +657,12 @@ button:focus-visible, summary:focus-visible, [contenteditable="true"]:focus-visi
   line-height: 1.35;
   text-transform: uppercase;
 }
-.embedded-decision button { white-space: nowrap; }
+.embedded-decision button {
+  max-width: 100%;
+  justify-self: end;
+  text-align: left;
+  white-space: normal;
+}
 
 .channel-layout {
   display: grid;
@@ -710,7 +723,7 @@ button:focus-visible, summary:focus-visible, [contenteditable="true"]:focus-visi
 .creative-image img {
   position: absolute;
   top: 0;
-  width: 300%;
+  width: 315%;
   max-width: none;
   height: 100%;
   object-fit: cover;
@@ -1011,7 +1024,7 @@ button:focus-visible, summary:focus-visible, [contenteditable="true"]:focus-visi
   .campaign-layout, .channel-layout { grid-template-columns: 220px minmax(0, 1fr); }
   .campaign-result { grid-template-columns: 150px minmax(230px, 1fr); }
   .campaign-result .spark-bars { display: none; }
-  .embedded-decision { grid-template-columns: 130px minmax(0, 1.5fr) minmax(210px, .9fr); }
+  .embedded-decision { grid-template-columns: 120px minmax(0, 1.5fr) minmax(190px, .9fr); }
   .embedded-decision button { grid-column: 2 / -1; justify-self: start; }
   .creative-layout { grid-template-columns: minmax(360px, .75fr) minmax(0, 1.25fr); }
   .creative-analysis { grid-template-columns: 1fr; }
@@ -1022,11 +1035,15 @@ button:focus-visible, summary:focus-visible, [contenteditable="true"]:focus-visi
 }
 
 @media (max-width: 820px) {
-  :root { --page-pad: 20px; --topbar-height: 58px; }
+  :root { --page-pad: 20px; --topbar-height: 58px; --slide-top-gap: 24px; }
   .topbar { grid-template-columns: 62px minmax(0, 1fr) 40px; gap: 12px; }
   .report-name { font-size: .58rem; letter-spacing: .11em; }
   .report-name span { display: none; }
-  .story-panel, .hero { justify-content: flex-start; padding-top: 82px; padding-bottom: 94px; }
+  .story-panel, .hero {
+    justify-content: flex-start;
+    padding-top: calc(var(--topbar-height) + var(--slide-top-gap));
+    padding-bottom: 94px;
+  }
   .hero h1 { font-size: clamp(3.4rem, 13vw, 6rem); }
   .hero-bottom { flex-direction: column; }
   .hero-actions { flex-wrap: wrap; }
@@ -1107,7 +1124,12 @@ button:focus-visible, summary:focus-visible, [contenteditable="true"]:focus-visi
 }
 
 @media (max-height: 820px) and (min-width: 821px) {
-  .story-panel, .hero { justify-content: flex-start; padding-top: 82px; padding-bottom: 86px; }
+  :root { --slide-top-gap: 30px; }
+  .story-panel, .hero {
+    justify-content: flex-start;
+    padding-top: calc(var(--topbar-height) + var(--slide-top-gap));
+    padding-bottom: 86px;
+  }
   .chapter-header { margin-bottom: 24px; }
   .chapter-header h2 { font-size: clamp(2.7rem, 4.2vw, 4.5rem); }
   .chapter-header > p { margin-top: 34px; }
