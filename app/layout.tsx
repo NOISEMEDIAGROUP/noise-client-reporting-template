@@ -15,9 +15,30 @@ const barlowCondensed = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://noisemediagroup.github.io/noise-client-reporting-template/"),
   title: "Performance, explained. | Noise Client Reporting",
   description:
     "An interactive performance story that brings results to life and turns every learning into accountable action.",
+  openGraph: {
+    title: "Performance, explained.",
+    description:
+      "An interactive performance story that turns every learning into accountable action.",
+    images: [
+      {
+        url: "og.png",
+        width: 1730,
+        height: 909,
+        alt: "Performance, explained — Noise × Indian Motorcycle, July 2026",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Performance, explained.",
+    description:
+      "An interactive performance story that turns every learning into accountable action.",
+    images: ["og.png"],
+  },
 };
 
 export default function RootLayout({

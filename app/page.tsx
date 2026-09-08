@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 
 const chapters = [
   { id: "overview", number: "00", label: "The takeaway" },
@@ -204,15 +205,26 @@ const actions = [
 ];
 
 const actionStatusOrder = ["Ready", "Approved", "In progress", "Done"];
-const storyPanelCount = 11;
+const storyPanelLabels = [
+  "The takeaway",
+  "Overall performance",
+  "Performance evidence",
+  "Result replay",
+  "Campaign breakdown",
+  "Channel breakdown",
+  "Winning creative",
+  "Overall learnings",
+  "Priority actions 01–03",
+  "Priority actions 04–06",
+  "The reporting principle",
+];
+const storyPanelCount = storyPanelLabels.length;
 
 export default function Home() {
   const storyRef = useRef<HTMLElement>(null);
   const [activeChapter, setActiveChapter] = useState("overview");
   const [activePanelIndex, setActivePanelIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [notesOpen, setNotesOpen] = useState(false);
-  const [notes, setNotes] = useState("");
   const [campaignIndex, setCampaignIndex] = useState(0);
   const [channelIndex, setChannelIndex] = useState(0);
   const [creativeIndex, setCreativeIndex] = useState(0);
@@ -226,38 +238,39 @@ export default function Home() {
   }, [activeChapter]);
 
   useEffect(() => {
-    const savedNotes = window.localStorage.getItem("noise-report-notes");
-    if (savedNotes) setNotes(savedNotes);
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem("noise-report-notes", notes);
-  }, [notes]);
-
-  useEffect(() => {
     const story = storyRef.current;
     if (!story) return;
     const panels = Array.from(
       story.querySelectorAll<HTMLElement>("[data-story-panel]"),
     );
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-        const panel = visible.target as HTMLElement;
-        const chapter = panel.closest<HTMLElement>(".chapter");
+    let animationFrame = 0;
+    const syncActivePanel = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
+        const storyLeft = story.getBoundingClientRect().left;
+        const closest = panels.reduce(
+          (best, panel, index) => {
+            const distance = Math.abs(panel.getBoundingClientRect().left - storyLeft);
+            return distance < best.distance ? { index, panel, distance } : best;
+          },
+          { index: 0, panel: panels[0], distance: Number.POSITIVE_INFINITY },
+        );
+        if (!closest.panel) return;
+        setActivePanelIndex(closest.index);
+        const chapter = closest.panel.closest<HTMLElement>(".chapter");
         if (chapter?.id) setActiveChapter(chapter.id);
-        const panelIndex = panels.indexOf(panel);
-        if (panelIndex >= 0) setActivePanelIndex(panelIndex);
-      },
-      { root: story, threshold: [0.55, 0.75] },
-    );
+      });
+    };
 
-    panels.forEach((panel) => observer.observe(panel));
-    return () => observer.disconnect();
+    syncActivePanel();
+    story.addEventListener("scroll", syncActivePanel, { passive: true });
+    window.addEventListener("resize", syncActivePanel);
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      story.removeEventListener("scroll", syncActivePanel);
+      window.removeEventListener("resize", syncActivePanel);
+    };
   }, []);
 
   const jumpTo = (id: string) => {
@@ -269,23 +282,24 @@ export default function Home() {
     story.scrollTo({ left, behavior: "smooth" });
   };
 
-  const scrollToPanel = (selector: string) => {
-    const story = storyRef.current;
-    const panel = story?.querySelector<HTMLElement>(selector);
-    if (!story || !panel) return;
-    const left = panel.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
-    story.scrollTo({ left, behavior: "smooth" });
-  };
-
   const stepPanel = (direction: number) => {
     const story = storyRef.current;
     if (!story) return;
     const panels = Array.from(
       story.querySelectorAll<HTMLElement>("[data-story-panel]"),
     );
+    const storyLeft = story.getBoundingClientRect().left;
+    const currentIndex = panels.reduce(
+      (closestIndex, panel, index) =>
+        Math.abs(panel.getBoundingClientRect().left - storyLeft) <
+        Math.abs(panels[closestIndex].getBoundingClientRect().left - storyLeft)
+          ? index
+          : closestIndex,
+      0,
+    );
     const nextIndex = Math.min(
       panels.length - 1,
-      Math.max(0, activePanelIndex + direction),
+      Math.max(0, currentIndex + direction),
     );
     const panel = panels[nextIndex];
     const left = panel.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
@@ -295,10 +309,6 @@ export default function Home() {
   const campaign = campaigns[campaignIndex];
   const channel = channels[channelIndex];
   const creative = creatives[creativeIndex];
-
-  const selectCampaign = (index: number) => {
-    setCampaignIndex(index);
-  };
 
   const selectCreative = (index: number) => {
     setCreativeIndex(index);
@@ -329,7 +339,7 @@ export default function Home() {
           onClick={() => jumpTo("overview")}
           aria-label="Return to the report cover"
         >
-          <img src="/noise-logo-black.png" alt="Noise Media" />
+          <Image src="/noise-logo-black.png" alt="Noise Media" width={1920} height={830} priority unoptimized />
         </button>
         <div className="report-name">
           <span>Noise ×</span>
@@ -346,16 +356,7 @@ export default function Home() {
           <i />
           <i />
         </button>
-        <button className="notes-toggle" onClick={() => setNotesOpen(true)} aria-label="Open report notes">Notes</button>
       </header>
-
-      {notesOpen && (
-        <aside className="notes-pad" aria-label="Report notes">
-          <div className="notes-pad-head"><span>Working notes</span><button onClick={() => setNotesOpen(false)} aria-label="Close notes">×</button></div>
-          <textarea value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="Add client questions, decisions, owners or follow-ups…" autoFocus />
-          <small>Saved automatically in this browser.</small>
-        </aside>
-      )}
 
       <aside
         className={`chapter-nav ${menuOpen ? "open" : ""}`}
@@ -399,7 +400,7 @@ export default function Home() {
         aria-label="Horizontal performance report"
       >
         <section className="chapter hero" id="overview" data-story-panel>
-          <div className="hero-kicker reveal">August 2026 · July performance review</div>
+          <div className="hero-kicker reveal">July 2026 · Monthly performance report</div>
           <h1>
             <span className="sr-only">More revenue.</span>
             More intent.
@@ -508,7 +509,11 @@ export default function Home() {
                 Volume softened. Efficiency did not.
               </blockquote>
               <details>
-                <summary>See the evidence behind this view</summary>
+                <summary>
+                  <span className="summary-closed">Show supporting metrics</span>
+                  <span className="summary-open">Hide supporting metrics</span>
+                  <b aria-hidden="true">+</b>
+                </summary>
                 <p>
                   Conversion rate rose 14%, CPL improved 20% and retargeting
                   delivered 2,711 leads at $20 CPL despite a 25% spend reduction.
@@ -594,7 +599,7 @@ export default function Home() {
               <small>Due · {actions[campaignIndex].due}</small>
               <small>Success · {actions[campaignIndex].success}</small>
             </div>
-            <button onClick={() => jumpTo("actions")}>Open in action register ↘</button>
+            <button onClick={() => jumpTo("actions")}>View action {actions[campaignIndex].code} →</button>
             </div>
           </div>
           </div>
@@ -663,9 +668,13 @@ export default function Home() {
               >
                 <span className="creative-rank">0{index + 1}</span>
                 <span className="creative-image">
-                  <img
+                  <Image
                     src="/indian-creative-triptych.png"
                     alt={`${item.title} Indian Motorcycle campaign creative`}
+                    width={1200}
+                    height={675}
+                    sizes="(max-width: 820px) 30vw, 14vw"
+                    unoptimized
                     style={{ left: `${index * -100}%` }}
                   />
                   <i>{item.channel}</i>
@@ -692,7 +701,7 @@ export default function Home() {
               <span>Turn the learning into work</span>
               <strong>Next brief: three need states, nine opening frames, one clear product truth.</strong>
             </div>
-            <button onClick={() => jumpTo("actions")}>Add to action register ↘</button>
+            <button onClick={() => jumpTo("actions")}>View next-step actions →</button>
             </div>
           </div>
           </div>
@@ -721,6 +730,11 @@ export default function Home() {
           </div>
 
           <div className="story-panel action-register-panel" data-story-panel>
+            <header className="panel-heading">
+              <div><span>05 · Next steps</span><strong>Actions 01–03</strong></div>
+              <h2>Priority actions for the next reporting period.</h2>
+              <p>Every move has a reason, an owner, a deadline and a clear measure of success.</p>
+            </header>
             <div className="action-register" aria-label="Action register">
             <div className="register-head" aria-hidden="true">
               <span>Signal + action</span>
@@ -746,8 +760,8 @@ export default function Home() {
                   aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[index]}`}
                 >
                   <i />
-                  {actionStatuses[index]}
-                  <span>↻</span>
+                  Status: {actionStatuses[index]}
+                  <span>Change ↻</span>
                 </button>
               </article>
             ))}
@@ -755,6 +769,11 @@ export default function Home() {
           </div>
 
           <div className="story-panel action-register-panel" data-story-panel>
+            <header className="panel-heading">
+              <div><span>05 · Next steps</span><strong>Actions 04–06</strong></div>
+              <h2>Turn the learning into better work.</h2>
+              <p>Creative, account and data actions close the loop between insight and delivery.</p>
+            </header>
             <div className="action-register" aria-label="Action register, moves four to six">
             <div className="register-head" aria-hidden="true">
               <span>Signal + action</span><span>Accountability</span><span>Decision state</span>
@@ -768,7 +787,7 @@ export default function Home() {
                   <small contentEditable suppressContentEditableWarning>{item.signal}</small><h3 contentEditable suppressContentEditableWarning>{item.action}</h3>
                 </div>
                 <dl><div><dt>Owner</dt><dd contentEditable suppressContentEditableWarning>{item.owner}</dd></div><div><dt>Due</dt><dd contentEditable suppressContentEditableWarning>{item.due}</dd></div><div><dt>Success</dt><dd contentEditable suppressContentEditableWarning>{item.success}</dd></div></dl>
-                <button className="status-control" data-status={actionStatuses[actionIndex].toLowerCase().replace(" ", "-")} onClick={() => advanceAction(actionIndex)} aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[actionIndex]}`}><i />{actionStatuses[actionIndex]}<span>↻</span></button>
+                <button className="status-control" data-status={actionStatuses[actionIndex].toLowerCase().replace(" ", "-")} onClick={() => advanceAction(actionIndex)} aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[actionIndex]}`}><i />Status: {actionStatuses[actionIndex]}<span>Change ↻</span></button>
               </article>
               );
             })}
@@ -796,24 +815,24 @@ export default function Home() {
         </section>
       </main>
 
-      <div className="slide-controls" aria-label="Slide controls">
-        <span>Use ← →</span>
+      <div className="slide-controls" aria-label="Report page navigation">
         <button
           onClick={() => stepPanel(-1)}
           disabled={activePanelIndex === 0}
           aria-label="Previous panel"
         >
-          ←
+          <b aria-hidden="true">←</b><span>Previous</span>
         </button>
-        <strong>
-          {String(activePanelIndex + 1).padStart(2, "0")} / {storyPanelCount}
-        </strong>
+        <div>
+          <span>{storyPanelLabels[activePanelIndex]}</span>
+          <strong>{String(activePanelIndex + 1).padStart(2, "0")} / {storyPanelCount}</strong>
+        </div>
         <button
           onClick={() => stepPanel(1)}
           disabled={activePanelIndex === storyPanelCount - 1}
           aria-label="Next panel"
         >
-          →
+          <span>Next</span><b aria-hidden="true">→</b>
         </button>
       </div>
 

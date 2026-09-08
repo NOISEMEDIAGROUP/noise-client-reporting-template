@@ -27,9 +27,13 @@ test("renders the interactive performance story", async () => {
   assert.match(html, /Live action register/);
   assert.match(html, /The report becomes the plan\./);
   assert.match(html, /Result brought to life/);
+  assert.match(html, /Show supporting metrics/);
+  assert.match(html, /Priority actions for the next reporting period/);
+  assert.match(html, /aria-label="Report page navigation"/);
   assert.match(html, /class="horizontal-story"/);
   assert.match(html, /aria-label="Horizontal performance report"/);
   assert.match(html, /noise-logo-black\.png/);
   assert.equal((html.match(/data-story-panel="true"/g) ?? []).length, 11);
+  assert.doesNotMatch(html, /Open report notes|Working notes/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
