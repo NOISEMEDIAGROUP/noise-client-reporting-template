@@ -493,7 +493,7 @@ export default function Home() {
               />
               <div className="creative-stack">
                 {channel.creatives.map((item, creativeIndex) => (
-                  <article className="creative-row" key={item.title}>
+                  <article className="creative-card-full" key={item.title}>
                     {channel.id === "meta" ? (
                       <span className="creative-image">
                         <Image
@@ -501,9 +501,9 @@ export default function Home() {
                           alt={`${item.title} Indian Motorcycle campaign creative`}
                           width={1200}
                           height={675}
-                          sizes="180px"
+                          sizes="32vw"
                           unoptimized
-                          style={{ left: `${-6 - creativeIndex * 102}%` }}
+                          style={{ left: `${-creativeIndex * 100}%` }}
                         />
                         <i>{item.stage}</i>
                       </span>
@@ -513,15 +513,13 @@ export default function Home() {
                         <b>{item.title}</b>
                       </span>
                     )}
-                    <div className="creative-row-copy">
-                      <header>
-                        <h3 className="editable" contentEditable suppressContentEditableWarning>{item.title}</h3>
-                        <p>
-                          <strong>{item.primary}</strong> {item.primaryLabel}
-                          <span>{item.secondary}</span>
-                          <em>Objective: {item.objective}</em>
-                        </p>
-                      </header>
+                    <div className="creative-card-body">
+                      <h3 className="editable" contentEditable suppressContentEditableWarning>{item.title}</h3>
+                      <p className="creative-stats">
+                        <strong>{item.primary}</strong>
+                        <span>{item.primaryLabel} · {item.secondary}</span>
+                      </p>
+                      <p className="creative-objective">Objective: {item.objective}</p>
                       <NarrativeBlock label="Why it performed" text={item.why} />
                       <NarrativeBlock label="Learning we take" text={item.learning} accent />
                     </div>
