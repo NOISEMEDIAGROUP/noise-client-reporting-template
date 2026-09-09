@@ -20,22 +20,25 @@ test("renders the interactive performance story", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Performance, explained\. \| Noise Client Reporting<\/title>/i);
-  assert.match(html, /More revenue\./);
-  assert.match(html, /Overall performance/);
-  assert.match(html, /Campaign breakdown/);
-  assert.match(html, /Top-performing creative/);
-  assert.match(html, /Live action register/);
-  assert.match(html, /The report becomes the plan\./);
-  assert.match(html, /Result brought to life/);
-  assert.match(html, /Show supporting metrics/);
-  assert.match(html, /Priority actions for the next reporting period/);
+  assert.match(html, /<title>Results, then commentary\. \| Noise Client Reporting<\/title>/i);
+  assert.match(html, /Overall results/);
+  assert.match(html, /Key wins/);
+  assert.match(html, /Meta versus June 2026/);
+  assert.match(html, /Google versus June 2026/);
+  assert.match(html, /Campaign pull-out/);
+  assert.match(html, /Winning creatives · Meta/);
+  assert.match(html, /Winning creatives · Google/);
+  assert.match(html, /Core learnings/);
+  assert.match(html, /Next phase of work/);
+  assert.match(html, /What these results tell us/);
+  assert.match(html, /compared with June 2026/);
   assert.match(html, /aria-label="Report page navigation"/);
   assert.match(html, /class="horizontal-story"/);
   assert.match(html, /aria-label="Horizontal performance report"/);
   assert.match(html, /noise-logo-black\.png/);
-  assert.equal((html.match(/data-story-panel="true"/g) ?? []).length, 11);
+  assert.equal((html.match(/data-story-panel="true"/g) ?? []).length, 12);
   assert.doesNotMatch(html, /Open report notes|Working notes/);
+  assert.doesNotMatch(html, /Live action register/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 

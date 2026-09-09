@@ -16,13 +16,13 @@ const barlowCondensed = Barlow_Condensed({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://noisemediagroup.github.io/noise-client-reporting-template/"),
-  title: "Performance, explained. | Noise Client Reporting",
+  title: "Results, then commentary. | Noise Client Reporting",
   description:
-    "An interactive performance story that brings results to life and turns every learning into accountable action.",
+    "A client performance report that walks overall results, each channel, each campaign, winning creatives and next steps — in that order.",
   openGraph: {
-    title: "Performance, explained.",
+    title: "Results, then commentary.",
     description:
-      "An interactive performance story that turns every learning into accountable action.",
+      "Overall results, channel by channel, campaign, creatives, learnings, next phase.",
     images: [
       {
         url: "og.png",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Performance, explained.",
+    title: "Results, then commentary.",
     description:
-      "An interactive performance story that turns every learning into accountable action.",
+      "Overall results, channel by channel, campaign, creatives, learnings, next phase.",
     images: ["og.png"],
   },
 };

@@ -6,246 +6,253 @@ import Image from "next/image";
 const reportBasePath = process.env.NEXT_PUBLIC_REPORT_BASE_PATH ?? "";
 const reportAsset = (filename: string) => `${reportBasePath}/${filename}`;
 
-const chapters = [
-  { id: "overview", number: "00", label: "The takeaway" },
-  { id: "performance", number: "01", label: "Overall performance" },
-  { id: "campaigns", number: "02", label: "Campaign breakdown" },
-  { id: "channels", number: "03", label: "Channel breakdown" },
-  { id: "creative", number: "04", label: "Winning creative" },
-  { id: "actions", number: "05", label: "Overall learnings + next steps" },
-];
-
-const campaigns = [
-  {
-    name: "Meta · Prospecting",
-    status: "Efficient scale",
-    result: "2,366",
-    metric: "leads",
-    change: "$116 CPL",
-    bars: [78, 72, 68, 63, 58, 51, 46],
-    happened:
-      "Prospecting delivered 2,366 leads from $274.8K of spend, with lead volume holding up as investment reduced.",
-    why: "The campaign gave people a use case, a reason to believe and a product demonstration within the first three seconds.",
-    learning:
-      "Direct model detail, finance and product proof are doing more work than broad lifestyle language.",
-    next: "Keep prospecting as the scale engine, but rotate in model-specific finance and riding-experience concepts before fatigue appears.",
+const report = {
+  client: "Indian Motorcycle",
+  period: "July 2026",
+  previousPeriod: "June 2026",
+  overall: {
+    kpis: [
+      { label: "Media spend", value: "$583k", previous: "$845k", change: "31%", direction: "down" as const },
+      { label: "Leads", value: "10,508", previous: "12,219", change: "14%", direction: "down" as const },
+      { label: "Blended CPL", value: "$55.50", previous: "$69.38", change: "20%", direction: "down" as const },
+      { label: "Leads vs forecast", value: "109%", previous: "Spend 101% of plan", change: "hold", direction: "up" as const },
+    ],
+    mix: [
+      { name: "Meta", spend: "$381k", spendChange: "−31%", result: "5,267 leads", resultChange: "−14%", efficiency: "$72 CPL", efficiencyChange: "−20%" },
+      { name: "Google", spend: "$201k", spendChange: "−31%", result: "5,287 conv.", resultChange: "−14%", efficiency: "$38 CPA", efficiencyChange: "−20%" },
+    ],
   },
-  {
+  wins: [
+    {
+      title: "Efficiency held the period",
+      result: "CPL −20% while leads still beat forecast by 9%.",
+      why: "Spend dropped 31%, but it dropped toward people already showing intent — retargeting and Performance Max — rather than being cut evenly.",
+      means: "The account can buy the next period on cost, not on volume panic. Success is beating forecast at a lower CPL, not spending in full to protect lead count.",
+    },
+    {
+      title: "Retargeting did more with less",
+      result: "2,711 leads at $20 CPL after a 25% spend cut.",
+      why: "High-intent riders already knew the bike. Direct finance, colour and product proof answered the last question instead of re-selling the dream.",
+      means: "Bottom-funnel efficiency is the clearest success indicator in the mix. If retargeting CPL stays near $20, the system is working.",
+    },
+    {
+      title: "Google converted the demand Meta created",
+      result: "PMax delivered 4,444 conversions — 84% of Google — at $39.89 CPA.",
+      why: "Search did not have to introduce the brand. It captured riders who already had a model in mind and moved them to a form.",
+      means: "Google’s job is intent capture, not awareness. Success is CPA and model quality, not matching Meta on lead volume.",
+    },
+  ],
+  channels: [
+    {
+      id: "meta",
+      name: "Meta",
+      role: "Scale engine · 65% of spend",
+      kpis: [
+        { label: "Spend", value: "$381k", previous: "$552k", change: "31%", direction: "down" as const },
+        { label: "Leads", value: "5,267", previous: "6,124", change: "14%", direction: "down" as const },
+        { label: "CPL", value: "$72", previous: "$90", change: "20%", direction: "down" as const },
+        { label: "Retargeting CPL", value: "$20", previous: "$29", change: "31%", direction: "down" as const },
+      ],
+      split: [
+        { name: "Prospecting", result: "2,366 leads", metric: "$116 CPL", note: "$274.8k spend · scale engine" },
+        { name: "Retargeting", result: "2,711 leads", metric: "$20 CPL", note: "25% less spend · more leads" },
+      ],
+      commentary: {
+        tellsUs: "Meta still carries half of all leads on 65% of spend, and it got cheaper. Volume softened because investment did — not because the channel broke.",
+        winsFailures: "Win: retargeting produced more leads at $20 CPL on 25% less spend. Drag: prospecting is still $116 CPL, so scale remains expensive relative to the warm audience.",
+        why: "Creative matched the funnel. Prospecting led with use-case and product proof in the first three seconds. Retargeting led with finance, colour and a detailed bike — no re-introduction.",
+        success: "Meta is succeeding when CPL falls faster than lead volume, and when retargeting can take a spend cut without losing the lead. $20 retargeting CPL is the benchmark to protect.",
+      },
+      creatives: [
+        {
+          title: "Challenger POV",
+          stage: "Consideration",
+          primary: "3.09%",
+          primaryLabel: "CTR",
+          secondary: "23K LPV",
+          objective: "Attention and site traffic",
+          why: "First-person riding makes the experience obvious in the opening frame. The viewer can imagine the bike before they are asked to buy it.",
+          learning: "Upper-funnel work should sell the ride, not the spec sheet. Cut longer stories into 6–15s with the bike moving immediately.",
+        },
+        {
+          title: "Scout Monthly Payments",
+          stage: "Prospecting",
+          primary: "798",
+          primaryLabel: "leads",
+          secondary: "$101 CPL",
+          objective: "Prospecting leads",
+          why: "A specific monthly figure made the value exchange concrete while keeping the bike central. Affordability did more conversion work than lifestyle language.",
+          learning: "Build payment variants for Bagger, Touring and Chief, then send each to a model-specific landing page.",
+        },
+        {
+          title: "Chieftain Finance",
+          stage: "Retargeting",
+          primary: "212",
+          primaryLabel: "leads",
+          secondary: "$17 CPL",
+          objective: "High-intent conversion",
+          why: "A direct finance line and a detailed bike view answered the last question. The audience had already done the dreaming.",
+          learning: "Retargeting should be product-first, branded and specific. Put the strongest proof in frame one, then finance and trade-in routes by model.",
+        },
+      ],
+    },
+    {
+      id: "google",
+      name: "Google",
+      role: "Intent capture · 35% of spend",
+      kpis: [
+        { label: "Spend", value: "$201k", previous: "$291k", change: "31%", direction: "down" as const },
+        { label: "Conversions", value: "5,287", previous: "6,148", change: "14%", direction: "down" as const },
+        { label: "CPA", value: "$38", previous: "$47", change: "20%", direction: "down" as const },
+        { label: "PMax share", value: "84%", previous: "of Google conv.", change: "hold", direction: "up" as const },
+      ],
+      split: [
+        { name: "Performance Max", result: "4,444 conv.", metric: "$39.89 CPA", note: "84% of Google conversions" },
+        { name: "Brand Search", result: "843 conv.", metric: "$28.65 CPA", note: "Highest-efficiency Google route" },
+      ],
+      commentary: {
+        tellsUs: "Google converted as many people as Meta, on roughly half the spend. It is catching demand the rest of the mix creates, not manufacturing it.",
+        winsFailures: "Win: PMax and Brand Search both cleared a $40 CPA. Gap: optimisation still rewards form fills. Chief, Pursuit and Scout took the volume; Touring and Chief retail mix remain light.",
+        why: "Queries and product feeds already carried model knowledge. The ads did not re-introduce Indian. They moved a known rider to a quote.",
+        success: "Google succeeds when CPA stays under $40 and the model mix starts to look like retail targets — not when it simply matches Meta on conversion count.",
+      },
+      creatives: [
+        {
+          title: "PMax · Chief / Pursuit / Scout",
+          stage: "Performance Max",
+          primary: "4,444",
+          primaryLabel: "conversions",
+          secondary: "$39.89 CPA",
+          objective: "Efficient conversions",
+          why: "Product-first assets met riders who already knew the model. PMax concentrated on the bikes with the strongest conversion signal.",
+          learning: "Signal quality now matters more than finding extra form fills. Weighted conversion values should push the account toward the bikes we actually want to sell.",
+        },
+        {
+          title: "Brand Search",
+          stage: "Search",
+          primary: "843",
+          primaryLabel: "conversions",
+          secondary: "$28.65 CPA",
+          objective: "Capture existing demand",
+          why: "Brand queries are the cleanest intent in the mix. The ad only had to confirm availability and send the rider to a quote.",
+          learning: "Protect Brand. Switch on AI Max for Brand and keep the landing page as direct as the query.",
+        },
+        {
+          title: "Catch All · model pages",
+          stage: "Search / PMax",
+          primary: "Mix",
+          primaryLabel: "quality lever",
+          secondary: "Scout still leads",
+          objective: "Desirable model mix",
+          why: "Where model-level landing pages and feed assets were strongest, conversion quality followed. Broad catch-alls filled volume, not mix.",
+          learning: "Scale Catch All only where model quality is proven. Touring and Chief need dedicated routes or the portfolio stays Scout-heavy.",
+        },
+      ],
+    },
+  ],
+  campaign: {
     name: "Meta · Retargeting",
-    status: "Most efficient",
-    result: "2,711",
-    metric: "leads",
-    change: "$20 CPL",
-    bars: [44, 49, 56, 61, 70, 77, 91],
-    happened:
-      "Retargeting generated more leads despite a 25% month-on-month spend reduction, with a 5.7% landing-page-to-lead rate.",
-    why: "Distinctive colour and a clear seasonal cue earned attention. Repeated exposure without enough narrative variation limited the tail.",
-    learning:
-      "High-intent audiences reward direct, branded product-first creative and finance cues.",
-    next: "Protect the $20 CPL advantage while expanding model-specific retargeting and monitoring frequency by dealer tier.",
+    vs: "vs June flight",
+    kpis: [
+      { label: "Leads", value: "2,711", previous: "2,510", change: "8%", direction: "up" as const },
+      { label: "Spend", value: "$54k", previous: "$72k", change: "25%", direction: "down" as const },
+      { label: "CPL", value: "$20", previous: "$29", change: "31%", direction: "down" as const },
+      { label: "LP to lead", value: "5.7%", previous: "June flight", change: "hold", direction: "up" as const },
+    ],
+    commentary: {
+      tellsUs: "This was the most efficient campaign in the period. It made more leads on a quarter less spend, which is why blended CPL could fall while total investment fell faster than volume.",
+      winsFailures: "Win: $20 CPL and a 5.7% landing-page-to-lead rate. Limit: repeated branded product shots without enough narrative variation will cap the tail if frequency climbs.",
+      why: "Distinctive colour and a seasonal cue earned the stop. Finance and a close bike view closed the people who were already in-market. No awareness job was being asked of this audience.",
+      success: "Retargeting is the control campaign. If CPL holds near $20 while we rebuild spend, the next phase is working. If frequency rises and CPL follows, rotate the story, not the audience.",
+    },
   },
-  {
-    name: "Google · PMax",
-    status: "Conversion engine",
-    result: "4,444",
-    metric: "conversions",
-    change: "$39.89 CPA",
-    bars: [41, 46, 53, 62, 70, 79, 87],
-    happened:
-      "Performance Max delivered 84% of Google conversions, with Chief, Pursuit and Scout carrying the largest volume.",
-    why: "The message acknowledged existing product knowledge and moved straight to a new reason to buy. No re-introduction needed.",
-    learning:
-      "Weighted value and model-level signal quality matter more now than simply finding more lead volume.",
-    next: "Move PMax to weighted conversion values and use Max Conversion Value so the account optimises toward desirable bikes, not just form fills.",
-  },
+  learnings: [
+    {
+      title: "Intent is the lever",
+      text: "Spend can fall 31% and the period can still beat forecast if money follows people who already want the bike.",
+    },
+    {
+      title: "Stage-specific creative is doing the work",
+      text: "Experience-led video wins consideration. Product and finance win conversion. Broad lifestyle copy does not scale either job.",
+    },
+    {
+      title: "Volume is not the same as value",
+      text: "Scout still supplies the leads. Bagger is now on its 29% retail target. Touring and Chief at 4% each are the gap the next phase has to close.",
+    },
+  ],
+  nextPhase: [
+    {
+      title: "Reinvest at the new cost base",
+      text: "Put spend back into the account while CPL is $55.50, 7% below forecast. Rebuild lead volume without giving the efficiency back.",
+      success: "CPL ≤ $60 as volume recovers.",
+    },
+    {
+      title: "Value-weight Google",
+      text: "Move PMax to weighted conversion values and Max Conversion Value so the account optimises toward desirable bikes, not form fills.",
+      success: "Model mix moves toward retail targets.",
+    },
+    {
+      title: "Build the missing models",
+      text: "Protect Bagger. Launch dedicated Touring and Chief routes — rider-led lifestyle, product detail and finance — so the mix is not Scout-dependent.",
+      success: "Bagger holds ≥29%; Touring and Chief share rises.",
+    },
+    {
+      title: "Close the quality loop",
+      text: "Weekly Power BI / CRM check: selected model versus lead form, plus a 30-day decision forecast. Next budget follows quality, not lead count alone.",
+      success: "Quality tracked before the next pacing call.",
+    },
+  ],
+};
+
+const chapters = [
+  { id: "overall", number: "01", label: "Overall results" },
+  ...report.channels.map((channel, index) => ({
+    id: channel.id,
+    number: String(index + 2).padStart(2, "0"),
+    label: channel.name,
+  })),
+  { id: "campaign", number: String(report.channels.length + 2).padStart(2, "0"), label: "Campaign" },
+  { id: "creative", number: String(report.channels.length + 3).padStart(2, "0"), label: "Winning creatives" },
+  { id: "learnings", number: String(report.channels.length + 4).padStart(2, "0"), label: "Core learnings" },
+  { id: "next", number: String(report.channels.length + 5).padStart(2, "0"), label: "Next phase" },
 ];
 
-const channels = [
-  {
-    name: "Meta",
-    role: "Scale engine",
-    spend: "$381k",
-    result: "5,267 leads",
-    share: "65% of spend",
-    driver:
-      "Meta delivered 50% of total leads, with retargeting producing 2,711 leads at $20 CPL and prospecting adding 2,366.",
-    learnt:
-      "The account can reduce spend and still hold volume when creative and audience intent are aligned.",
-    action:
-      "Maintain stage-specific creative: aspirational motion for consideration, model detail for prospecting and direct finance/product proof for retargeting.",
-  },
-  {
-    name: "Google",
-    role: "Intent capture",
-    spend: "$201k",
-    result: "5,287 conversions",
-    share: "35% of spend",
-    driver:
-      "Performance Max drove 4,444 conversions at $39.89 CPA; Brand Search added 843 at $28.65 CPA.",
-    learnt:
-      "Search is capturing the demand Meta creates, but model value and product mix need to influence optimisation.",
-    action:
-      "Apply weighted conversion values, scale Catch All where model quality is strongest and switch on AI Max for Brand.",
-  },
-  {
-    name: "Portfolio mix",
-    role: "Model balance",
-    spend: "$583k",
-    result: "10,508 leads",
-    share: "July total",
-    driver:
-      "Scout still supplied 4,197 leads, while Bagger rose to 2,177 and became the second-largest model signal.",
-    learnt:
-      "Bagger is now aligned to its 29% retail target; Touring and Chief remain underrepresented and need deliberate investment.",
-    action:
-      "Hold Bagger momentum and build dedicated Touring/Chief routes so the portfolio is not over-dependent on Scout.",
-  },
-];
-
-const creatives = [
-  {
-    title: "Challenger POV",
-    channel: "Meta · Consideration",
-    primary: "3.09%",
-    primaryLabel: "CTR",
-    secondary: "23K LPV",
-    worked:
-      "A first-person riding perspective makes the experience legible immediately and gives the viewer a reason to imagine the bike in motion.",
-    take:
-      "Upper-funnel creative can sell the riding experience before it sells the specification.",
-    future:
-      "Cut the longer Porch House story into 6–15 second edits with the bike moving in the opening frame.",
-  },
-  {
-    title: "Scout Monthly Payments",
-    channel: "Meta · Conversion prospecting",
-    primary: "798",
-    primaryLabel: "leads",
-    secondary: "$101 CPL",
-    worked:
-      "The payment proposition makes the value exchange concrete while keeping the bike central, turning consideration into a measurable action.",
-    take:
-      "A specific affordability cue can do more conversion work than a broad lifestyle promise.",
-    future:
-      "Build payment variants for Bagger, Touring and Chief, then sequence them against model-specific landing pages.",
-  },
-  {
-    title: "Chieftain Finance",
-    channel: "Meta · Conversion retargeting",
-    primary: "212",
-    primaryLabel: "leads",
-    secondary: "$17 CPL",
-    worked:
-      "A direct finance message and detailed bike view answer the final question for high-intent riders without over-explaining.",
-    take:
-      "Retargeting should be product-first, branded and specific. The audience has already done the dreaming.",
-    future:
-      "Create finance and trade-in routes for each priority model, with the strongest proof in the first frame.",
-  },
-];
-
-const actions = [
-  {
-    code: "A-01",
-    workstream: "Strategy",
-    priority: "Scale now",
-    signal: "July delivered 10,508 leads at $55.50 CPL, 7% below forecast.",
-    action: "Reinvest into the account at improved cost levels to rebuild volume without giving back the efficiency gain.",
-    owner: "Strategy + Paid",
-    due: "Week 1",
-    success: "CPL ≤$60; leads rebuild.",
-  },
-  {
-    code: "A-02",
-    workstream: "Strategy",
-    priority: "Build",
-    signal: "PMax drove 84% of Google conversions and concentrated on Chief, Pursuit and Scout.",
-    action: "Introduce weighted conversion values and switch on Max Conversion Value to prioritise desirable bike sales, not lead volume.",
-    owner: "Paid + Strategy",
-    due: "Before next pacing call",
-    success: "Model mix improves; CPL ≤$60.",
-  },
-  {
-    code: "A-03",
-    workstream: "Creative",
-    priority: "Produce",
-    signal: "Bagger reached 29% of July leads; Touring and Chief remain at 4% each.",
-    action: "Launch 3–4 Bagger concepts and expand Touring/Chief creative using rider-led lifestyle, product detail and finance.",
-    owner: "Creative",
-    due: "Next production sprint",
-    success: "Bagger holds ≥29%; mix broadens.",
-  },
-  {
-    code: "A-04",
-    workstream: "Creative",
-    priority: "Prove",
-    signal: "Challenger POV hit 3.09% CTR; static and lifestyle low performers were more text-heavy.",
-    action: "Build a stage-specific creative matrix: experience-led video, product-first prospecting and branded finance retargeting.",
-    owner: "Creative + Paid",
-    due: "Before next flight",
-    success: "4 territories live; CTR/CPL at benchmark.",
-  },
-  {
-    code: "A-05",
-    workstream: "Account",
-    priority: "Orchestrate",
-    signal: "Production can move faster than feedback and red-flagged routes can stay in working folders.",
-    action: "Quarantine rejected political, Harley and profanity routes and introduce Cleared / Awaiting Feedback / Not Shipping status.",
-    owner: "Account + Creative",
-    due: "48 hours",
-    success: "No unapproved asset reaches media.",
-  },
-  {
-    code: "A-06",
-    workstream: "Account",
-    priority: "De-risk",
-    signal: "July reporting shows lead volume, not downstream model value.",
-    action: "Set a weekly Power BI/CRM quality loop, reconcile selected model to lead form and bring a 30-day decision forecast.",
-    owner: "Account + Data",
-    due: "Start next week",
-    success: "Quality tracked; next approval pre-booked.",
-  },
-];
-
-const actionStatusOrder = ["Ready", "Approved", "In progress", "Done"];
 const storyPanelLabels = [
-  "The takeaway",
-  "Overall performance",
-  "Performance evidence",
-  "Result replay",
-  "Campaign breakdown",
-  "Channel breakdown",
-  "Winning creative",
-  "Overall learnings",
-  "Priority actions 01–03",
-  "Priority actions 04–06",
-  "The reporting principle",
+  "Overall results",
+  "Key wins",
+  ...report.channels.flatMap((channel) => [`${channel.name} results`, `${channel.name} commentary`]),
+  "Campaign results",
+  "Campaign commentary",
+  ...report.channels.map((channel) => `Winning creatives · ${channel.name}`),
+  "Core learnings",
+  "Next phase",
 ];
+
 const storyPanelCount = storyPanelLabels.length;
+
+type Kpi = {
+  label: string;
+  value: string;
+  previous: string;
+  change: string;
+  direction: "up" | "down";
+};
 
 export default function Home() {
   const storyRef = useRef<HTMLElement>(null);
-  const [activeChapter, setActiveChapter] = useState("overview");
+  const [activeChapter, setActiveChapter] = useState("overall");
   const [activePanelIndex, setActivePanelIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [campaignIndex, setCampaignIndex] = useState(0);
-  const [channelIndex, setChannelIndex] = useState(0);
-  const [creativeIndex, setCreativeIndex] = useState(0);
-  const [actionStatuses, setActionStatuses] = useState(
-    actions.map(() => "Ready"),
-  );
 
-  const progress = useMemo(() => {
-    const index = chapters.findIndex((chapter) => chapter.id === activeChapter);
-    return `${((index + 1) / chapters.length) * 100}%`;
-  }, [activeChapter]);
+  const progress = useMemo(
+    () => `${((activePanelIndex + 1) / storyPanelCount) * 100}%`,
+    [activePanelIndex],
+  );
 
   useEffect(() => {
     const story = storyRef.current;
     if (!story) return;
-    const panels = Array.from(
-      story.querySelectorAll<HTMLElement>("[data-story-panel]"),
-    );
+    const panels = Array.from(story.querySelectorAll<HTMLElement>("[data-story-panel]"));
 
     let animationFrame = 0;
     const syncActivePanel = () => {
@@ -288,9 +295,7 @@ export default function Home() {
   const stepPanel = (direction: number) => {
     const story = storyRef.current;
     if (!story) return;
-    const panels = Array.from(
-      story.querySelectorAll<HTMLElement>("[data-story-panel]"),
-    );
+    const panels = Array.from(story.querySelectorAll<HTMLElement>("[data-story-panel]"));
     const storyLeft = story.getBoundingClientRect().left;
     const currentIndex = panels.reduce(
       (closestIndex, panel, index) =>
@@ -300,36 +305,15 @@ export default function Home() {
           : closestIndex,
       0,
     );
-    const nextIndex = Math.min(
-      panels.length - 1,
-      Math.max(0, currentIndex + direction),
-    );
+    const nextIndex = Math.min(panels.length - 1, Math.max(0, currentIndex + direction));
     const panel = panels[nextIndex];
     const left = panel.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
     story.scrollTo({ left, behavior: "smooth" });
   };
 
-  const campaign = campaigns[campaignIndex];
-  const channel = channels[channelIndex];
-  const creative = creatives[creativeIndex];
-
-  const selectCreative = (index: number) => {
-    setCreativeIndex(index);
-  };
-
-  const advanceAction = (index: number) => {
-    setActionStatuses((current) =>
-      current.map((status, statusIndex) => {
-        if (statusIndex !== index) return status;
-        const nextIndex = (actionStatusOrder.indexOf(status) + 1) % actionStatusOrder.length;
-        return actionStatusOrder[nextIndex];
-      }),
-    );
-  };
-
   return (
     <div className="report-shell">
-      <a className="skip-link" href="#overview">
+      <a className="skip-link" href="#overall">
         Skip to report
       </a>
       <div className="read-progress" aria-hidden="true">
@@ -337,16 +321,12 @@ export default function Home() {
       </div>
 
       <header className="topbar">
-        <button
-          className="noise-mark"
-          onClick={() => jumpTo("overview")}
-          aria-label="Return to the report cover"
-        >
+        <button className="noise-mark" onClick={() => jumpTo("overall")} aria-label="Return to overall results">
           <Image src={reportAsset("noise-logo-black.png")} alt="Noise Media" width={1920} height={830} priority unoptimized />
         </button>
         <div className="report-name">
           <span>Noise ×</span>
-          <strong>Indian Motorcycle</strong>
+          <strong>{report.client}</strong>
         </div>
         <button
           className="menu-toggle"
@@ -361,11 +341,7 @@ export default function Home() {
         </button>
       </header>
 
-      <aside
-        className={`chapter-nav ${menuOpen ? "open" : ""}`}
-        aria-label="Report chapters"
-        id="report-chapters"
-      >
+      <aside className={`chapter-nav ${menuOpen ? "open" : ""}`} aria-label="Report chapters" id="report-chapters">
         <p>Jump to chapter</p>
         <nav aria-label="Report navigation">
           {chapters.map((chapter) => (
@@ -381,9 +357,9 @@ export default function Home() {
           ))}
         </nav>
         <div className="nav-foot">
-          <span>{chapters.findIndex((c) => c.id === activeChapter) + 1}</span>
+          <span>{String(activePanelIndex + 1).padStart(2, "0")}</span>
           <i />
-          <span>{chapters.length}</span>
+          <span>{String(storyPanelCount).padStart(2, "0")}</span>
         </div>
       </aside>
 
@@ -402,443 +378,258 @@ export default function Home() {
         }}
         aria-label="Horizontal performance report"
       >
-        <section className="chapter hero" id="overview" data-story-panel>
-          <div className="hero-kicker reveal">July 2026 · Monthly performance report</div>
-          <h1>
-            <span className="sr-only">More revenue.</span>
-            More intent.
-            <br />
-            <span>Less wasted spend.</span>
-          </h1>
-          <div className="hero-bottom">
-            <p className="hero-summary">
-              Spend reduced <strong>31%</strong> while leads fell only <strong>14%</strong>.
-              The gap came from better conversion efficiency. This report turns that result
-              into six proactive moves across strategy, creative and account leadership.
+        <section className="chapter chapter-run light" id="overall">
+          <div className="story-panel results-hero" data-story-panel>
+            <p className="hero-kicker">
+              {report.period} · compared with {report.previousPeriod}
             </p>
-            <div className="hero-actions">
-              <button className="round-link" onClick={() => jumpTo("performance")}>
-                <span>Start the story</span>
-                <b aria-hidden="true">→</b>
-              </button>
-              <button className="text-link" onClick={() => jumpTo("actions")}>
-                Review 6 moves
-              </button>
-            </div>
-          </div>
-          <div className="hero-index" aria-hidden="true">
-            00
-          </div>
-          <div className="metric-ribbon" aria-label="Headline performance">
-            <div>
-              <span>Media spend</span>
-              <strong>$583k</strong>
-              <small className="up">101% of forecast</small>
-            </div>
-            <div>
-              <span>Leads</span>
-              <strong>10,508</strong>
-              <small className="up">↑ 109% of forecast</small>
-            </div>
-            <div>
-              <span>Blended CPL</span>
-              <strong>$55.50</strong>
-              <small className="up">↓ 20% CPL</small>
-            </div>
-            <div>
-              <span>Impressions</span>
-              <strong>30.6m</strong>
-              <small>impressions</small>
-            </div>
-          </div>
-        </section>
-
-        <section className="chapter chapter-run light" id="performance">
-          <div className="story-panel performance-lead" data-story-panel>
-            <ChapterHeader
-            number="01"
-            eyebrow="Overall performance"
-            title="Efficiency improved because spend followed intent."
-            intro="This was not volume bought at any cost. Leads held up while investment reduced because the account moved money toward the audiences, models and messages already showing intent."
-          />
-
-            <div className="performance-story">
-            <div className="story-beat">
-              <span>Results for the period · What happened</span>
-              <strong>10,508 leads</strong>
-              <p>
-                July lead volume beat forecast by 9% while spend landed at 101% of plan.
-              </p>
-            </div>
-            <div className="connector" aria-hidden="true">→</div>
-            <div className="story-beat cobalt">
-              <span>Why it happened</span>
-              <strong>3 shifts</strong>
-              <p>
-                Spend down 31%. CPL down 20%. Retargeting held volume while
-                PMax concentrated conversion demand.
-              </p>
-            </div>
-            <div className="connector" aria-hidden="true">→</div>
-            <div className="story-beat coral">
-              <span>What we learnt</span>
-              <strong>Clarity scales</strong>
-              <p>
-                Model detail and finance cues help media find the right rider;
-                broad lifestyle alone does not.
-              </p>
-            </div>
-            </div>
-          </div>
-
-          <div className="story-panel evidence-panel" data-story-panel>
-            <div className="evidence-grid">
-            <article className="evidence-card chart-card">
-              <div className="card-topline">
-                <span>July actual vs. forecast</span>
-                <small>Forecast = 100</small>
+            <h1>Overall results</h1>
+            <p className="hero-summary">
+              Headline numbers across the full period, every channel included. Arrows show change versus {report.previousPeriod}.
+            </p>
+            <KpiBoard kpis={report.overall.kpis} previousPeriod={report.previousPeriod} />
+            <div className="channel-mix" aria-label="Results by channel">
+              <div className="mix-head">
+                <span>Channel</span>
+                <span>Spend</span>
+                <span>Result</span>
+                <span>Efficiency</span>
               </div>
-              <div className="comparison-chart" aria-label="Spend index 101, leads index 109">
-                <div className="chart-axis"><span>130</span><span>100</span><span>70</span></div>
-                <div className="bar-group">
-                  <div><i style={{ height: "71%" }} /><span>Spend</span><b>101</b></div>
-                  <div><i className="revenue" style={{ height: "82%" }} /><span>Leads</span><b>109</b></div>
+              {report.overall.mix.map((row) => (
+                <div className="mix-row" key={row.name}>
+                  <strong>{row.name}</strong>
+                  <span>{row.spend} <em>{row.spendChange}</em></span>
+                  <span>{row.result} <em>{row.resultChange}</em></span>
+                  <span>{row.efficiency} <em>{row.efficiencyChange}</em></span>
                 </div>
-              </div>
-            </article>
-            <article className="evidence-card quote-card">
-              <span className="mini-label">The takeaway</span>
-              <blockquote>
-                Volume softened. Efficiency did not.
-              </blockquote>
-              <details>
-                <summary>
-                  <span className="summary-closed">Show supporting metrics</span>
-                  <span className="summary-open">Hide supporting metrics</span>
-                  <b aria-hidden="true">+</b>
-                </summary>
-                <p>
-                  Conversion rate rose 14%, CPL improved 20% and retargeting
-                  delivered 2,711 leads at $20 CPL despite a 25% spend reduction.
-                </p>
-              </details>
-            </article>
-            </div>
-          </div>
-
-          <div className="story-panel replay-panel" data-story-panel>
-            <article className="result-replay">
-            <div className="replay-intro">
-              <span className="mini-label">Result brought to life</span>
-              <h3>July did more with less</h3>
-              <p>
-                The account delivered 10,508 leads at $55.50 CPL while spend held
-                at 101% of forecast.
-              </p>
-            </div>
-            <div className="replay-comparison">
-              <div>
-                <span>Forecast</span>
-                <strong>$60</strong>
-                <small>Blended CPL</small>
-                <i><b style={{ width: "76%" }} /></i>
-              </div>
-              <div className="after">
-                <span>Actual</span>
-                <strong>$55.50</strong>
-                <small>Blended CPL</small>
-                <i><b style={{ width: "69%" }} /></i>
-              </div>
-            </div>
-            <div className="replay-impact">
-              <span>Impact</span>
-              <strong>109% of forecast</strong>
-              <p>Lead volume beat plan while conversion efficiency improved.</p>
-              <button onClick={() => jumpTo("actions")}>Decision triggered · A-01</button>
-            </div>
-            </article>
-          </div>
-        </section>
-
-        <section className="chapter chapter-run dark" id="campaigns">
-          <div className="story-panel campaign-story-panel" data-story-panel>
-            <ChapterHeader
-            number="02"
-            eyebrow="Campaign breakdown"
-            title="Every campaign gets a verdict."
-            intro="Results matter. The reason behind them is what makes the next result better."
-            dark
-          />
-            <div className="campaign-layout">
-            <div className="channel-list campaign-list" role="tablist" aria-label="Select campaign">
-              {campaigns.map((item, index) => (
-                <button key={item.name} role="tab" aria-selected={campaignIndex === index} className={campaignIndex === index ? "selected" : ""} onClick={() => setCampaignIndex(index)}>
-                  <span>{item.name}</span><small>{item.status}</small><b aria-hidden="true">↗</b>
-                </button>
               ))}
             </div>
-            <div className="campaign-panel" role="tabpanel">
-            <div className="campaign-result">
-              <div className="campaign-result-heading"><span className="status-pill">{campaign.status}</span><span>July actual</span></div>
-              <div className="campaign-result-value"><strong>{campaign.result}</strong><small>{campaign.metric}</small><em>{campaign.change}</em></div>
-              <div className="spark-bars" aria-label="Seven-week performance trend">
-                {campaign.bars.map((height, index) => (
-                  <i key={`${height}-${index}`} style={{ height: `${height}%` }} />
+          </div>
+
+          <div className="story-panel" data-story-panel>
+            <ChapterHeader
+              number="01"
+              eyebrow="Key wins"
+              title="What the overall numbers actually mean."
+              intro="The three results that define the period: why they happened, and what they tell us about success."
+            />
+            <div className="win-grid">
+              {report.wins.map((win, index) => (
+                <article className="win-card" key={win.title}>
+                  <span>0{index + 1}</span>
+                  <h3 className="editable" contentEditable suppressContentEditableWarning>{win.title}</h3>
+                  <p className="win-result editable" contentEditable suppressContentEditableWarning>{win.result}</p>
+                  <NarrativeBlock label="Why this happened" text={win.why} />
+                  <NarrativeBlock label="What this means" text={win.means} accent />
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {report.channels.map((channel, index) => (
+          <section className="chapter chapter-run light" id={channel.id} key={channel.id}>
+            <div className="story-panel" data-story-panel>
+              <ChapterHeader
+                number={String(index + 2).padStart(2, "0")}
+                eyebrow={`${channel.name} · headline results`}
+                title={`${channel.name} versus ${report.previousPeriod}.`}
+                intro={channel.role}
+              />
+              <KpiBoard kpis={channel.kpis} previousPeriod={report.previousPeriod} />
+              <div className="split-row">
+                {channel.split.map((item) => (
+                  <article key={item.name}>
+                    <span>{item.name}</span>
+                    <strong>{item.result}</strong>
+                    <b>{item.metric}</b>
+                    <p>{item.note}</p>
+                  </article>
                 ))}
               </div>
             </div>
-            <div className="campaign-analysis">
-              <NarrativeBlock label="What happened" text={campaign.happened} />
-              <NarrativeBlock label="Why it performed as it did" text={campaign.why} />
-              <NarrativeBlock label="What we learnt" text={campaign.learning} accent />
-              <NarrativeBlock label="What happens next" text={campaign.next} action />
-            </div>
-            </div>
-            <div className="embedded-decision">
-            <span>Decision this result creates</span>
-            <strong>{actions[campaignIndex].action}</strong>
-            <div>
-              <small>Owner · {actions[campaignIndex].owner}</small>
-              <small>Due · {actions[campaignIndex].due}</small>
-              <small>Success · {actions[campaignIndex].success}</small>
-            </div>
-            <button onClick={() => jumpTo("actions")}>View action {actions[campaignIndex].code} →</button>
-            </div>
-          </div>
-          </div>
-        </section>
 
-        <section className="chapter chapter-run light" id="channels">
-          <div className="story-panel channel-story-panel" data-story-panel>
+            <div className="story-panel" data-story-panel>
+              <ChapterHeader
+                number={String(index + 2).padStart(2, "0")}
+                eyebrow={`${channel.name} · commentary`}
+                title="What these results tell us."
+                intro="Wins, failures, cause, and the success indicator we should judge this channel by."
+              />
+              <CommentaryGrid copy={channel.commentary} />
+            </div>
+          </section>
+        ))}
+
+        <section className="chapter chapter-run light" id="campaign">
+          <div className="story-panel" data-story-panel>
             <ChapterHeader
-            number="03"
-            eyebrow="Channel breakdown"
-            title="One plan. Different jobs."
-            intro="We judge each channel by the role it plays in the system, not by forcing every platform into the same scorecard."
-          />
-
-            <div className="channel-layout">
-            <div className="channel-list" role="tablist" aria-label="Select channel">
-              {channels.map((item, index) => (
-                <button
-                  key={item.name}
-                  role="tab"
-                  aria-selected={channelIndex === index}
-                  className={channelIndex === index ? "selected" : ""}
-                  onClick={() => setChannelIndex(index)}
-                >
-                  <span>{item.name}</span>
-                  <small>{item.role}</small>
-                  <b aria-hidden="true">↗</b>
-                </button>
-              ))}
-            </div>
-
-            <div className="channel-panel" role="tabpanel">
-              <div className="channel-metrics">
-                <div><span>Spend</span><strong>{channel.spend}</strong></div>
-                <div><span>Result</span><strong>{channel.result}</strong></div>
-                <div><span>Role in the mix</span><strong>{channel.share}</strong></div>
-              </div>
-              <div className="channel-narrative">
-              <NarrativeBlock label="Results · What drove performance" text={channel.driver} />
-                <NarrativeBlock label="What we learnt" text={channel.learnt} accent />
-                <NarrativeBlock label="Actionable next step" text={channel.action} action />
-              </div>
-            </div>
-            </div>
+              number={String(report.channels.length + 2).padStart(2, "0")}
+              eyebrow="Campaign pull-out"
+              title={report.campaign.name}
+              intro={`${report.campaign.vs}. The campaign that most clearly explains the efficiency gain.`}
+            />
+            <KpiBoard kpis={report.campaign.kpis} previousPeriod={report.previousPeriod} />
+          </div>
+          <div className="story-panel" data-story-panel>
+            <ChapterHeader
+              number={String(report.channels.length + 2).padStart(2, "0")}
+              eyebrow="Campaign commentary"
+              title="What this campaign tells us."
+              intro="Keep this structure even when the featured campaign changes: result, cause, implication."
+            />
+            <CommentaryGrid copy={report.campaign.commentary} />
           </div>
         </section>
 
         <section className="chapter chapter-run creative-chapter" id="creative">
-          <div className="story-panel creative-story-panel" data-story-panel>
-            <ChapterHeader
-            number="04"
-            eyebrow="Top-performing creative"
-            title="Show the work. Prove the learning."
-            intro="The ad, the result and the learning stay together. Select a creative to unpack the lesson."
-          />
+          {report.channels.map((channel) => (
+            <div className="story-panel creative-story-panel" data-story-panel key={`${channel.id}-creative`}>
+              <ChapterHeader
+                number={String(report.channels.length + 3).padStart(2, "0")}
+                eyebrow={`Winning creatives · ${channel.name}`}
+                title={`Top ${channel.creatives.length} on ${channel.name}.`}
+                intro="Key stats against the objective, why it performed, and the learning we take into the next phase."
+              />
+              <div className="creative-stack">
+                {channel.creatives.map((item, creativeIndex) => (
+                  <article className="creative-row" key={item.title}>
+                    {channel.id === "meta" ? (
+                      <span className="creative-image">
+                        <Image
+                          src={reportAsset("indian-creative-triptych.png")}
+                          alt={`${item.title} Indian Motorcycle campaign creative`}
+                          width={1200}
+                          height={675}
+                          sizes="180px"
+                          unoptimized
+                          style={{ left: `${-6 - creativeIndex * 102}%` }}
+                        />
+                        <i>{item.stage}</i>
+                      </span>
+                    ) : (
+                      <span className="type-creative">
+                        <i>{item.stage}</i>
+                        <b>{item.title}</b>
+                      </span>
+                    )}
+                    <div className="creative-row-copy">
+                      <header>
+                        <h3 className="editable" contentEditable suppressContentEditableWarning>{item.title}</h3>
+                        <p>
+                          <strong>{item.primary}</strong> {item.primaryLabel}
+                          <span>{item.secondary}</span>
+                          <em>Objective: {item.objective}</em>
+                        </p>
+                      </header>
+                      <NarrativeBlock label="Why it performed" text={item.why} />
+                      <NarrativeBlock label="Learning we take" text={item.learning} accent />
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
 
-            <div className="creative-layout">
-            <div className="creative-grid" role="list" aria-label="Top creative examples">
-            {creatives.map((item, index) => (
-              <button
-                key={item.title}
-                role="listitem"
-                className={`creative-card ${creativeIndex === index ? "selected" : ""}`}
-                onClick={() => selectCreative(index)}
-                aria-label={`View analysis for ${item.title}`}
-              >
-                <span className="creative-rank">0{index + 1}</span>
-                <span className="creative-image">
-                  <Image
-                    src={reportAsset("indian-creative-triptych.png")}
-                    alt={`${item.title} Indian Motorcycle campaign creative`}
-                    width={1200}
-                    height={675}
-                    sizes="(max-width: 820px) 30vw, 14vw"
-                    unoptimized
-                    style={{ left: `${-6 - (index * 102)}%` }}
-                  />
-                  <i>{item.channel}</i>
-                </span>
-                <span className="creative-caption">
-                  <b>{item.title}</b>
-                  <span>{item.primary} {item.primaryLabel}</span>
-                </span>
-              </button>
-            ))}
+        <section className="chapter chapter-run light" id="learnings">
+          <div className="story-panel" data-story-panel>
+            <ChapterHeader
+              number={String(report.channels.length + 4).padStart(2, "0")}
+              eyebrow="Core learnings"
+              title="What the period taught us."
+              intro="Carry these three lines into the next phase. Everything below them is execution."
+            />
+            <div className="learn-grid">
+              {report.learnings.map((item, index) => (
+                <article key={item.title}>
+                  <span>0{index + 1}</span>
+                  <h3 className="editable" contentEditable suppressContentEditableWarning>{item.title}</h3>
+                  <p className="editable" contentEditable suppressContentEditableWarning>{item.text}</p>
+                </article>
+              ))}
             </div>
-            <div className="creative-analysis" aria-live="polite">
-            <div className="creative-score">
-              <span>Selected creative · {creative.title}</span>
-              <strong>{creative.primary}</strong>
-              <small>{creative.primaryLabel} · {creative.secondary}</small>
-            </div>
-            <NarrativeBlock label="Why it worked" text={creative.worked} />
-            <NarrativeBlock label="What we take from it" text={creative.take} accent />
-            <NarrativeBlock label="Influence on future creative" text={creative.future} action />
-            </div>
-            <div className="creative-brief-action">
-            <div>
-              <span>Turn the learning into work</span>
-              <strong>Next brief: three need states, nine opening frames, one clear product truth.</strong>
-            </div>
-            <button onClick={() => jumpTo("actions")}>View next-step actions →</button>
-            </div>
-          </div>
           </div>
         </section>
 
-        <section className="chapter chapter-run action-chapter" id="actions">
-          <div className="story-panel action-lead-panel" data-story-panel>
+        <section className="chapter chapter-run light" id="next">
+          <div className="story-panel next-panel" data-story-panel>
             <ChapterHeader
-            number="05"
-            eyebrow="Overall learnings + next steps"
-            title="The report becomes the plan."
-            intro="The period leaves us with three clear learnings, what we are changing as a result, and six decisions across strategy, creative and account leadership."
-          />
-
-            <div className="register-summary">
-            <span className="live-register-label">Live action register</span>
-            <div><strong>{actions.length}</strong><span>Moves</span></div>
-            <div><strong>{actionStatuses.filter((status) => status !== "Ready").length}</strong><span>Moved forward</span></div>
-            <p>Three workstreams. Six moves. Each one has an owner, a deadline, a guardrail and a decision it unlocks.</p>
-            </div>
-            <div className="learning-strip" aria-label="Overall learnings">
-              <article><span>01 · Biggest learning</span><strong>Intent is the lever.</strong><p>Spend can reduce without surrendering volume when model, audience and message agree.</p></article>
-              <article><span>02 · What we’re changing</span><strong>Bagger is moving.</strong><p>We are protecting Bagger momentum while deliberately building Touring and Chief demand.</p></article>
-              <article><span>03 · What we recommend next</span><strong>Lead volume is not value.</strong><p>Close the CRM and Power BI loop so the next budget decision follows model quality, not form fills alone.</p></article>
-            </div>
-          </div>
-
-          <div className="story-panel action-register-panel" data-story-panel>
-            <header className="panel-heading">
-              <div><span>05 · Next steps</span><strong>Actions 01–03</strong></div>
-              <h2>Priority actions for the next reporting period.</h2>
-              <p>Every move has a reason, an owner, a deadline and a clear measure of success.</p>
-            </header>
-            <div className="action-register" aria-label="Action register">
-            <div className="register-head" aria-hidden="true">
-              <span>Signal + action</span>
-              <span>Accountability</span>
-              <span>Decision state</span>
-            </div>
-            {actions.slice(0, 3).map((item, index) => (
-              <article className="action-row" key={item.code}>
-                <div className="action-main">
-                  <div className="action-meta"><span>{item.code}</span><b>{item.workstream}</b><b>{item.priority}</b></div>
-                  <small contentEditable suppressContentEditableWarning>{item.signal}</small>
-                  <h3 contentEditable suppressContentEditableWarning>{item.action}</h3>
-                </div>
-                <dl>
-                  <div><dt>Owner</dt><dd contentEditable suppressContentEditableWarning>{item.owner}</dd></div>
-                  <div><dt>Due</dt><dd contentEditable suppressContentEditableWarning>{item.due}</dd></div>
-                  <div><dt>Success</dt><dd contentEditable suppressContentEditableWarning>{item.success}</dd></div>
-                </dl>
-                <button
-                  className="status-control"
-                  data-status={actionStatuses[index].toLowerCase().replace(" ", "-")}
-                  onClick={() => advanceAction(index)}
-                  aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[index]}`}
-                >
-                  <i />
-                  Status: {actionStatuses[index]}
-                  <span>Change ↻</span>
-                </button>
-              </article>
-            ))}
-            </div>
-          </div>
-
-          <div className="story-panel action-register-panel" data-story-panel>
-            <header className="panel-heading">
-              <div><span>05 · Next steps</span><strong>Actions 04–06</strong></div>
-              <h2>Turn the learning into better work.</h2>
-              <p>Creative, account and data actions close the loop between insight and delivery.</p>
-            </header>
-            <div className="action-register" aria-label="Action register, moves four to six">
-            <div className="register-head" aria-hidden="true">
-              <span>Signal + action</span><span>Accountability</span><span>Decision state</span>
-            </div>
-            {actions.slice(3).map((item, index) => {
-              const actionIndex = index + 3;
-              return (
-              <article className="action-row" key={item.code}>
-                <div className="action-main">
-                  <div className="action-meta"><span>{item.code}</span><b>{item.workstream}</b><b>{item.priority}</b></div>
-                  <small contentEditable suppressContentEditableWarning>{item.signal}</small><h3 contentEditable suppressContentEditableWarning>{item.action}</h3>
-                </div>
-                <dl><div><dt>Owner</dt><dd contentEditable suppressContentEditableWarning>{item.owner}</dd></div><div><dt>Due</dt><dd contentEditable suppressContentEditableWarning>{item.due}</dd></div><div><dt>Success</dt><dd contentEditable suppressContentEditableWarning>{item.success}</dd></div></dl>
-                <button className="status-control" data-status={actionStatuses[actionIndex].toLowerCase().replace(" ", "-")} onClick={() => advanceAction(actionIndex)} aria-label={`Change status for ${item.code}. Current status: ${actionStatuses[actionIndex]}`}><i />Status: {actionStatuses[actionIndex]}<span>Change ↻</span></button>
-              </article>
-              );
-            })}
-            </div>
-          </div>
-
-          <div className="story-panel action-finale-panel" data-story-panel>
-            <div className="action-loop" aria-label="How the report drives action">
-              <span>01 <b>See the result</b></span>
-              <span>02 <b>Understand the cause</b></span>
-              <span>03 <b>Make the decision</b></span>
-              <span>04 <b>Track the outcome</b></span>
-            </div>
-
-            <div className="final-payoff">
-              <span>THE PRINCIPLE</span>
-              <p>
-                Performance you can see.
-                <br />
-                <em>Decisions you can move.</em>
-              </p>
-              <button onClick={() => jumpTo("overview")}>Back to the start ←</button>
+              number={String(report.channels.length + 5).padStart(2, "0")}
+              eyebrow="Next phase of work"
+              title="What we are going to do."
+              intro="Four moves that follow the results. Each one has a success test."
+            />
+            <div className="next-grid">
+              {report.nextPhase.map((item, index) => (
+                <article key={item.title}>
+                  <span>0{index + 1}</span>
+                  <h3 className="editable" contentEditable suppressContentEditableWarning>{item.title}</h3>
+                  <p className="editable" contentEditable suppressContentEditableWarning>{item.text}</p>
+                  <small className="editable" contentEditable suppressContentEditableWarning>Success: {item.success}</small>
+                </article>
+              ))}
             </div>
           </div>
         </section>
       </main>
 
       <div className="slide-controls" aria-label="Report page navigation">
-        <button
-          onClick={() => stepPanel(-1)}
-          disabled={activePanelIndex === 0}
-          aria-label="Previous panel"
-        >
+        <button onClick={() => stepPanel(-1)} disabled={activePanelIndex === 0} aria-label="Previous panel">
           <b aria-hidden="true">←</b><span>Previous</span>
         </button>
         <div>
           <span>{storyPanelLabels[activePanelIndex]}</span>
-          <strong>{String(activePanelIndex + 1).padStart(2, "0")} / {storyPanelCount}</strong>
+          <strong>{String(activePanelIndex + 1).padStart(2, "0")} / {String(storyPanelCount).padStart(2, "0")}</strong>
         </div>
-        <button
-          onClick={() => stepPanel(1)}
-          disabled={activePanelIndex === storyPanelCount - 1}
-          aria-label="Next panel"
-        >
+        <button onClick={() => stepPanel(1)} disabled={activePanelIndex === storyPanelCount - 1} aria-label="Next panel">
           <span>Next</span><b aria-hidden="true">→</b>
         </button>
       </div>
+    </div>
+  );
+}
 
+function KpiBoard({ kpis, previousPeriod }: { kpis: Kpi[]; previousPeriod: string }) {
+  return (
+    <div className="kpi-board" aria-label="Headline stats versus previous period">
+      {kpis.map((kpi) => (
+        <div key={kpi.label}>
+          <span>{kpi.label}</span>
+          <strong className="editable" contentEditable suppressContentEditableWarning>{kpi.value}</strong>
+          {kpi.change === "hold" ? (
+            <small>{kpi.previous}</small>
+          ) : (
+            <Delta change={kpi.change} direction={kpi.direction} />
+          )}
+          {kpi.change === "hold" ? null : (
+            <em>vs {previousPeriod} {kpi.previous}</em>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Delta({ change, direction }: { change: string; direction: "up" | "down" }) {
+  return (
+    <small className={`delta ${direction}`}>
+      {direction === "up" ? "↑" : "↓"} {change}
+    </small>
+  );
+}
+
+function CommentaryGrid({
+  copy,
+}: {
+  copy: { tellsUs: string; winsFailures: string; why: string; success: string };
+}) {
+  return (
+    <div className="commentary-grid">
+      <NarrativeBlock label="What these results tell us" text={copy.tellsUs} />
+      <NarrativeBlock label="Big wins / failures" text={copy.winsFailures} />
+      <NarrativeBlock label="Why this happened" text={copy.why} />
+      <NarrativeBlock label="Success indicator" text={copy.success} accent />
     </div>
   );
 }
@@ -848,16 +639,14 @@ function ChapterHeader({
   eyebrow,
   title,
   intro,
-  dark = false,
 }: {
   number: string;
   eyebrow: string;
   title: string;
   intro: string;
-  dark?: boolean;
 }) {
   return (
-    <header className={`chapter-header ${dark ? "on-dark" : ""}`}>
+    <header className="chapter-header">
       <div className="section-number">{number}</div>
       <div>
         <span className="eyebrow editable" contentEditable suppressContentEditableWarning>{eyebrow}</span>
@@ -872,15 +661,13 @@ function NarrativeBlock({
   label,
   text,
   accent = false,
-  action = false,
 }: {
   label: string;
   text: string;
   accent?: boolean;
-  action?: boolean;
 }) {
   return (
-    <div className={`narrative-block ${accent ? "accent" : ""} ${action ? "action" : ""}`}>
+    <div className={`narrative-block ${accent ? "accent" : ""}`}>
       <span className="editable" contentEditable suppressContentEditableWarning>{label}</span>
       <p className="editable" contentEditable suppressContentEditableWarning>{text}</p>
     </div>
