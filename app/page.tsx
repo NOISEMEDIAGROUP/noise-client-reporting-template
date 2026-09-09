@@ -25,21 +25,27 @@ const report = {
   wins: [
     {
       title: "Efficiency held the period",
-      result: "CPL −20% while leads still beat forecast by 9%.",
-      why: "Spend dropped 31%, but it dropped toward people already showing intent — retargeting and Performance Max — rather than being cut evenly.",
-      means: "The account can buy the next period on cost, not on volume panic. Success is beating forecast at a lower CPL, not spending in full to protect lead count.",
+      stat: "$55.50 CPL",
+      versus: "vs $69.38 June · vs $60 April · vs $114.56 FY forecast",
+      means: "Twenty percent cheaper than June and less than half the annual forecast. Slightly above April’s $60, on 31% less spend. This is a good result.",
+      why: "Spend dropped toward retargeting and Performance Max — people already showing intent — not evenly across the account.",
+      learning: "Buy the next period on this cost base. Do not spend in full just to protect lead count.",
     },
     {
       title: "Retargeting did more with less",
-      result: "2,711 leads at $20 CPL after a 25% spend cut.",
-      why: "High-intent riders already knew the bike. Direct finance, colour and product proof answered the last question instead of re-selling the dream.",
-      means: "Bottom-funnel efficiency is the clearest success indicator in the mix. If retargeting CPL stays near $20, the system is working.",
+      stat: "$20 CPL · 2,711 leads",
+      versus: "vs $29 June · vs ~$33 Get a Quote retargeting",
+      means: "Thirty-one percent cheaper than last month and well under the $33 CTA benchmark, after a 25% spend cut. This is an exceptional result.",
+      why: "High-intent riders already knew the bike. Finance, colour and product proof closed the last question.",
+      learning: "If retargeting holds near $20 as we reinvest, the system is working. That is the control number.",
     },
     {
       title: "Google converted the demand Meta created",
-      result: "PMax delivered 4,444 conversions — 84% of Google — at $39.89 CPA.",
-      why: "Search did not have to introduce the brand. It captured riders who already had a model in mind and moved them to a form.",
-      means: "Google’s job is intent capture, not awareness. Success is CPA and model quality, not matching Meta on lead volume.",
+      stat: "$39.89 PMax CPA",
+      versus: "vs $47 June Google CPA · vs $55.50 blended · vs $114.56 FY forecast",
+      means: "Eighty-four percent of Google conversions at a CPA far under account forecast and below blended CPL. This is a good result on cost. Model mix is the open question.",
+      why: "Search did not re-introduce the brand. It captured riders who already had a model in mind.",
+      learning: "Judge Google on CPA and model quality, not on matching Meta lead volume.",
     },
   ],
   channels: [
@@ -58,10 +64,33 @@ const report = {
         { name: "Retargeting", result: "2,711 leads", metric: "$20 CPL", note: "25% less spend · more leads" },
       ],
       commentary: {
-        tellsUs: "Meta still carries half of all leads on 65% of spend, and it got cheaper. Volume softened because investment did — not because the channel broke.",
-        winsFailures: "Win: retargeting produced more leads at $20 CPL on 25% less spend. Drag: prospecting is still $116 CPL, so scale remains expensive relative to the warm audience.",
-        why: "Creative matched the funnel. Prospecting led with use-case and product proof in the first three seconds. Retargeting led with finance, colour and a detailed bike — no re-introduction.",
-        success: "Meta is succeeding when CPL falls faster than lead volume, and when retargeting can take a spend cut without losing the lead. $20 retargeting CPL is the benchmark to protect.",
+        points: [
+          {
+            stat: "$72 blended CPL",
+            versus: "vs $90 June · vs $114.56 FY forecast · vs $60 April blended",
+            means: "Twenty percent cheaper than June and 37% under the annual forecast. Not quite April’s $60 account CPL, but a clearly good Meta result on less spend.",
+            why: "Investment fell 31% toward warm audiences. Volume fell 14% — slower than spend — so efficiency improved rather than the channel breaking.",
+            learning: "Rebuild Meta volume at or under $72. Do not buy lead count back at June’s $90.",
+          },
+          {
+            stat: "$20 retargeting CPL",
+            versus: "vs $29 June · vs ~$33 Get a Quote retargeting",
+            means: "More leads on 25% less spend, 31% cheaper than last month and well under the historic $33 CTA benchmark. This is an exceptional result.",
+            why: "Finance, colour and a detailed bike closed riders who were already in-market. No awareness job was being asked of this audience.",
+            learning: "Protect $20 as the control number. Reinvest here first.",
+          },
+          {
+            stat: "$116 prospecting CPL",
+            versus: "vs $20 retargeting · vs ~$140 Get a Quote prospecting · vs $114.56 FY forecast",
+            means: "Better than the $140 prospecting CTA benchmark, but six times retargeting and slightly above FY forecast. Scale is working; this is not the efficiency win.",
+            why: "Cold audiences still need a use-case in the first three seconds. That costs more than closing warm riders.",
+            learning: "Keep prospecting as the volume engine. Judge it against ~$140 and forecast, not against retargeting’s $20.",
+          },
+        ],
+        rating: {
+          verdict: "Strong",
+          text: "Meta did its job: cheaper than June, well under annual forecast, with retargeting the standout. The open issue is prospecting cost and model mix, not channel failure.",
+        },
       },
       creatives: [
         {
@@ -72,6 +101,7 @@ const report = {
           secondary: "23K LPV",
           objective: "Attention and site traffic",
           why: "First-person riding makes the experience obvious in the opening frame. The viewer can imagine the bike before they are asked to buy it.",
+          versus: "vs 1.47% static · vs 3.8% video consideration benchmark — in the video range, well above static.",
           learning: "Upper-funnel work should sell the ride, not the spec sheet. Cut longer stories into 6–15s with the bike moving immediately.",
         },
         {
@@ -82,6 +112,7 @@ const report = {
           secondary: "$101 CPL",
           objective: "Prospecting leads",
           why: "A specific monthly figure made the value exchange concrete while keeping the bike central. Affordability did more conversion work than lifestyle language.",
+          versus: "vs $116 Meta prospecting blended · vs ~$140 Get a Quote prospecting — cheaper than both.",
           learning: "Build payment variants for Bagger, Touring and Chief, then send each to a model-specific landing page.",
         },
         {
@@ -92,6 +123,7 @@ const report = {
           secondary: "$17 CPL",
           objective: "High-intent conversion",
           why: "A direct finance line and a detailed bike view answered the last question. The audience had already done the dreaming.",
+          versus: "vs $20 retargeting blended · vs ~$33 Get a Quote retargeting — best in the retargeting set.",
           learning: "Retargeting should be product-first, branded and specific. Put the strongest proof in frame one, then finance and trade-in routes by model.",
         },
       ],
@@ -111,10 +143,33 @@ const report = {
         { name: "Brand Search", result: "843 conv.", metric: "$28.65 CPA", note: "Highest-efficiency Google route" },
       ],
       commentary: {
-        tellsUs: "Google converted as many people as Meta, on roughly half the spend. It is catching demand the rest of the mix creates, not manufacturing it.",
-        winsFailures: "Win: PMax and Brand Search both cleared a $40 CPA. Gap: optimisation still rewards form fills. Chief, Pursuit and Scout took the volume; Touring and Chief retail mix remain light.",
-        why: "Queries and product feeds already carried model knowledge. The ads did not re-introduce Indian. They moved a known rider to a quote.",
-        success: "Google succeeds when CPA stays under $40 and the model mix starts to look like retail targets — not when it simply matches Meta on conversion count.",
+        points: [
+          {
+            stat: "$38 Google CPA",
+            versus: "vs $47 June · vs $55.50 blended · vs $114.56 FY forecast",
+            means: "Twenty percent cheaper than June, below blended CPL, and a third of the annual forecast. On 35% of spend it matched Meta’s conversion count. This is a very good cost result.",
+            why: "Google is catching demand Meta creates, not manufacturing awareness. Queries already carried model intent.",
+            learning: "Keep CPA under $40. That is the success test, not matching Meta on volume.",
+          },
+          {
+            stat: "$39.89 PMax CPA · 84% of Google",
+            versus: "vs $47 June Google CPA · vs retail mix Scout 42% / Bagger 29% / Touring 18% / Chief 12%",
+            means: "Efficient versus last month and versus forecast. Weak versus retail targets: volume still sits on Scout, Chief and Pursuit, while Touring and Chief retail share stay light.",
+            why: "Product feeds followed the strongest conversion signal. The algorithm optimised for form fills, not desirable bikes.",
+            learning: "Value-weight PMax so the next success test is model mix, not more conversions at $39.89.",
+          },
+          {
+            stat: "$28.65 Brand CPA",
+            versus: "vs $39.89 PMax · vs $38 Google blended",
+            means: "Twenty-eight percent cheaper than PMax and the lowest CPA in the Google mix. This is a good result and the cleanest intent in the account.",
+            why: "Brand queries only had to confirm availability and send the rider to a quote.",
+            learning: "Protect Brand. Do not starve it to fund prospecting.",
+          },
+        ],
+        rating: {
+          verdict: "Strong on cost, mixed on mix",
+          text: "Google is converting cheaply versus June, forecast and blended CPL. That is a good channel result. It is not yet a good portfolio result until Touring and Chief move toward retail targets.",
+        },
       },
       creatives: [
         {
@@ -125,6 +180,7 @@ const report = {
           secondary: "$39.89 CPA",
           objective: "Efficient conversions",
           why: "Product-first assets met riders who already knew the model. PMax concentrated on the bikes with the strongest conversion signal.",
+          versus: "vs $47 June Google CPA · vs $114.56 FY forecast — a good cost result.",
           learning: "Signal quality now matters more than finding extra form fills. Weighted conversion values should push the account toward the bikes we actually want to sell.",
         },
         {
@@ -135,6 +191,7 @@ const report = {
           secondary: "$28.65 CPA",
           objective: "Capture existing demand",
           why: "Brand queries are the cleanest intent in the mix. The ad only had to confirm availability and send the rider to a quote.",
+          versus: "vs $39.89 PMax · vs $38 Google blended — the cheapest Google route.",
           learning: "Protect Brand. Switch on AI Max for Brand and keep the landing page as direct as the query.",
         },
         {
@@ -145,6 +202,7 @@ const report = {
           secondary: "Scout still leads",
           objective: "Desirable model mix",
           why: "Where model-level landing pages and feed assets were strongest, conversion quality followed. Broad catch-alls filled volume, not mix.",
+          versus: "vs retail targets Scout 42% / Bagger 29% / Touring 18% / Chief 12% — volume is not yet mix.",
           learning: "Scale Catch All only where model quality is proven. Touring and Chief need dedicated routes or the portfolio stays Scout-heavy.",
         },
       ],
@@ -160,10 +218,33 @@ const report = {
       { label: "LP to lead", value: "5.7%", previous: "June flight", change: "hold", direction: "up" as const },
     ],
     commentary: {
-      tellsUs: "This was the most efficient campaign in the period. It made more leads on a quarter less spend, which is why blended CPL could fall while total investment fell faster than volume.",
-      winsFailures: "Win: $20 CPL and a 5.7% landing-page-to-lead rate. Limit: repeated branded product shots without enough narrative variation will cap the tail if frequency climbs.",
-      why: "Distinctive colour and a seasonal cue earned the stop. Finance and a close bike view closed the people who were already in-market. No awareness job was being asked of this audience.",
-      success: "Retargeting is the control campaign. If CPL holds near $20 while we rebuild spend, the next phase is working. If frequency rises and CPL follows, rotate the story, not the audience.",
+      points: [
+        {
+          stat: "$20 CPL",
+          versus: "vs $29 June flight · vs ~$33 Get a Quote retargeting · vs $55.50 blended",
+          means: "Thirty-one percent cheaper than the last flight, well under the $33 CTA benchmark, and almost a third of blended CPL. This is an exceptional campaign result.",
+          why: "Finance and a close bike view closed people already in-market. No awareness job was being asked of this audience.",
+          learning: "This is the control campaign. Reinvest here first and hold $20 as the line.",
+        },
+        {
+          stat: "2,711 leads on 25% less spend",
+          versus: "vs 2,510 leads / $72k June flight",
+          means: "Lead volume rose 8% while spend fell. That is the reverse of a typical cut, and a clear win versus the previous flight.",
+          why: "The audience was already warm. Distinctive colour and a seasonal cue earned the stop; the offer did the conversion.",
+          learning: "A spend cut here does not have to cost volume. Add spend carefully and watch frequency, not just CPL.",
+        },
+        {
+          stat: "5.7% landing-page to lead",
+          versus: "Paid landing-page conversion typically sits around 2–5%",
+          means: "Above the usual paid range. The page is converting the traffic the ads send. This is a good result.",
+          why: "The ad and the page agreed: product, finance, quote. No re-selling the dream on arrival.",
+          learning: "If CPL rises, check frequency and creative fatigue before rebuilding the page.",
+        },
+      ],
+      rating: {
+        verdict: "Standout",
+        text: "Retargeting is why blended CPL could fall while total spend fell faster than volume. Versus June and versus the $33 CTA benchmark, this campaign is a clear success for the client.",
+      },
     },
   },
   learnings: [
@@ -229,6 +310,37 @@ const storyPanelLabels = [
 ];
 
 const storyPanelCount = storyPanelLabels.length;
+const mobileStoryQuery = "(max-width: 820px)";
+
+const isVerticalStory = () =>
+  typeof window !== "undefined" && window.matchMedia(mobileStoryQuery).matches;
+
+function scrollStoryTo(story: HTMLElement, target: HTMLElement) {
+  const storyBox = story.getBoundingClientRect();
+  const targetBox = target.getBoundingClientRect();
+  if (isVerticalStory()) {
+    story.scrollTo({
+      top: targetBox.top - storyBox.top + story.scrollTop,
+      behavior: "smooth",
+    });
+    return;
+  }
+  story.scrollTo({
+    left: targetBox.left - storyBox.left + story.scrollLeft,
+    behavior: "smooth",
+  });
+}
+
+function closestPanelIndex(story: HTMLElement, panels: HTMLElement[]) {
+  const origin = isVerticalStory() ? story.getBoundingClientRect().top : story.getBoundingClientRect().left;
+  return panels.reduce((closestIndex, panel, index) => {
+    const panelEdge = isVerticalStory() ? panel.getBoundingClientRect().top : panel.getBoundingClientRect().left;
+    const closestEdge = isVerticalStory()
+      ? panels[closestIndex].getBoundingClientRect().top
+      : panels[closestIndex].getBoundingClientRect().left;
+    return Math.abs(panelEdge - origin) < Math.abs(closestEdge - origin) ? index : closestIndex;
+  }, 0);
+}
 
 type Kpi = {
   label: string;
@@ -258,17 +370,11 @@ export default function Home() {
     const syncActivePanel = () => {
       window.cancelAnimationFrame(animationFrame);
       animationFrame = window.requestAnimationFrame(() => {
-        const storyLeft = story.getBoundingClientRect().left;
-        const closest = panels.reduce(
-          (best, panel, index) => {
-            const distance = Math.abs(panel.getBoundingClientRect().left - storyLeft);
-            return distance < best.distance ? { index, panel, distance } : best;
-          },
-          { index: 0, panel: panels[0], distance: Number.POSITIVE_INFINITY },
-        );
-        if (!closest.panel) return;
-        setActivePanelIndex(closest.index);
-        const chapter = closest.panel.closest<HTMLElement>(".chapter");
+        const index = closestPanelIndex(story, panels);
+        const panel = panels[index];
+        if (!panel) return;
+        setActivePanelIndex(index);
+        const chapter = panel.closest<HTMLElement>(".chapter");
         if (chapter?.id) setActiveChapter(chapter.id);
       });
     };
@@ -288,27 +394,17 @@ export default function Home() {
     const section = document.getElementById(id);
     if (!story || !section) return;
     setMenuOpen(false);
-    const left = section.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
-    story.scrollTo({ left, behavior: "smooth" });
+    scrollStoryTo(story, section);
   };
 
   const stepPanel = (direction: number) => {
     const story = storyRef.current;
     if (!story) return;
     const panels = Array.from(story.querySelectorAll<HTMLElement>("[data-story-panel]"));
-    const storyLeft = story.getBoundingClientRect().left;
-    const currentIndex = panels.reduce(
-      (closestIndex, panel, index) =>
-        Math.abs(panel.getBoundingClientRect().left - storyLeft) <
-        Math.abs(panels[closestIndex].getBoundingClientRect().left - storyLeft)
-          ? index
-          : closestIndex,
-      0,
-    );
+    const currentIndex = closestPanelIndex(story, panels);
     const nextIndex = Math.min(panels.length - 1, Math.max(0, currentIndex + direction));
     const panel = panels[nextIndex];
-    const left = panel.getBoundingClientRect().left - story.getBoundingClientRect().left + story.scrollLeft;
-    story.scrollTo({ left, behavior: "smooth" });
+    if (panel) scrollStoryTo(story, panel);
   };
 
   return (
@@ -368,15 +464,16 @@ export default function Home() {
         ref={storyRef}
         tabIndex={0}
         onWheel={(event) => {
+          if (isVerticalStory()) return;
           if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
           event.preventDefault();
           storyRef.current?.scrollBy({ left: event.deltaY, behavior: "auto" });
         }}
         onKeyDown={(event) => {
-          if (event.key === "ArrowRight") stepPanel(1);
-          if (event.key === "ArrowLeft") stepPanel(-1);
+          if (event.key === "ArrowRight" || event.key === "ArrowDown") stepPanel(1);
+          if (event.key === "ArrowLeft" || event.key === "ArrowUp") stepPanel(-1);
         }}
-        aria-label="Horizontal performance report"
+        aria-label="Performance report"
       >
         <section className="chapter chapter-run light" id="overall">
           <div className="story-panel results-hero" data-story-panel>
@@ -411,16 +508,18 @@ export default function Home() {
               number="01"
               eyebrow="Key wins"
               title="What the overall numbers actually mean."
-              intro="The three results that define the period: why they happened, and what they tell us about success."
+              intro="Each win: the core stat, whether it is good versus last period and benchmark, why, and the learning."
             />
             <div className="win-grid">
               {report.wins.map((win, index) => (
                 <article className="win-card" key={win.title}>
                   <span>0{index + 1}</span>
                   <h3 className="editable" contentEditable suppressContentEditableWarning>{win.title}</h3>
-                  <p className="win-result editable" contentEditable suppressContentEditableWarning>{win.result}</p>
+                  <p className="win-result editable" contentEditable suppressContentEditableWarning>{win.stat}</p>
+                  <p className="versus editable" contentEditable suppressContentEditableWarning>{win.versus}</p>
+                  <NarrativeBlock label="What this means" text={win.means} />
                   <NarrativeBlock label="Why this happened" text={win.why} />
-                  <NarrativeBlock label="What this means" text={win.means} accent />
+                  <NarrativeBlock label="Learning going forward" text={win.learning} accent />
                 </article>
               ))}
             </div>
@@ -454,7 +553,7 @@ export default function Home() {
                 number={String(index + 2).padStart(2, "0")}
                 eyebrow={`${channel.name} · commentary`}
                 title="What these results tell us."
-                intro="Wins, failures, cause, and the success indicator we should judge this channel by."
+                intro="Each point: the stat, whether it is good, why, and the learning. Then an overall rating."
               />
               <CommentaryGrid copy={channel.commentary} />
             </div>
@@ -476,7 +575,7 @@ export default function Home() {
               number={String(report.channels.length + 2).padStart(2, "0")}
               eyebrow="Campaign commentary"
               title="What this campaign tells us."
-              intro="Keep this structure even when the featured campaign changes: result, cause, implication."
+              intro="Each point: the stat, whether it is good, why, and the learning. Then an overall rating."
             />
             <CommentaryGrid copy={report.campaign.commentary} />
           </div>
@@ -489,7 +588,7 @@ export default function Home() {
                 number={String(report.channels.length + 3).padStart(2, "0")}
                 eyebrow={`Winning creatives · ${channel.name}`}
                 title={`Top ${channel.creatives.length} on ${channel.name}.`}
-                intro="Key stats against the objective, why it performed, and the learning we take into the next phase."
+                intro="Key stats versus last period or benchmark, why it performed, and the learning we take into the next phase."
               />
               <div className="creative-stack">
                 {channel.creatives.map((item, creativeIndex) => (
@@ -519,6 +618,7 @@ export default function Home() {
                         <strong>{item.primary}</strong>
                         <span>{item.primaryLabel} · {item.secondary}</span>
                       </p>
+                      <p className="versus editable" contentEditable suppressContentEditableWarning>{item.versus}</p>
                       <p className="creative-objective">Objective: {item.objective}</p>
                       <NarrativeBlock label="Why it performed" text={item.why} />
                       <NarrativeBlock label="Learning we take" text={item.learning} accent />
@@ -620,14 +720,28 @@ function Delta({ change, direction }: { change: string; direction: "up" | "down"
 function CommentaryGrid({
   copy,
 }: {
-  copy: { tellsUs: string; winsFailures: string; why: string; success: string };
+  copy: {
+    points: { stat: string; versus: string; means: string; why: string; learning: string }[];
+    rating: { verdict: string; text: string };
+  };
 }) {
   return (
     <div className="commentary-grid">
-      <NarrativeBlock label="What these results tell us" text={copy.tellsUs} />
-      <NarrativeBlock label="Big wins / failures" text={copy.winsFailures} />
-      <NarrativeBlock label="Why this happened" text={copy.why} />
-      <NarrativeBlock label="Success indicator" text={copy.success} accent />
+      {copy.points.map((point, index) => (
+        <article className="point-card" key={point.stat}>
+          <span>0{index + 1}</span>
+          <strong className="editable" contentEditable suppressContentEditableWarning>{point.stat}</strong>
+          <p className="versus editable" contentEditable suppressContentEditableWarning>{point.versus}</p>
+          <NarrativeBlock label="What this means" text={point.means} />
+          <NarrativeBlock label="Why this happened" text={point.why} />
+          <NarrativeBlock label="Learning going forward" text={point.learning} />
+        </article>
+      ))}
+      <article className="rating-card">
+        <span>Overall rating</span>
+        <strong className="editable" contentEditable suppressContentEditableWarning>{copy.rating.verdict}</strong>
+        <p className="editable" contentEditable suppressContentEditableWarning>{copy.rating.text}</p>
+      </article>
     </div>
   );
 }

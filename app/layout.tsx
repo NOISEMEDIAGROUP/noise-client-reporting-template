@@ -14,6 +14,12 @@ const barlowCondensed = Barlow_Condensed({
   weight: ["600", "700"],
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover" as const,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://noisemediagroup.github.io/noise-client-reporting-template/"),
   title: "Results, then commentary. | Noise Client Reporting",

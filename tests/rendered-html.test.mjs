@@ -31,10 +31,14 @@ test("renders the interactive performance story", async () => {
   assert.match(html, /Core learnings/);
   assert.match(html, /Next phase of work/);
   assert.match(html, /What these results tell us/);
-  assert.match(html, /compared with June 2026/);
+  assert.match(html, /What this means/);
+  assert.match(html, /Overall rating/);
+  assert.match(html, /vs \$69\.38 June/);
+  assert.match(html, /compared with/);
+  assert.match(html, /June 2026/);
   assert.match(html, /aria-label="Report page navigation"/);
   assert.match(html, /class="horizontal-story"/);
-  assert.match(html, /aria-label="Horizontal performance report"/);
+  assert.match(html, /aria-label="Performance report"/);
   assert.match(html, /noise-logo-black\.png/);
   assert.equal((html.match(/data-story-panel="true"/g) ?? []).length, 12);
   assert.doesNotMatch(html, /Open report notes|Working notes/);
