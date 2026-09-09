@@ -14,14 +14,16 @@ const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("pages", Date.now().toString());
 const { default: worker } = await import(workerUrl.href);
 const response = await worker.fetch(
-  new Request("http://localhost/", { headers: { accept: "text/html" } }),
+  new Request(new URL(base, "http://localhost"), { headers: { accept: "text/html" } }),
   { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
   { waitUntil() {}, passThroughOnException() {} },
 );
 
 if (!response.ok) throw new Error(`Static render failed: ${response.status}`);
-let html = await response.text();
-html = html
-  .replaceAll(/href="\/(?!noise-client-reporting-template\/)/g, `href="${base}`)
-  .replaceAll(/src="\/(?!noise-client-reporting-template\/)/g, `src="${base}`);
-await writeFile(path.join(out, "index.html"), `<!doctype html>${html}`, "utf8");
+// Vinext's inline next/font CSS still uses root-relative font URLs even when
+// basePath is set. Keep those URLs under the same prefix as the compiled assets.
+const html = (await response.text()).replaceAll(
+  /(?<![\w/-])\/assets\/_vinext_fonts\//g,
+  `${base}assets/_vinext_fonts/`,
+);
+await writeFile(path.join(out, "index.html"), html, "utf8");
