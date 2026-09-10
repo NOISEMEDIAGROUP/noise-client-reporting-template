@@ -22,13 +22,13 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://noisemediagroup.github.io/noise-client-reporting-template/"),
-  title: "This month in 3 points. | Noise Client Reporting",
+  title: "Results, then commentary. | Noise Client Reporting",
   description:
-    "A Noise client performance report: title, executive summary, overall results, channel stories, campaign, creative, then what happens next.",
+    "A client performance report that walks overall results, each channel, each campaign, winning creatives and next steps — in that order.",
   openGraph: {
-    title: "This month in 3 points.",
+    title: "Results, then commentary.",
     description:
-      "Title, three-point summary, overall results, Meta and Google stories, creative, what happens next.",
+      "Overall results, channel by channel, campaign, creatives, learnings, next phase.",
     images: [
       {
         url: "og.png",
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "This month in 3 points.",
+    title: "Results, then commentary.",
     description:
-      "Title, three-point summary, overall results, Meta and Google stories, creative, what happens next.",
+      "Overall results, channel by channel, campaign, creatives, learnings, next phase.",
     images: ["og.png"],
   },
 };
