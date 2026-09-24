@@ -67,7 +67,7 @@ export default function Home() {
   const go = (index: number) => story.current?.querySelectorAll<HTMLElement>("[data-slide]")[index]?.scrollIntoView({ behavior: "smooth", inline: "start" });
   useEffect(() => {
     const node = story.current; if (!node) return;
-    const onScroll = () => { const n = Math.round(node.scrollLeft / node.clientWidth); setActive(Number.isFinite(n) ? Math.min(slides.length - 1, Math.max(0, n)) : 0); };
+    const onScroll = () => { const x = node.scrollLeft; let best = 0, bestD = Infinity; node.querySelectorAll("[data-slide]").forEach((s, i) => { const el = s; const d = Math.abs(el.offsetLeft - node.offsetLeft - x); if (d < bestD) { bestD = d; best = i; } }); setActive(best); };
     node.addEventListener("scroll", onScroll, { passive: true }); return () => node.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => {
