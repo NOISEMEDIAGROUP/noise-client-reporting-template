@@ -67,7 +67,7 @@ export default function Home() {
   const go = (index: number) => story.current?.querySelectorAll<HTMLElement>("[data-slide]")[index]?.scrollIntoView({ behavior: "smooth", inline: "start" });
   useEffect(() => {
     const node = story.current; if (!node) return;
-    const onScroll = () => setActive(Math.round(node.scrollLeft / node.clientWidth));
+    const onScroll = () => { const n = Math.round(node.scrollLeft / node.clientWidth); setActive(Number.isFinite(n) ? Math.min(slides.length - 1, Math.max(0, n)) : 0); };
     node.addEventListener("scroll", onScroll, { passive: true }); return () => node.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function Home() {
 
       <section className="cg-slide source-slide" data-slide id="sources"><Header n="17" eyebrow="Source ledger" title="What this deck rests on." intro="Primary sources for product facts; trade reporting for market evidence and unresolved gaps. Checked 22 September 2026."/><div className="source-ledger"><article><span>Primary · OpenAI</span><Source href={sources.overview}>Ads Manager Beta overview</Source><Source href={sources.basics}>Ads in ChatGPT</Source><Source href={sources.availability}>Availability by country</Source><Source href={sources.campaigns}>Campaign objectives</Source><Source href={sources.bidding}>Bidding and budgets</Source><Source href={sources.management}>Campaign management API</Source><Source href={sources.measurement}>Measure results</Source><Source href={sources.conversion}>Conversion measurement</Source><Source href={sources.launch}>Reimagining advertising with AI</Source></article><article><span>Independent · market evidence</span><Source href={sources.sej}>Search Engine Journal: six months of advertiser results</Source><Source href={sources.adweek}>Adweek: transparency and measurement gaps</Source><Source href={sources.digiday}>Digiday: click-to-chat and advertiser opportunity</Source><Source href={sources.dac}>DAC: emerging opportunity, not performance replacement</Source><p>Independent sources are used for reported advertiser experience and market gaps, not as product documentation. Reddit threads are anecdotal sentiment samples, not representative research or benchmarks.</p><Source href={sources.redditSpend}>r/PPC: $34k multi-niche account</Source><Source href={sources.redditResults}>r/PPC: meaningful results?</Source><Source href={sources.redditCtr}>r/PPC: early CTR discussion</Source><Source href={sources.redditUser}>r/ChatGPT: first-ad reactions</Source></article></div><button className="restart" onClick={()=>go(0)}>Return to start ↑</button></section>
     </main>
-    <nav className="cg-controls"><button aria-label="Previous panel" disabled={active===0} onClick={()=>go(active-1)}>← <span>Previous</span></button><div><b>{slides[active].nav}</b><small>{String(active+1).padStart(2,"0")} / {slides.length}</small></div><button aria-label="Next panel" disabled={active===slides.length-1} onClick={()=>go(active+1)}><span>Next</span> →</button></nav>
+    <nav className="cg-controls"><button aria-label="Previous panel" disabled={active===0} onClick={()=>go(active-1)}>← <span>Previous</span></button><div><b>{slides[active]?.nav}</b><small>{String(active+1).padStart(2,"0")} / {slides.length}</small></div><button aria-label="Next panel" disabled={active===slides.length-1} onClick={()=>go(active+1)}><span>Next</span> →</button></nav>
   </div>;
 }
 
